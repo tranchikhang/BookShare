@@ -33,7 +33,6 @@
 			<RowDefinition Height="40" />
 		</Grid.RowDefinitions>
 		<TextBlock Text="Tạo tài khoản mới"
-				   Name="title"
 				   FontSize="40"/>
 		<TextBlock Text="Tên tài khoản"
 				   Grid.Row="1" />

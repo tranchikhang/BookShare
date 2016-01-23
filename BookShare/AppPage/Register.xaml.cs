@@ -43,37 +43,37 @@ namespace BookShare.AppPage
 
 		private async void RegisterClick ( object sender , RoutedEventArgs e )
 		{
-			MessageDialog dialog = new MessageDialog ( "" );
-			dialog.Title = "Thông báo";
+			MessageDialog mes = new MessageDialog ( "" );
+			mes.Title = "Thông báo";
 			//check policy
 			if ( !IsPolicyChecked () )
 			{
-				dialog.Content = "Bạn chưa đồng ý các điều khoản";
-				await dialog.ShowAsync ();
+				mes.Content = "Bạn chưa đồng ý các điều khoản";
+				await mes.ShowAsync ();
 			}
 			else
 			{
 				//check account
 				if ( textBoxUser.Text == "" )
 				{
-					dialog.Content = "Tên tài khoản không hợp lệ, kiểm tra lại";
-					await dialog.ShowAsync ();
+					mes.Content = "Tên tài khoản không hợp lệ, kiểm tra lại";
+					await mes.ShowAsync ();
 				}
 				else
 				{
 					//check email
 					if ( !RegexUtilities.IsValidEmail ( textBoxEmail.Text ) )
 					{
-						dialog.Content = "Email không hợp lệ, kiểm tra lại";
-						await dialog.ShowAsync ();
+						mes.Content = "Email không hợp lệ, kiểm tra lại";
+						await mes.ShowAsync ();
 					}
 					else
 					{
 						//check 2 password
 						if ( pwBox.Password != pwBoxRe.Password && pwBox.Password != "" )
 						{
-							dialog.Content = "Mật khẩu không chính xác, kiểm tra lại";
-							await dialog.ShowAsync ();
+							mes.Content = "Mật khẩu không chính xác, kiểm tra lại";
+							await mes.ShowAsync ();
 						}
 						else
 						{

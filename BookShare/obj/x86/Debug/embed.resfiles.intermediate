@@ -1,5 +1,6 @@
 App.xbf
 AppPage\Login.xbf
 AppPage\Register.xbf
+AppPage\StartPage.xbf
 MainPage.xbf
 Resources\LightTheme.xbf

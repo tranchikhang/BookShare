@@ -29,16 +29,6 @@ namespace BookShare.AppPage
 		public Register ()
 		{
 			this.InitializeComponent ();
-			SetWindowSize ();
-		}
-
-		private void SetWindowSize ()
-		{
-			//default size
-			ApplicationView.PreferredLaunchViewSize = new Size ( 480 , 640 );
-			ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-			//minimum resize
-			ApplicationView.GetForCurrentView ().SetPreferredMinSize ( new Size ( 480 , 500 ) );
 		}
 
 		private async void RegisterClick ( object sender , RoutedEventArgs e )

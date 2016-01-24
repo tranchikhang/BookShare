@@ -55,6 +55,7 @@
       <RootProperty Name="FontSize" />
     </RootType>
     <RootType FullName="BookShare.AppPage.Register" />
+    <RootType FullName="BookShare.AppPage.StartPage" />
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="BookShare.MainPage" />
     <RootType FullName="Windows.UI.Xaml.Media.SolidColorBrush">

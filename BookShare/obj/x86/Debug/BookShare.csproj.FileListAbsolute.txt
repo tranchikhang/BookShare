@@ -208,3 +208,8 @@ D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\Login.g.i.cs
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\Login.g.cs
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\Login.xaml
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\Login.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\AppPage\StartPage.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\StartPage.g.i.cs
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\StartPage.g.cs
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\StartPage.xaml
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\StartPage.xbf

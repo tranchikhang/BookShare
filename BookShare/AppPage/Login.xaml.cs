@@ -59,8 +59,15 @@ namespace BookShare.AppPage
 		{
 			LoginAccount login = new LoginAccount ( user , password );
 			string result = await RestAPI.SendJson ( login , RestAPI.phpAdress + "client/account/login.php" , "login" );
-			MessageDialog dialog = new MessageDialog ( result );
-			await dialog.ShowAsync ();
+			if (result == "PASS")
+			{
+				//navigate mainpage
+			}
+			else
+			{
+				MessageDialog dialog = new MessageDialog ( result );
+				await dialog.ShowAsync ();
+			}
 		}
 	}
 }

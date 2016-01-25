@@ -78,8 +78,15 @@ namespace BookShare.AppPage
 		{
 			RegisterAccount acc = new RegisterAccount ( user , email , fullname , password );
 			string result = await RestAPI.SendJson ( acc , RestAPI.phpAdress + "client/account/register.php" , "register" );
-			MessageDialog dialog = new MessageDialog ( result );
-			await dialog.ShowAsync ();
+			if ( result == "Đăng ký thành công" )
+			{
+				//navigate to mainpage
+			}
+			else
+			{
+				MessageDialog dialog = new MessageDialog ( result );
+				await dialog.ShowAsync ();
+			}
 		}
 
 		private bool IsPolicyChecked ()

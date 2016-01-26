@@ -213,3 +213,16 @@ D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\StartPage.g.i.cs
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\StartPage.g.cs
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\StartPage.xaml
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\StartPage.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\AppPage\MainPage.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\MainPage.g.i.cs
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\MainPage.g.cs
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\MainPage.xaml
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\MainPage.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\CustomRadioButton.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\CustomRadioButton.xaml
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\CustomRadioButton.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\AppPage\SettingPage.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\SettingPage.g.i.cs
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\SettingPage.g.cs
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\SettingPage.xaml
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\SettingPage.xbf

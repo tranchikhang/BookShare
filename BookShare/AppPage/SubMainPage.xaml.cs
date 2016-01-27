@@ -1,10 +1,14 @@
-﻿using System;
+﻿using BookShare.Helper;
+using BookShare.Model;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -29,7 +33,27 @@ namespace BookShare.AppPage
 
 		private void SearchClick ( object sender , RoutedEventArgs e )
 		{
+			string query = SearchBox.Text;
+			SendSearchQuery ( query );
+		}
 
+		private async void SendSearchQuery ( string query )
+		{
+			string result = await RestAPI.SendJson ( query , RestAPI.phpAdress + "client/book/getbook.php" , "GetSearchResult" );
+			if ( result == "empty" )
+			{
+				//no book
+				MessageDialog dialog = new MessageDialog ( result );
+				await dialog.ShowAsync ();
+			}
+			else
+			{
+				List<BookView> listBook = new List<BookView> ();
+				listBook = JsonConvert.DeserializeObject<List<BookView>> ( result );
+				listBoxResults.ItemsSource = listBook;
+				//MessageDialog dialog = new MessageDialog ( result );
+				//await dialog.ShowAsync ();
+			}
 		}
 	}
 }

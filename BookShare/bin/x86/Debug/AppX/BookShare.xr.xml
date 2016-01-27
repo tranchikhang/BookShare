@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Roots >
+  <Roots.PropertyPathNames>
+    <RootPropertyPathName Name="author" />
+    <RootPropertyPathName Name="book" />
+  </Roots.PropertyPathNames>
   <Roots.RootTypes>
     <RootType FullName="Windows.UI.Xaml.Application">
       <RootProperty Name="RequestedTheme" />
@@ -36,6 +40,7 @@
       <RootProperty Name="FontSize" />
       <RootProperty Name="FontStyle" />
       <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Foreground" />
       <RootProperty Name="Height" />
       <RootProperty Name="FontFamily" />
       <RootProperty Name="Margin" />
@@ -55,6 +60,8 @@
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="FontFamily" />
       <RootProperty Name="Height" />
+      <RootProperty Name="Name" />
+      <RootProperty Name="Foreground" />
       <RootEvent Name="Click" />
     </RootType>
     <RootType FullName="BookShare.AppPage.Login" />
@@ -93,6 +100,15 @@
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="BookShare.AppPage.SettingPage" />
     <RootType FullName="BookShare.AppPage.StartPage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ListView">
+      <RootProperty Name="Name" />
+      <RootProperty Name="ItemTemplate" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.DataTemplate">
+      <RootProperty Name="Template" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Data.Binding" />
+    <RootType FullName="BookShare.AppPage.SubMainPage" />
     <RootType FullName="BookShare.MainPage" />
     <RootType FullName="Windows.UI.Xaml.Media.SolidColorBrush">
       <RootProperty Name="Color" />

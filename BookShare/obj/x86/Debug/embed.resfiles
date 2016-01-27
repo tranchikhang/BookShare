@@ -4,6 +4,7 @@ AppPage\MainPage.xbf
 AppPage\Register.xbf
 AppPage\SettingPage.xbf
 AppPage\StartPage.xbf
+AppPage\SubMainPage.xbf
 MainPage.xbf
 Resources\CustomRadioButton.xbf
 Resources\LightTheme.xbf

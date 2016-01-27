@@ -22,19 +22,19 @@
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="50" />
 			</Grid.ColumnDefinitions>
-			<TextBox Name="SearchBox"
+			<TextBox x:ConnectionId='2' Name="SearchBox"
 					 Grid.Column="0" />
-			<Button Name="Search"
+			<Button x:ConnectionId='3' Name="Search"
 					Grid.Column="1"
 					Width="50"
 					Height="50"
 					Foreground="{StaticResource AccentColor}"
 					Background="{StaticResource BackgroundColor}"
 					FontFamily="Segoe MDL2 Assets"
-					Click="SearchClick"
+					                   
 					Content="&#59166;" />
 		</Grid>
-		<ListView Grid.Row="1"
+		<ListView x:ConnectionId='1' Grid.Row="1"
 				  Name="listBoxResults">
 			<ListView.ItemTemplate>
 				<DataTemplate>
@@ -53,3 +53,4 @@
 		</ListView>
 	</Grid>
 </Page>
+

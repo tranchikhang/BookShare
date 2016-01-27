@@ -132,7 +132,7 @@ namespace BookShare.BookShare_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[8];
+            _typeNameTable = new string[9];
             _typeNameTable[0] = "BookShare.AppPage.Login";
             _typeNameTable[1] = "Windows.UI.Xaml.Controls.Page";
             _typeNameTable[2] = "Windows.UI.Xaml.Controls.UserControl";
@@ -140,9 +140,10 @@ namespace BookShare.BookShare_XamlTypeInfo
             _typeNameTable[4] = "BookShare.AppPage.Register";
             _typeNameTable[5] = "BookShare.AppPage.SettingPage";
             _typeNameTable[6] = "BookShare.AppPage.StartPage";
-            _typeNameTable[7] = "BookShare.MainPage";
+            _typeNameTable[7] = "BookShare.AppPage.SubMainPage";
+            _typeNameTable[8] = "BookShare.MainPage";
 
-            _typeTable = new global::System.Type[8];
+            _typeTable = new global::System.Type[9];
             _typeTable[0] = typeof(global::BookShare.AppPage.Login);
             _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.Page);
             _typeTable[2] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
@@ -150,7 +151,8 @@ namespace BookShare.BookShare_XamlTypeInfo
             _typeTable[4] = typeof(global::BookShare.AppPage.Register);
             _typeTable[5] = typeof(global::BookShare.AppPage.SettingPage);
             _typeTable[6] = typeof(global::BookShare.AppPage.StartPage);
-            _typeTable[7] = typeof(global::BookShare.MainPage);
+            _typeTable[7] = typeof(global::BookShare.AppPage.SubMainPage);
+            _typeTable[8] = typeof(global::BookShare.MainPage);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -190,7 +192,8 @@ namespace BookShare.BookShare_XamlTypeInfo
         private object Activate_4_Register() { return new global::BookShare.AppPage.Register(); }
         private object Activate_5_SettingPage() { return new global::BookShare.AppPage.SettingPage(); }
         private object Activate_6_StartPage() { return new global::BookShare.AppPage.StartPage(); }
-        private object Activate_7_MainPage() { return new global::BookShare.MainPage(); }
+        private object Activate_7_SubMainPage() { return new global::BookShare.AppPage.SubMainPage(); }
+        private object Activate_8_MainPage() { return new global::BookShare.MainPage(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -245,9 +248,16 @@ namespace BookShare.BookShare_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 7:   //  BookShare.MainPage
+            case 7:   //  BookShare.AppPage.SubMainPage
                 userType = new global::BookShare.BookShare_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_7_MainPage;
+                userType.Activator = Activate_7_SubMainPage;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 8:   //  BookShare.MainPage
+                userType = new global::BookShare.BookShare_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_8_MainPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;

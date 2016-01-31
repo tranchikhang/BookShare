@@ -8,7 +8,8 @@ namespace BookShare.Helper
 {
 	class RestAPI
 	{
-		public static string phpAdress = "http://localhost/BookShare/api/v1/";
+		public static string serverAdress = "http://localhost/BookShare/";
+		public static string phpAdress = serverAdress + "api/v1/";
 		private static HttpClient httpClient;
 		private static HttpResponseMessage response;
 		static public async Task<string> SendJson(object data , string address , string key)

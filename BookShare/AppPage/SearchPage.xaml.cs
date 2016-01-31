@@ -24,9 +24,9 @@ namespace BookShare.AppPage
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class SubMainPage : Page
+	public sealed partial class SearchPage : Page
 	{
-		public SubMainPage ()
+		public SearchPage ()
 		{
 			this.InitializeComponent ();
 		}
@@ -50,10 +50,26 @@ namespace BookShare.AppPage
 			{
 				List<BookView> listBook = new List<BookView> ();
 				listBook = JsonConvert.DeserializeObject<List<BookView>> ( result );
+				//set image link
+				foreach (BookView bv in listBook)
+				{
+					bv.SetImageLink ();
+				}
 				listBoxResults.ItemsSource = listBook;
 				//MessageDialog dialog = new MessageDialog ( result );
 				//await dialog.ShowAsync ();
 			}
+		}
+
+		private void TitleTapped ( object sender , TappedRoutedEventArgs e )
+		{
+			string value = ( ( TextBlock ) sender ).Tag.ToString ();
+			Frame.Navigate ( typeof ( BookInfo ) , value );
+		}
+
+		private void SearchBox_GotFocus ( object sender , RoutedEventArgs e )
+		{
+			SearchBox.Text = "";
 		}
 	}
 }

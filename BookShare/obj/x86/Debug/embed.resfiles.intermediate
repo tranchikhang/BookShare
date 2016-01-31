@@ -1,10 +1,11 @@
 App.xbf
+AppPage\BookInfo.xbf
 AppPage\Login.xbf
 AppPage\MainPage.xbf
 AppPage\Register.xbf
+AppPage\SearchPage.xbf
 AppPage\SettingPage.xbf
 AppPage\StartPage.xbf
-AppPage\SubMainPage.xbf
 MainPage.xbf
 Resources\CustomRadioButton.xbf
 Resources\LightTheme.xbf

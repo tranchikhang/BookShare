@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BookShare.Helper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,25 @@ namespace BookShare.Model
 		[JsonProperty ( "author" )]
 		public string author { get; set; }
 
-		public BookView ( string book , string author )
+		[JsonProperty ( "bookid" )]
+		public string bookid { get; set; }
+
+		[JsonProperty ( "authorid" )]
+		public string authorid { get; set; }
+
+		public string image { get; set; }
+
+		public BookView ( string bookid , string book , string authorid , string author )
 		{
+			this.bookid = bookid;
 			this.book = book;
+			this.authorid = authorid;
 			this.author = author;
+		}
+
+		public void SetImageLink ()
+		{
+			this.image = RestAPI.serverAdress + "cover/" + bookid + ".jpg";
 		}
 	}
 }

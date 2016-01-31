@@ -25,9 +25,14 @@ namespace BookShare.AppPage
 		public MainPage ()
 		{
 			this.InitializeComponent ();
-			MainSplitView.IsPaneOpen = false;
 			if ( MainSplitView.Content != null )
-				( ( Frame ) MainSplitView.Content ).Navigate ( typeof ( SubMainPage ) );
+				( ( Frame ) MainSplitView.Content ).Navigate ( typeof ( SearchPage ) );
+		}
+
+		protected override void OnNavigatedTo ( NavigationEventArgs e )
+		{
+			base.OnNavigatedTo ( e );
+			BackButton.Visibility = Visibility.Collapsed;
 		}
 
 		private void HamburgerClick ( object sender , RoutedEventArgs e )
@@ -39,7 +44,7 @@ namespace BookShare.AppPage
 		{
 			MainSplitView.IsPaneOpen = false;
 			if ( MainSplitView.Content != null )
-				( ( Frame ) MainSplitView.Content ).Navigate ( typeof ( SubMainPage ) );
+				( ( Frame ) MainSplitView.Content ).Navigate ( typeof ( SearchPage ) );
 		}
 
 		private void SettingClick ( object sender , RoutedEventArgs e )

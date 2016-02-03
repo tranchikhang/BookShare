@@ -24,14 +24,6 @@ namespace BookShare.Model
 
 		public string image { get; set; }
 
-		public BookView ( string bookid , string book , string authorid , string author )
-		{
-			this.bookid = bookid;
-			this.book = book;
-			this.authorid = authorid;
-			this.author = author;
-		}
-
 		public void SetImageLink ()
 		{
 			this.image = RestAPI.serverAdress + "cover/" + bookid + ".jpg";

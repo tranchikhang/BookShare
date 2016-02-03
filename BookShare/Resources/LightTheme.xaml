@@ -17,6 +17,10 @@
 				Value="{StaticResource NormalSize}"/>
 		<Setter Property="VerticalAlignment"
 				Value="Center" />
+		<Setter Property="TextWrapping"
+				Value="Wrap" />
+		<Setter Property="Height"
+				Value="Auto" />
 	</Style>
 	<Style TargetType="TextBox">
 		<Setter Property="FontFamily"

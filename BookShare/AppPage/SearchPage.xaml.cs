@@ -51,7 +51,7 @@ namespace BookShare.AppPage
 				List<BookView> listBook = new List<BookView> ();
 				listBook = JsonConvert.DeserializeObject<List<BookView>> ( result );
 				//set image link
-				foreach (BookView bv in listBook)
+				foreach ( BookView bv in listBook )
 				{
 					bv.SetImageLink ();
 				}

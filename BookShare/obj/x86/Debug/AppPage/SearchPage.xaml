@@ -24,24 +24,24 @@
 				<ColumnDefinition Width="50" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
-			<TextBox Name="SearchBox"
+			<TextBox x:ConnectionId='3' Name="SearchBox"
 					 Height="50"
 					 Padding="10,10,0,0"
 					 VerticalAlignment="Center"
 					 Text="Nhập nội dung tìm"
 					 Grid.Column="0"
-					 GotFocus="SearchBox_GotFocus" />
-			<Button Name="Search"
+					                               />
+			<Button x:ConnectionId='4' Name="Search"
 					Grid.Column="1"
 					Width="50"
 					Height="50"
 					Foreground="{StaticResource AccentColor}"
 					Background="{StaticResource BackgroundColor}"
 					FontFamily="Segoe MDL2 Assets"
-					Click="SearchClick"
+					                   
 					Content="&#59166;" />
 		</Grid>
-		<ListView Grid.Row="2"
+		<ListView x:ConnectionId='1' Grid.Row="2"
 				  Background="LightGray"
 				  Name="listBoxResults">
 			<ListView.ItemContainerStyle>
@@ -67,9 +67,9 @@
 							   Stretch="Fill" />
 						<StackPanel Grid.Column="2"
 									Orientation="Vertical">
-							<TextBlock Text="{Binding book}"
+							<TextBlock x:ConnectionId='2' Text="{Binding book}"
 									   FontSize="30"
-									   Tapped="TitleTapped"
+									                       
 									   Tag="{Binding bookid}"
 									   Foreground="{StaticResource TextColor}"
 									   Height="70" />
@@ -84,3 +84,4 @@
 		</ListView>
 	</Grid>
 </Page>
+

@@ -24,14 +24,14 @@
 				<ColumnDefinition Width="50" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
-			<Button x:Name="HamburgerButton"
+			<Button x:ConnectionId='4' x:Name="HamburgerButton"
 					FontFamily="Segoe MDL2 Assets"
 					Content="&#xE700;"
 					Width="50"
 					Background="SteelBlue"
 					Height="50"
-					Click="HamburgerClick" />
-			<Button Name="BackButton"
+					                       />
+			<Button x:ConnectionId='5' Name="BackButton"
 					Grid.Column="1"
 					FontFamily="Segoe MDL2 Assets"
 					Content="&#xE72B;"
@@ -39,7 +39,7 @@
 					Background="SteelBlue"
 					Height="50" />
 		</Grid>
-		<SplitView DisplayMode="CompactInline"
+		<SplitView x:ConnectionId='1' DisplayMode="CompactInline"
 				   Grid.Row="1"
 				   CompactPaneLength="50"
 				   OpenPaneLength="200"
@@ -48,14 +48,14 @@
 			<SplitView.Pane>
 				<StackPanel Orientation="Vertical"
 							Background="SteelBlue">
-					<RadioButton Style="{StaticResource NavRadioButtonStyle}"
+					<RadioButton x:ConnectionId='2' Style="{StaticResource NavRadioButtonStyle}"
 								 Tag="&#xE80F;"
 								 Foreground="White"
-								 Click="HomeClick"
+								                  
 								 Content="Home" />
-					<RadioButton Style="{StaticResource NavRadioButtonStyle}"
+					<RadioButton x:ConnectionId='3' Style="{StaticResource NavRadioButtonStyle}"
 								 Tag="&#xE713;"
-								 Checked="SettingClick"
+								                       
 								 Content="Setting" />
 				</StackPanel>
 			</SplitView.Pane>
@@ -65,7 +65,7 @@
 		</SplitView>
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
-				<VisualState x:Name="WideState">
+				<VisualState x:ConnectionId='6' x:Name="WideState">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="900" />
 					</VisualState.StateTriggers>
@@ -75,7 +75,7 @@
 					</VisualState.Setters>
 				</VisualState>
 
-				<VisualState x:Name="NarrowState">
+				<VisualState x:ConnectionId='7' x:Name="NarrowState">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="0" />
 					</VisualState.StateTriggers>
@@ -88,3 +88,4 @@
 		</VisualStateManager.VisualStateGroups>
 	</Grid>
 </Page>
+

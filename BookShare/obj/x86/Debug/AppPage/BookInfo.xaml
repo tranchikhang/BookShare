@@ -14,10 +14,10 @@
 	</Page.Resources>
 	<Grid Background="{StaticResource BackgroundColor}">
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="50"
+			<ColumnDefinition x:ConnectionId='1' Width="50"
 							  x:Name="LeftBlank" />
 			<ColumnDefinition Width="*" />
-			<ColumnDefinition Width="50"
+			<ColumnDefinition x:ConnectionId='2' Width="50"
 							  x:Name="RightBlank" />
 		</Grid.ColumnDefinitions>
 		<Grid Grid.Column="1">
@@ -26,33 +26,33 @@
 				<ColumnDefinition Width="20" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
-			<Image Grid.Column="0"
+			<Image x:ConnectionId='3' Grid.Column="0"
 				   Height="405"
 				   HorizontalAlignment="Left"
 				   Name="BookCover"
 				   Stretch="Fill" />
 			<StackPanel Grid.Column="2"
 						Orientation="Vertical">
-				<TextBlock FontSize="30"
+				<TextBlock x:ConnectionId='4' FontSize="30"
 						   Name="tblkTitle"
 						   Foreground="{StaticResource TextColor}" />
-				<TextBlock Name="tblkAuthor"
+				<TextBlock x:ConnectionId='5' Name="tblkAuthor"
 						   FontSize="26"
 						   Foreground="{StaticResource TextColor}" />
-				<TextBlock Name="tblkYear"
+				<TextBlock x:ConnectionId='6' Name="tblkYear"
 						   FontSize="24"
 						   Foreground="{StaticResource TextColor}" />
-				<TextBlock Name="tblkDes"
+				<TextBlock x:ConnectionId='7' Name="tblkDes"
 						   FontSize="24"
 						   Foreground="{StaticResource TextColor}" />
-				<TextBlock Name="tblkLenderAva"
+				<TextBlock x:ConnectionId='8' Name="tblkLenderAva"
 						   FontSize="26"
 						   Foreground="{StaticResource TextColor}" />
 			</StackPanel>
 		</Grid>
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
-				<VisualState x:Name="WideState">
+				<VisualState x:ConnectionId='9' x:Name="WideState">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="900" />
 					</VisualState.StateTriggers>
@@ -64,7 +64,7 @@
 					</VisualState.Setters>
 				</VisualState>
 
-				<VisualState x:Name="NarrowState">
+				<VisualState x:ConnectionId='10' x:Name="NarrowState">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="0" />
 					</VisualState.StateTriggers>
@@ -79,3 +79,4 @@
 		</VisualStateManager.VisualStateGroups>
 	</Grid>
 </Page>
+

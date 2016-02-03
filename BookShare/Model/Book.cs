@@ -19,11 +19,11 @@ namespace BookShare.Model
 		[JsonProperty ( "year" )]
 		public string year { get; set; }
 
-		[JsonProperty ( "description" )]
+		[JsonProperty ( "description" , NullValueHandling = NullValueHandling.Ignore )]
 		public string description { get; set; }
 
 		public string image { get; set; }
-		
+
 		public void SetImageLink ()
 		{
 			this.image = RestAPI.serverAdress + "cover/" + id + ".jpg";

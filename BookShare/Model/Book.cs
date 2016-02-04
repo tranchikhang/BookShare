@@ -19,7 +19,7 @@ namespace BookShare.Model
 		[JsonProperty ( "year" )]
 		public string year { get; set; }
 
-		[JsonProperty ( "description" , NullValueHandling = NullValueHandling.Ignore )]
+		[JsonProperty ( "description" )]
 		public string description { get; set; }
 
 		public string image { get; set; }
@@ -27,6 +27,14 @@ namespace BookShare.Model
 		public void SetImageLink ()
 		{
 			this.image = RestAPI.serverAdress + "cover/" + id + ".jpg";
+		}
+
+		public void CheckNullDescription ()
+		{
+			if ( description == null )
+			{
+				description = "";
+			}
 		}
 	}
 }

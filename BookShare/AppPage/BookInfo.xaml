@@ -20,36 +20,38 @@
 			<ColumnDefinition Width="50"
 							  x:Name="RightBlank" />
 		</Grid.ColumnDefinitions>
-		<Grid Grid.Column="1">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="270" />
-				<ColumnDefinition Width="20" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<Image Grid.Column="0"
-				   Height="405"
-				   HorizontalAlignment="Left"
-				   Name="BookCover"
-				   Stretch="Fill" />
-			<StackPanel Grid.Column="2"
-						Orientation="Vertical">
-				<TextBlock FontSize="30"
-						   Name="tblkTitle"
-						   Foreground="{StaticResource TextColor}" />
-				<TextBlock Name="tblkAuthor"
-						   FontSize="26"
-						   Foreground="{StaticResource TextColor}" />
-				<TextBlock Name="tblkYear"
-						   FontSize="24"
-						   Foreground="{StaticResource TextColor}" />
-				<TextBlock Name="tblkDes"
-						   FontSize="24"
-						   Foreground="{StaticResource TextColor}" />
-				<TextBlock Name="tblkLenderAva"
-						   FontSize="26"
-						   Foreground="{StaticResource TextColor}" />
-			</StackPanel>
-		</Grid>
+		<ScrollViewer Grid.Column="1">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="270" />
+					<ColumnDefinition Width="20" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Image Grid.Column="0"
+					   VerticalAlignment="Top"
+					   Height="405"
+					   Name="BookCover"
+					   Stretch="Fill" />
+				<StackPanel Grid.Column="2"
+							Orientation="Vertical">
+					<TextBlock FontSize="30"
+							   Name="tblkTitle"
+							   Foreground="{StaticResource TextColor}" />
+					<TextBlock Name="tblkAuthor"
+							   FontSize="26"
+							   Foreground="{StaticResource TextColor}" />
+					<TextBlock Name="tblkYear"
+							   FontSize="24"
+							   Foreground="{StaticResource TextColor}" />
+					<TextBlock Name="tblkDes"
+							   FontSize="24"
+							   Foreground="{StaticResource TextColor}" />
+					<TextBlock Name="tblkLenderAva"
+							   FontSize="26"
+							   Foreground="{StaticResource TextColor}" />
+				</StackPanel>
+			</Grid>
+		</ScrollViewer>
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
 				<VisualState x:Name="WideState">

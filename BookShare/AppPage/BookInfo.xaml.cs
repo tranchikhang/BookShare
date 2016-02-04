@@ -41,12 +41,19 @@ namespace BookShare.AppPage
 		{
 			Book book = new Book ();
 			Author author = new Author ();
-			string result = await RestAPI.SendJson ( id , RestAPI.phpAdress + "client/book/getbook.php" , "GetBookById" );
-			Dictionary<string , object> d = JsonConvert.DeserializeObject<Dictionary<string , object>> ( result );
+			//send request and get response
+			string bookInfo = await RestAPI.SendJson ( id , RestAPI.phpAdress + "client/book/getbook.php" , "GetBookById" );
+			string bookLender = await RestAPI.SendJson ( id , RestAPI.phpAdress + "client/book/getbook.php" , "GetBookById" );
+			//deserialize into dictionary
+			Dictionary<string , object> d = JsonConvert.DeserializeObject<Dictionary<string , object>> ( bookInfo );
 			book = JsonConvert.DeserializeObject<Book> ( d["book"].ToString () );
 			author = JsonConvert.DeserializeObject<Author> ( d["author"].ToString () );
 			book.SetImageLink ();
+			book.CheckNullDescription ();
 			DisplayBookInfo ( book , author );
+			if( bookLender!="empty")
+			{
+			}
 		}
 
 		private void DisplayBookInfo ( Book book , Author author )

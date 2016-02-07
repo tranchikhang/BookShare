@@ -23,6 +23,8 @@
 				Value="Auto" />
 		<Setter Property="Margin"
 				Value="10" />
+		<Setter Property="Foreground"
+				Value="{StaticResource TextColor}" />
 	</Style>
 	<Style TargetType="TextBox">
 		<Setter Property="FontFamily"
@@ -34,16 +36,21 @@
 		<Setter Property="HorizontalContentAlignment"
 				Value="Stretch" />
 	</Style>
-	<Style TargetType="Button">
+	<Style TargetType="Button"
+		   x:Name="LendButton">
 		<Setter Property="FontFamily"
 				Value="Segoe UI" />
 		<Setter Property="FontSize"
-				Value="{StaticResource NormalSize}" />
+				Value="18" />
 		<Setter Property="VerticalAlignment"
 				Value="Center" />
 		<Setter Property="Foreground"
-				Value="White" />
+				Value="SteelBlue" />
 		<Setter Property="Background"
-				Value="Black" />
+				Value="White" />
+		<Setter Property="BorderBrush"
+				Value="SteelBlue" />
+		<Setter Property="BorderThickness"
+				Value="2" />
 	</Style>
 </ResourceDictionary>

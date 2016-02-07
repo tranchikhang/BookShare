@@ -14,33 +14,7 @@
 		</ResourceDictionary>
 	</Page.Resources>
 	<Grid Background="{StaticResource BackgroundColor}">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="50" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-		<Grid Grid.Row="0">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="50" />
-				<ColumnDefinition Width="50" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<Button x:Name="HamburgerButton"
-					FontFamily="Segoe MDL2 Assets"
-					Content="&#xE700;"
-					Width="50"
-					Background="SteelBlue"
-					Height="50"
-					Click="HamburgerClick" />
-			<Button Name="BackButton"
-					Grid.Column="1"
-					FontFamily="Segoe MDL2 Assets"
-					Content="&#xE72B;"
-					Width="50"
-					Background="SteelBlue"
-					Height="50" />
-		</Grid>
 		<SplitView DisplayMode="CompactInline"
-				   Grid.Row="1"
 				   CompactPaneLength="50"
 				   OpenPaneLength="200"
 				   IsPaneOpen="False"
@@ -48,6 +22,11 @@
 			<SplitView.Pane>
 				<StackPanel Orientation="Vertical"
 							Background="SteelBlue">
+					<RadioButton x:Name="HamburgerButton"
+								 Style="{StaticResource NavRadioButtonStyle}"
+								 Tag="&#xE700;"
+								 Foreground="White"
+								 Click="HamburgerClick" />
 					<RadioButton Style="{StaticResource NavRadioButtonStyle}"
 								 Tag="&#xE80F;"
 								 Foreground="White"
@@ -60,7 +39,7 @@
 				</StackPanel>
 			</SplitView.Pane>
 			<SplitView.Content>
-				<Frame Margin="10"/>
+				<Frame Margin="10" />
 			</SplitView.Content>
 		</SplitView>
 		<VisualStateManager.VisualStateGroups>

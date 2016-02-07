@@ -1,6 +1,7 @@
 ﻿using BookShare.Helper;
 using BookShare.Model;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -48,16 +49,20 @@ namespace BookShare.AppPage
 			}
 			else
 			{
-				List<BookView> listBook = new List<BookView> ();
-				listBook = JsonConvert.DeserializeObject<List<BookView>> ( result );
-				//set image link
-				foreach ( BookView bv in listBook )
+				dynamic json = JArray.Parse ( result );
+				var l = new List<object> ();
+				for ( int i = 0 ; i < json.Count ; i++ )
 				{
-					bv.SetImageLink ();
+					l.Add ( new
+					{
+						bookid = json[i].bookid ,
+						book = json[i].book ,
+						authorid = json[i].authorid ,
+						author = json[i].author ,
+						image = RestAPI.serverAdress + "cover/" + json[i].bookid + ".jpg"
+					} );
 				}
-				listBoxResults.ItemsSource = listBook;
-				//MessageDialog dialog = new MessageDialog ( result );
-				//await dialog.ShowAsync ();
+				listBoxResults.ItemsSource = l;
 			}
 		}
 

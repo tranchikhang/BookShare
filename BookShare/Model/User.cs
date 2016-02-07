@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 namespace BookShare.Model
 {
 	[JsonObject ( MemberSerialization.OptIn )]
-	class Author
+	class User
 	{
 		[JsonProperty]
 		public string id { get; set; }
 
 		[JsonProperty]
-		public string name { get; set; }
+		public string account { get; set; }
 
 		[JsonProperty]
-		private string description { get; set; }
+		public string fullname { get; set; }
 	}
 }

@@ -127,9 +127,9 @@
     </Compile>
     <Compile Include="Model\Author.cs" />
     <Compile Include="Model\Book.cs" />
-    <Compile Include="Model\BookView.cs" />
     <Compile Include="Model\LoginAccount.cs" />
     <Compile Include="Model\RegisterAccount.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

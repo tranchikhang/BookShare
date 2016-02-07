@@ -8,33 +8,31 @@ using System.Threading.Tasks;
 
 namespace BookShare.Model
 {
+	[JsonObject ( MemberSerialization.OptIn )]
 	class Book
 	{
-		[JsonProperty ( "id" )]
+		[JsonProperty]
 		public string id { get; set; }
 
-		[JsonProperty ( "title" )]
+		[JsonProperty]
 		public string title { get; set; }
 
-		[JsonProperty ( "year" )]
+		[JsonProperty]
 		public string year { get; set; }
 
-		[JsonProperty ( "description" )]
+		[JsonProperty ( NullValueHandling = NullValueHandling.Ignore )]
 		public string description { get; set; }
 
 		public string image { get; set; }
 
+		public Book ()
+		{
+			description = "";
+		}
+
 		public void SetImageLink ()
 		{
 			this.image = RestAPI.serverAdress + "cover/" + id + ".jpg";
-		}
-
-		public void CheckNullDescription ()
-		{
-			if ( description == null )
-			{
-				description = "";
-			}
 		}
 	}
 }

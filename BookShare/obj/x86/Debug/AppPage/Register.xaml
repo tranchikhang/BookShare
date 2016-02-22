@@ -4,9 +4,7 @@
 	  xmlns:local="using:BookShare.AppPage"
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	  mc:Ignorable="d"
-	  Height="640"
-	  Width="480">
+	  mc:Ignorable="d">
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -14,62 +12,99 @@
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
-	<Grid Background="{StaticResource BackgroundColor}"
-		  Padding="10,0,10,0">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="80" />
-			<RowDefinition Height="40" />
-			<RowDefinition Height="40" />
-			<RowDefinition Height="40" />
-			<RowDefinition Height="40" />
-			<RowDefinition Height="40" />
-			<RowDefinition Height="40" />
-			<RowDefinition Height="40" />
-			<RowDefinition Height="40" />
-			<RowDefinition Height="40" />
-			<RowDefinition Height="40" />
-			<RowDefinition Height="40" />
-			<RowDefinition Height="80" />
-			<RowDefinition Height="40" />
-		</Grid.RowDefinitions>
-		<TextBlock Text="Tạo tài khoản mới"
-				   FontSize="40"/>
-		<TextBlock Text="Tên tài khoản"
-				   Grid.Row="1" />
-		<TextBox x:ConnectionId='1' Grid.Row="2"
-				 Name="textBoxUser" />
-		<TextBlock Text="Email"
-				   Grid.Row="3" />
-		<TextBox x:ConnectionId='2' Grid.Row="4"
-				 Name="textBoxEmail" />
-		<TextBlock Text="Tên đầy đủ (tùy chọn)"
-				   Grid.Row="5" />
-		<TextBox x:ConnectionId='3' Grid.Row="6"
-				 Name="textBoxFullName" />
-		<TextBlock Text="Mật khẩu"
-				   Grid.Row="7" />
-		<PasswordBox x:ConnectionId='4' Name="pwBox"
-					 Grid.Row="8" />
-		<TextBlock Text="Nhập lại mật khẩu"
-				   Grid.Row="9" />
-		<PasswordBox x:ConnectionId='5' Name="pwBoxRe"
-					 Grid.Row="10" />
-		<CheckBox x:ConnectionId='6' Name="chkBoxPolicy"
-				  IsChecked="False"
-				  Content="Chấp nhận các điều khoản"
-				  FontSize="18"
-				  Grid.Row="11" />
-		<Button x:ConnectionId='7' Content="Tạo tài khoản"
-				Grid.Row="12"
-				Margin="0,10,0,10"
-				Width="200"
-				                     
-				Background="{StaticResource AccentColor}"
-				HorizontalAlignment="Center" />
-		<TextBlock Text="Xem các điều khoản"
-				   FontStyle="Italic"
-				   Grid.Row="13"
-				   HorizontalAlignment="Right"/>
-	</Grid>
+	<ScrollViewer>
+		<Grid Background="{StaticResource BackgroundColor}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition x:ConnectionId='1' x:Name="LeftBlank"
+								  Width="50" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition x:ConnectionId='2' x:Name="RightBlank"
+								  Width="50" />
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Column="1">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="40" />
+					<RowDefinition Height="40" />
+					<RowDefinition Height="40" />
+					<RowDefinition Height="40" />
+					<RowDefinition Height="40" />
+					<RowDefinition Height="40" />
+					<RowDefinition Height="40" />
+					<RowDefinition Height="40" />
+					<RowDefinition Height="40" />
+					<RowDefinition Height="40" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="40" />
+				</Grid.RowDefinitions>
+				<TextBlock Text="Tạo tài khoản mới"
+						   FontSize="40" />
+				<TextBlock Text="Tên tài khoản"
+						   Grid.Row="1" />
+				<TextBox x:ConnectionId='3' Grid.Row="2"
+						 Name="textBoxUser" />
+				<TextBlock Text="Email"
+						   Grid.Row="3" />
+				<TextBox x:ConnectionId='4' Grid.Row="4"
+						 Name="textBoxEmail" />
+				<TextBlock Text="Tên đầy đủ (tùy chọn)"
+						   Grid.Row="5" />
+				<TextBox x:ConnectionId='5' Grid.Row="6"
+						 Name="textBoxFullName" />
+				<TextBlock Text="Mật khẩu"
+						   Grid.Row="7" />
+				<PasswordBox x:ConnectionId='6' Name="pwBox"
+							 Grid.Row="8" />
+				<TextBlock Text="Nhập lại mật khẩu"
+						   Grid.Row="9" />
+				<PasswordBox x:ConnectionId='7' Name="pwBoxRe"
+							 Grid.Row="10" />
+				<CheckBox x:ConnectionId='8' Name="chkBoxPolicy"
+						  IsChecked="False"
+						  Content="Chấp nhận các điều khoản"
+						  FontSize="18"
+						  Grid.Row="11" />
+				<Button x:ConnectionId='9' Content="Tạo tài khoản"
+						Grid.Row="12"
+						Margin="0,10,0,10"
+						Width="200"
+						                     
+						Background="{StaticResource AccentColor}"
+						HorizontalAlignment="Center" />
+				<TextBlock Text="Xem các điều khoản"
+						   FontStyle="Italic"
+						   Grid.Row="13"
+						   HorizontalAlignment="Right" />
+			</Grid>
+			
+		</Grid>
+		<VisualStateManager.VisualStateGroups>
+				<VisualStateGroup>
+					<VisualState x:ConnectionId='10' x:Name="WideState">
+						<VisualState.StateTriggers>
+							<AdaptiveTrigger MinWindowWidth="700" />
+						</VisualState.StateTriggers>
+						<VisualState.Setters>
+							<Setter Target="LeftBlank.Width"
+									Value="150" />
+							<Setter Target="RightBlank.Width"
+									Value="150" />
+						</VisualState.Setters>
+					</VisualState>
+					<VisualState x:ConnectionId='11' x:Name="NarrowState">
+						<VisualState.StateTriggers>
+							<AdaptiveTrigger MinWindowWidth="0" />
+						</VisualState.StateTriggers>
+						<VisualState.Setters>
+							<Setter Target="LeftBlank.Width"
+									Value="20" />
+							<Setter Target="RightBlank.Width"
+									Value="20" />
+						</VisualState.Setters>
+					</VisualState>
+				</VisualStateGroup>
+			</VisualStateManager.VisualStateGroups>
+	</ScrollViewer>
 </Page>
 

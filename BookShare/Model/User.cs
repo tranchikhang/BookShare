@@ -11,12 +11,21 @@ namespace BookShare.Model
 	class User
 	{
 		[JsonProperty]
-		public string id { get; set; }
+		public string email { get; set; }
 
 		[JsonProperty]
 		public string account { get; set; }
 
 		[JsonProperty]
 		public string fullname { get; set; }
+
+		[JsonProperty]
+		public string address { get; set; }
+
+		[JsonProperty]
+		public string districtId { get; set; }
+
+		[JsonProperty]
+		public string cityId { get; set; }
 	}
 }

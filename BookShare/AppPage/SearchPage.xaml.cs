@@ -1,21 +1,12 @@
 ﻿using BookShare.Helper;
-using BookShare.Model;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using System.Xml;
+using Windows.UI.Notifications;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -32,20 +23,20 @@ namespace BookShare.AppPage
 			this.InitializeComponent ();
 		}
 
-		private void SearchClick ( object sender , RoutedEventArgs e )
+		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
-			string query = SearchBox.Text;
+			string query = e.Parameter as String;
 			SendSearchQuery ( query );
 		}
 
 		private async void SendSearchQuery ( string query )
 		{
-			string result = await RestAPI.SendJson ( query , RestAPI.phpAdress + "client/book/getbook.php" , "GetSearchResult" );
+			string result = await RestAPI.SendJson ( query , RestAPI.phpAddress , "GetSearchResult" );
 			if ( result == "empty" )
 			{
-				//no book
-				MessageDialog dialog = new MessageDialog ( result );
-				await dialog.ShowAsync ();
+				//no book to display
+				//option to add new book
+				stackPanelAddNew.Visibility = Windows.UI.Xaml.Visibility.Visible;
 			}
 			else
 			{
@@ -59,7 +50,7 @@ namespace BookShare.AppPage
 						book = json[i].book ,
 						authorid = json[i].authorid ,
 						author = json[i].author ,
-						image = RestAPI.serverAdress + "cover/" + json[i].bookid + ".jpg"
+						image = RestAPI.serverAddress + "cover/" + json[i].bookid + ".jpg"
 					} );
 				}
 				listBoxResults.ItemsSource = l;
@@ -72,9 +63,9 @@ namespace BookShare.AppPage
 			Frame.Navigate ( typeof ( BookInfo ) , value );
 		}
 
-		private void SearchBox_GotFocus ( object sender , RoutedEventArgs e )
+		private void AddNewBook ( object sender , Windows.UI.Xaml.RoutedEventArgs e )
 		{
-			SearchBox.Text = "";
+			Frame.Navigate ( typeof ( AddNewBook ) );
 		}
 	}
 }

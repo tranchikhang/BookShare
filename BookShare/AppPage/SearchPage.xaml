@@ -14,35 +14,15 @@
 	</Page.Resources>
 	<Grid Background="{StaticResource BackgroundColor}">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="50" />
-			<RowDefinition Height="10" />
+			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-		<Grid Grid.Row="0" Margin="10,0,10,0">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="300" />
-				<ColumnDefinition Width="50" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<TextBox Name="SearchBox"
-					 Height="50"
-					 Padding="10,10,0,0"
-					 VerticalAlignment="Center"
-					 Text="Nhập nội dung tìm"
-					 Grid.Column="0"
-					 GotFocus="SearchBox_GotFocus" />
-			<Button Name="Search"
-					Grid.Column="1"
-					Width="50"
-					Height="50"
-					Foreground="{StaticResource AccentColor}"
-					Background="{StaticResource BackgroundColor}"
-					FontFamily="Segoe MDL2 Assets"
-					Click="SearchClick"
-					Content="&#59166;" />
-		</Grid>
-		<ListView Grid.Row="2"
-				  Background="LightGray"
+		<StackPanel Orientation="Vertical" Visibility="Collapsed" Name="stackPanelAddNew">
+			<TextBlock Text="Không có sách mà bạn muốn tìm, bạn có muốn thêm sách mới?" />
+			<Button Content="Thêm mới" Click="AddNewBook"/>
+		</StackPanel>
+		<ListView Grid.Row="1"
+				  Margin="0,10,0,0"
 				  Name="listBoxResults">
 			<ListView.ItemContainerStyle>
 				<Style TargetType="ListViewItem">

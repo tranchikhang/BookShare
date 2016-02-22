@@ -25,9 +25,9 @@ namespace BookShare.AppPage
 		public MainPage ()
 		{
 			this.InitializeComponent ();
-			( ( App ) Application.Current ).AppSplitView = MainSplitView;
-			if ( MainSplitView.Content != null )
-				( ( Frame ) MainSplitView.Content ).Navigate ( typeof ( SearchPage ) );
+			( ( App ) Application.Current ).MainFrame = mainFrame;
+			//if ( MainSplitView.Content != null )
+			//mainFrame.Navigate ( typeof ( SearchPage ) );
 		}
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
@@ -44,16 +44,38 @@ namespace BookShare.AppPage
 		{
 			MainSplitView.IsPaneOpen = false;
 			if ( MainSplitView.Content != null )
-				( ( Frame ) MainSplitView.Content ).Navigate ( typeof ( SearchPage ) );
-			//Frame rootFrame = Window.Current.Content as Frame;
-			//rootFrame.Navigate ( typeof ( SearchPage ) );
+				mainFrame.Navigate ( typeof ( SearchPage ) );
 		}
 
 		private void SettingClick ( object sender , RoutedEventArgs e )
 		{
 			MainSplitView.IsPaneOpen = false;
 			if ( MainSplitView.Content != null )
-				( ( Frame ) MainSplitView.Content ).Navigate ( typeof ( SettingPage ) );
+				mainFrame.Navigate ( typeof ( SettingPage ) );
+		}
+
+		private void SearchBox_GotFocus ( object sender , RoutedEventArgs e )
+		{
+			if ( SearchBox.Text == "Nhập nội dung tìm kiếm" )
+				SearchBox.Text = "";
+		}
+
+		private void SearchClick ( object sender , RoutedEventArgs e )
+		{
+			string query = SearchBox.Text;
+			mainFrame.Navigate ( typeof ( SearchPage ) , query );
+		}		
+
+		private void RequestListClick ( object sender , RoutedEventArgs e )
+		{
+
+		}
+
+		private void BookShelfClick ( object sender , RoutedEventArgs e )
+		{
+			MainSplitView.IsPaneOpen = false;
+			if ( MainSplitView.Content != null )
+				mainFrame.Navigate ( typeof ( BookShelf ) );
 		}
 	}
 }

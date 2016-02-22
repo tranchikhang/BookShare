@@ -1,5 +1,6 @@
 ﻿using BookShare.Helper;
 using BookShare.Model;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -76,15 +77,39 @@ namespace BookShare.AppPage
 
 		private async void SendRegistrationData ( string user , string email , string fullname , string password )
 		{
-			RegisterAccount acc = new RegisterAccount ( user , email , fullname , password );
-			string result = await RestAPI.SendJson ( acc , RestAPI.phpAdress + "client/account/register.php" , "register" );
-			if ( result == "Đăng ký thành công" )
+			dynamic acc = new
 			{
+				user = user ,
+				email = email ,
+				fullname = fullname ,
+				password = password
+			};
+			string result = await RestAPI.SendJson ( acc , RestAPI.phpAddress , "Register" );
+			dynamic json = JObject.Parse ( result );
+			string status = json.status;
+			string message = json.message;
+			if ( status == "200" )
+			{
+				//save user token
+				UserData.token = message;
+				UserData.settings.Add ( AppSettings.keyToken , UserData.token );
+				//save user id
+				UserData.id = json.id;
+				if ( UserData.settings.Contain ( AppSettings.keyId ) )
+					UserData.settings.Update ( AppSettings.keyId , UserData.id );
+				else
+					UserData.settings.Add ( AppSettings.keyId , UserData.id );
+				//save opened status
+				if ( UserData.settings.Contain ( AppSettings.keyFirstOpen ) )
+					UserData.settings.Update ( AppSettings.keyFirstOpen , false );
+				else
+					UserData.settings.Add ( AppSettings.keyFirstOpen , false );
 				//navigate to mainpage
+				Frame.Navigate ( typeof ( MainPage ) );
 			}
 			else
 			{
-				MessageDialog dialog = new MessageDialog ( result );
+				MessageDialog dialog = new MessageDialog ( message );
 				await dialog.ShowAsync ();
 			}
 		}

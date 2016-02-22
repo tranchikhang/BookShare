@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookShare.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -37,8 +38,7 @@ namespace BookShare
 		}
 
 		//my variable
-		public SplitView AppSplitView;
-
+		public Frame MainFrame;
 
 		/// <summary>
 		/// Invoked when the application is launched normally by the end user.  Other entry points
@@ -75,7 +75,7 @@ namespace BookShare
 				Window.Current.Content = rootFrame;
 
 				//register event handler for backbutton
-				Windows.UI.Core.SystemNavigationManager.GetForCurrentView ().BackRequested += App_BackRequested;
+				SystemNavigationManager.GetForCurrentView ().BackRequested += App_BackRequested;
 
 			}
 
@@ -85,7 +85,30 @@ namespace BookShare
 				// configuring the new page by passing required information as a navigation
 				// parameter
 				//rootFrame.Navigate(typeof(MainPage), e.Arguments);
-				rootFrame.Navigate ( typeof ( AppPage.MainPage ) , e.Arguments );
+
+				//check if first time open the app
+
+				//initialize setting
+				UserData.settings = new AppSettings ();
+				bool isFirstOpen = UserData.settings.GetValueOrDefault ( AppSettings.keyFirstOpen , true );
+				if ( isFirstOpen )
+				{
+					//first time open the app
+					rootFrame.Navigate ( typeof ( AppPage.StartPage ) , e.Arguments );
+				}
+				else
+				{
+					if ( UserData.LoadTokenAndIdFromSetting () )
+					{
+						//token is ok, navigate to main page
+						rootFrame.Navigate ( typeof ( AppPage.MainPage ) , e.Arguments );
+					}
+					else
+					{
+						//token is blank, navigate to start page
+						rootFrame.Navigate ( typeof ( AppPage.StartPage ) , e.Arguments );
+					}
+				}
 			}
 			// Ensure the current window is active
 			Window.Current.Activate ();
@@ -93,7 +116,7 @@ namespace BookShare
 
 		private void App_BackRequested ( object sender , BackRequestedEventArgs e )
 		{
-			Frame rootFrame = ( Frame ) AppSplitView.Content;
+			Frame rootFrame = MainFrame;
 			if ( rootFrame == null )
 				return;
 

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BookShare.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,16 +9,18 @@ namespace BookShare.Helper
 {
 	class RestAPI
 	{
-		public static string serverAdress = "http://localhost/BookShare/";
-		public static string phpAdress = serverAdress + "api/v1/";
+		public static string serverAddress = "http://localhost/BookShare/";
+		public static string phpAddress = serverAddress + "api/v1/main.php";
 		private static HttpClient httpClient;
 		private static HttpResponseMessage response;
 		static public async Task<string> SendJson(object data , string address , string key)
 		{
 			string json = JsonConvert.SerializeObject ( data );
+			//string tokenJson = JsonConvert.SerializeObject ( UserData.token );
 			//create dictionary
 			var dict = new Dictionary<string , string> ();
 			dict[key] = json;
+			//dict["token"] = UserData.token;
 
 			httpClient = new HttpClient ();
 			response = new HttpResponseMessage ();

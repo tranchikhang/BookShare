@@ -4,10 +4,7 @@
 	  xmlns:local="using:BookShare.AppPage"
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	  mc:Ignorable="d"
-	  Width="480"
-	  Height="640">
-
+	  mc:Ignorable="d">
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -27,14 +24,11 @@
 				Grid.Row="1"
 				Width="400"
 				Click="LoginClick"
-				Background="{StaticResource AccentColor}"
 				HorizontalAlignment="Center" />
 		<Button Content="Đăng ký"
 				Grid.Row="2"
-				Margin="0,10,0,10"
 				Width="400"
 				Click="RegisterClick"
-				Background="{StaticResource AccentColor}"
 				HorizontalAlignment="Center" />
 	</Grid>
 </Page>

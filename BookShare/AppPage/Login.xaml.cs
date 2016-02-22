@@ -1,5 +1,6 @@
 ﻿using BookShare.Helper;
 using BookShare.Model;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,10 +33,10 @@ namespace BookShare.AppPage
 
 		private async void LoginClick ( object sender , RoutedEventArgs e )
 		{
-			MessageDialog mes = new MessageDialog ("");
+			MessageDialog mes = new MessageDialog ( "" );
 			mes.Title = "Thông báo";
 			//check username
-			if (textBoxUser.Text =="")
+			if ( textBoxUser.Text == "" )
 			{
 				mes.Content = "Bạn chưa nhập tên người dùng";
 				await mes.ShowAsync ();
@@ -43,7 +44,7 @@ namespace BookShare.AppPage
 			else
 			{
 				//check password
-				if (pwBox.Password=="")
+				if ( pwBox.Password == "" )
 				{
 					mes.Content = "Bạn chưa nhập mật khẩu";
 					await mes.ShowAsync ();
@@ -57,15 +58,37 @@ namespace BookShare.AppPage
 
 		private async void SendLoginData ( string user , string password )
 		{
-			LoginAccount login = new LoginAccount ( user , password );
-			string result = await RestAPI.SendJson ( login , RestAPI.phpAdress + "client/account/login.php" , "login" );
-			if (result == "PASS")
+			dynamic login = new
 			{
-				//navigate mainpage
+				user = user ,
+				password = password
+			};
+			string result = await RestAPI.SendJson ( login , RestAPI.phpAddress , "Login" );
+			dynamic json = JObject.Parse ( result );
+			string status = json.status;
+			string message = json.message;
+			if ( status == "200" )
+			{
+				//save user token
+				UserData.token = message;
+				UserData.settings.Add ( AppSettings.keyToken , UserData.token );
+				//save user id
+				UserData.id = json.id;
+				if ( UserData.settings.Contain ( AppSettings.keyId ) )
+					UserData.settings.Update ( AppSettings.keyId, UserData.id );
+				else
+					UserData.settings.Add ( AppSettings.keyId , UserData.id );
+				//save opened status
+				if ( UserData.settings.Contain ( AppSettings.keyFirstOpen ) )
+					UserData.settings.Update ( AppSettings.keyFirstOpen , false );
+				else
+					UserData.settings.Add ( AppSettings.keyFirstOpen , false );
+				//navigate to mainpage
+				Frame.Navigate ( typeof ( MainPage ) );
 			}
 			else
 			{
-				MessageDialog dialog = new MessageDialog ( result );
+				MessageDialog dialog = new MessageDialog ( message );
 				await dialog.ShowAsync ();
 			}
 		}

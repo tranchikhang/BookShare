@@ -1,0 +1,15 @@
+App.xbf
+AppPage\AddNewBook.xbf
+AppPage\BookInfo.xbf
+AppPage\GreetingPage.xbf
+AppPage\Login.xbf
+AppPage\MainPage.xbf
+AppPage\Register.xbf
+AppPage\SearchPage.xbf
+AppPage\SettingPage.xbf
+AppPage\StartPage.xbf
+MainPage.xbf
+Resources\ChangePassButton.xbf
+Resources\CustomRadioButton.xbf
+Resources\LightTheme.xbf
+Resources\SaveButton.xbf

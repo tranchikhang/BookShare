@@ -98,8 +98,17 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppPage\AddNewBook.xaml.cs">
+      <DependentUpon>AddNewBook.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AppPage\BookInfo.xaml.cs">
       <DependentUpon>BookInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppPage\BookShelf.xaml.cs">
+      <DependentUpon>BookShelf.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppPage\GreetingPage.xaml.cs">
+      <DependentUpon>GreetingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppPage\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -119,6 +128,7 @@
     <Compile Include="AppPage\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helper\CustomNotification.cs" />
     <Compile Include="Helper\RegexUtilities.cs" />
     <Compile Include="Helper\RestAPI.cs" />
     <Compile Include="Helper\WindowResize.cs" />
@@ -128,9 +138,10 @@
     <Compile Include="Model\AppSettings.cs" />
     <Compile Include="Model\Author.cs" />
     <Compile Include="Model\Book.cs" />
-    <Compile Include="Model\LoginAccount.cs" />
-    <Compile Include="Model\RegisterAccount.cs" />
+    <Compile Include="Model\City.cs" />
+    <Compile Include="Model\District.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Model\UserData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -154,7 +165,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AppPage\AddNewBook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AppPage\BookInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPage\BookShelf.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPage\GreetingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -186,6 +209,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\ChangePassButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="Resources\CustomRadioButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -196,8 +224,15 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <Page Include="Resources\SaveButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Model\Control\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

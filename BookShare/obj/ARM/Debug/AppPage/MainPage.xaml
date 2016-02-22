@@ -1,0 +1,103 @@
+﻿<Page x:Class="BookShare.AppPage.MainPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:local="using:BookShare.AppPage"
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  mc:Ignorable="d">
+	<Page.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/Resources/LightTheme.xaml" />
+				<ResourceDictionary Source="/Resources/CustomRadioButton.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Page.Resources>
+	<Grid Background="{StaticResource BackgroundColor}">
+		<SplitView x:ConnectionId='1' DisplayMode="CompactInline"
+				   CompactPaneLength="50"
+				   OpenPaneLength="200"
+				   IsPaneOpen="False"
+				   Name="MainSplitView">
+			<SplitView.Pane>
+				<StackPanel Orientation="Vertical"
+							Background="SteelBlue">
+					<RadioButton x:ConnectionId='2' x:Name="HamburgerButton"
+								 Style="{StaticResource NavRadioButtonStyle}"
+								 Tag="&#xE700;"
+								 Foreground="White"
+								                        />
+					<RadioButton x:ConnectionId='3' Style="{StaticResource NavRadioButtonStyle}"
+								 Tag="&#xE80F;"
+								 Foreground="White"
+								                  
+								 Content="Home" />
+					<RadioButton x:ConnectionId='4' Style="{StaticResource NavRadioButtonStyle}"
+								 Tag="&#xE713;"
+								                       
+								 Content="Setting" />
+				</StackPanel>
+			</SplitView.Pane>
+			<SplitView.Content>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="51" />
+						<RowDefinition Height="*" />
+					</Grid.RowDefinitions>
+					<Grid Grid.Row="0"
+						  Margin="10,0,10,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="300" />
+							<ColumnDefinition Width="59" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+						<TextBox x:ConnectionId='6' Name="SearchBox"
+								 Height="49"
+								 Padding="10,10,0,0"
+								 VerticalAlignment="Center"
+								 Text="Nhập nội dung tìm kiếm"
+								                              
+								 Grid.Column="0" />
+						<Button x:ConnectionId='7' Name="Search"
+								Grid.Column="1"
+								Width="49"
+								                   
+								Height="49"
+								Margin="10,0,0,0"
+								Foreground="{StaticResource AccentColor}"
+								Background="{StaticResource BackgroundColor}"
+								FontFamily="Segoe MDL2 Assets"
+								Content="&#59166;" />
+					</Grid>
+					<Frame x:ConnectionId='5' Margin="10"
+						   Name="mainFrame"
+						   Grid.Row="1" />
+				</Grid>
+			</SplitView.Content>
+		</SplitView>
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup>
+				<VisualState x:ConnectionId='8' x:Name="WideState">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="900" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="MainSplitView.IsPaneOpen"
+								Value="True" />
+					</VisualState.Setters>
+				</VisualState>
+
+				<VisualState x:ConnectionId='9' x:Name="NarrowState">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="0" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="MainSplitView.IsPaneOpen"
+								Value="False" />
+					</VisualState.Setters>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+	</Grid>
+</Page>
+

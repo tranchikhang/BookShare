@@ -120,15 +120,6 @@
 		<Setter Property="VerticalScrollBarVisibility"
 				Value="Hidden" />
 	</Style>
-	<Style TargetType="ToggleSwitch">
-		<Setter Property="FontFamily"
-				Value="Segoe UI" />
-		<Setter Property="FontSize"
-				Value="18" />
-		<Setter Property="Background"
-				Value="White" />
-		<Setter Property="Foreground"
-				Value="SteelBlue" />
-	</Style>
+	
 </ResourceDictionary>
 

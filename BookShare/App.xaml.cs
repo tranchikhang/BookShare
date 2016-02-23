@@ -9,6 +9,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -39,6 +40,7 @@ namespace BookShare
 
 		//my variable
 		public Frame MainFrame;
+		public MessageDialog globalMessageDialog;
 
 		/// <summary>
 		/// Invoked when the application is launched normally by the end user.  Other entry points
@@ -88,8 +90,10 @@ namespace BookShare
 
 				//check if first time open the app
 
-				//initialize setting
+				//initialize things
 				UserData.settings = new AppSettings ();
+				globalMessageDialog = new MessageDialog ( "" );
+
 				bool isFirstOpen = UserData.settings.GetValueOrDefault ( AppSettings.keyFirstOpen , true );
 				if ( isFirstOpen )
 				{

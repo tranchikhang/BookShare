@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -28,6 +29,8 @@ namespace BookShare.AppPage
 		public BookShelf ()
 		{
 			this.InitializeComponent ();
+			progressBar.Visibility = Visibility.Visible;
+			listBoxPostedBooks.Visibility = Visibility.Collapsed;
 		}
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
@@ -42,7 +45,6 @@ namespace BookShare.AppPage
 			string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetPostedBooks" );
 			dynamic json = JObject.Parse ( result );
 			string status = json.status;
-			string message = json.message;
 			if ( status == "200" )
 			{
 				postedBooks = new List<object> ();
@@ -51,7 +53,7 @@ namespace BookShare.AppPage
 					postedBooks.Add ( new
 					{
 						postId = json.postedBooks[i].postId ,
-						isAvailable = json.postedBooks[i].available ,
+						isAvailable = ( json.postedBooks[i].available == 1 ) ? true : false ,
 						title = json.postedBooks[i].title ,
 						image = RestAPI.serverAddress + "cover/" + json.postedBooks[i].bookId + ".jpg" ,
 						author = json.postedBooks[i].author
@@ -59,6 +61,43 @@ namespace BookShare.AppPage
 				}
 				listBoxPostedBooks.ItemsSource = postedBooks;
 			}
+			else
+			{
+				//no book in bookshelf
+				listBoxPostedBooks.Visibility = Visibility.Collapsed;
+				stackPanelAddNew.Visibility = Visibility.Visible;
+			}
+			progressBar.Visibility = Visibility.Collapsed;
+			listBoxPostedBooks.Visibility = Visibility.Visible;
+		}
+
+		private void ToggleLoaded ( object sender , RoutedEventArgs e )
+		{
+			ToggleSwitch toggle = ( ToggleSwitch ) sender;
+			toggle.Toggled += ToggleSwitch_Toggled;
+		}
+
+		private async void ToggleSwitch_Toggled ( object sender , RoutedEventArgs e )
+		{
+			string postId = ( ( ToggleSwitch ) sender ).Tag.ToString ();
+			( ( ToggleSwitch ) sender ).IsEnabled = false;
+			dynamic json = await SwitchAvailability ( postId );
+			string status = json.status;
+			string message = json.message;
+			if ( status != "200" )
+			{
+				( ( App ) Application.Current ).globalMessageDialog.Title = status;
+				( ( App ) Application.Current ).globalMessageDialog.Content = message;
+				await ( ( App ) Application.Current ).globalMessageDialog.ShowAsync ();
+			}
+			( ( ToggleSwitch ) sender ).IsEnabled = true;
+		}
+
+		private async Task<dynamic> SwitchAvailability ( string postId )
+		{
+			string result = await RestAPI.SendJson ( postId , RestAPI.phpAddress , "SwitchAvailability" );
+			dynamic json = JObject.Parse ( result );
+			return json;
 		}
 	}
 }

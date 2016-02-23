@@ -10,6 +10,8 @@
     <RootPropertyPathName Name="account" />
     <RootPropertyPathName Name="userid" />
     <RootPropertyPathName Name="userAva" />
+    <RootPropertyPathName Name="postId" />
+    <RootPropertyPathName Name="isAvailable" />
     <RootPropertyPathName Name="author" />
     <RootPropertyPathName Name="title" />
     <RootPropertyPathName Name="image" />
@@ -58,6 +60,7 @@
       <RootProperty Name="Content" />
       <RootProperty Name="Name" />
       <RootProperty Name="Height" />
+      <RootProperty Name="Background" />
       <RootProperty Name="Margin" />
       <RootProperty Name="VerticalScrollBarVisibility" />
     </RootType>
@@ -75,15 +78,15 @@
       <RootProperty Name="FontSize" />
       <RootProperty Name="Tag" />
       <RootProperty Name="FontFamily" />
-      <RootProperty Name="Foreground" />
-      <RootProperty Name="Height" />
+      <RootProperty Name="Style" />
       <RootProperty Name="FontStyle" />
       <RootProperty Name="HorizontalAlignment" />
-      <RootProperty Name="Style" />
+      <RootProperty Name="Height" />
       <RootProperty Name="Width" />
+      <RootProperty Name="Foreground" />
+      <RootProperty Name="TextWrapping" />
       <RootProperty Name="Margin" />
       <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="TextWrapping" />
       <RootEvent Name="Tapped" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
@@ -165,8 +168,8 @@
       <RootProperty Name="HorizontalContentAlignment" />
       <RootProperty Name="FontFamily" />
       <RootProperty Name="FontSize" />
-      <RootProperty Name="Foreground" />
       <RootProperty Name="Background" />
+      <RootProperty Name="Foreground" />
       <RootProperty Name="BorderBrush" />
       <RootProperty Name="BorderThickness" />
       <RootProperty Name="Padding" />
@@ -183,25 +186,19 @@
       <RootProperty Name="Width" />
     </RootType>
     <RootType FullName="BookShare.AppPage.BookInfo" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ProgressBar">
+      <RootProperty Name="Name" />
+      <RootProperty Name="IsIndeterminate" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="VerticalAlignment" />
+    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ToggleSwitch">
-      <RootProperty Name="OffContent" />
+      <RootProperty Name="Style" />
       <RootProperty Name="OnContent" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Shapes.Rectangle">
-      <RootProperty Name="Height" />
-      <RootProperty Name="Width" />
-      <RootProperty Name="Fill" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Automation.AutomationProperties">
-      <RootMethod Name="GetName" />
-      <RootMethod Name="SetName" />
-      <RootMethod Name="GetAccessibilityView" />
-      <RootMethod Name="SetAccessibilityView" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Shapes.Ellipse">
-      <RootProperty Name="Height" />
-      <RootProperty Name="Width" />
-      <RootProperty Name="Fill" />
+      <RootProperty Name="OffContent" />
+      <RootProperty Name="Tag" />
+      <RootProperty Name="IsOn" />
+      <RootEvent Name="Loaded" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.NullExtension" />
     <RootType FullName="BookShare.AppPage.BookShelf" />
@@ -239,12 +236,6 @@
       <RootProperty Name="FontSize" />
     </RootType>
     <RootType FullName="BookShare.AppPage.Register" />
-    <RootType FullName="Windows.UI.Xaml.Controls.ProgressBar">
-      <RootProperty Name="Name" />
-      <RootProperty Name="IsIndeterminate" />
-      <RootProperty Name="Height" />
-      <RootProperty Name="VerticalAlignment" />
-    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.RelativePanel">
       <RootProperty Name="Name" />
       <RootProperty Name="Children" />
@@ -258,16 +249,16 @@
     <RootType FullName="BookShare.AppPage.SearchPage" />
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="BookShare.MainPage" />
-    <RootType FullName="Windows.UI.Xaml.FrameworkElement">
-      <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="Margin" />
-      <RootProperty Name="HorizontalAlignment" />
-      <RootProperty Name="Height" />
-      <RootProperty Name="Width" />
-    </RootType>
     <RootType FullName="Windows.UI.Xaml.Media.SolidColorBrush">
       <RootProperty Name="Color" />
       <RootProperty Name="Opacity" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.FrameworkElement">
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Width" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ControlTemplate">
       <RootProperty Name="TargetType" />
@@ -302,6 +293,10 @@
       <RootProperty Name="Margin" />
       <RootProperty Name="TextWrapping" />
       <RootProperty Name="VerticalAlignment" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Automation.AutomationProperties">
+      <RootMethod Name="GetAccessibilityView" />
+      <RootMethod Name="SetAccessibilityView" />
     </RootType>
     <RootType FullName="System.Double" />
   </Roots.RootTypes>

@@ -10,6 +10,7 @@ AppPage\SearchPage.xbf
 AppPage\SettingPage.xbf
 AppPage\StartPage.xbf
 MainPage.xbf
+Resources\BookShelf.xbf
 Resources\ChangePassButton.xbf
 Resources\CustomRadioButton.xbf
 Resources\LightTheme.xbf

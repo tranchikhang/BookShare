@@ -8,79 +8,72 @@
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Resources/LightTheme.xaml" />
+				<ResourceDictionary Source="/Resources/BookShelf.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
-	<Grid Background="{StaticResource BackgroundColor}">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-		<StackPanel x:ConnectionId='1' Orientation="Vertical"
-					Visibility="Collapsed"
-					Name="stackPanelAddNew">
-			<TextBlock Text="Không có sách nào, bắt đầu Tìm kiếm để thêm sách" />
-			<Button Content="Tìm kiếm" />
+	<ScrollViewer Background="{StaticResource BackgroundColor}"
+				  Height="Auto">
+		<StackPanel Orientation="Vertical">
+			<ProgressBar x:ConnectionId='1' IsIndeterminate="True"
+						 Height="30"
+						 VerticalAlignment="Top"
+						 Name="progressBar" />
+			<StackPanel x:ConnectionId='2' Orientation="Vertical"
+						Visibility="Collapsed"
+						Name="stackPanelAddNew">
+				<TextBlock Text="Không có sách nào, bắt đầu Tìm kiếm để thêm sách" />
+				<Button Content="Tìm kiếm" />
+			</StackPanel>
+			<ListView x:ConnectionId='3' Margin="0,10,0,0"
+					  Name="listBoxPostedBooks">
+				<ListView.ItemContainerStyle>
+					<Style TargetType="ListViewItem">
+						<Setter Property="HorizontalContentAlignment"
+								Value="Stretch">
+						</Setter>
+					</Style>
+				</ListView.ItemContainerStyle>
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<Grid Margin="10"
+							  Background="{StaticResource BackgroundColor}">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="60"
+												  x:Name="ImageColumn" />
+								<ColumnDefinition Width="10" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="10" />
+								<ColumnDefinition Width="120" />
+							</Grid.ColumnDefinitions>
+							<Image Grid.Column="0"
+								   Height="90"
+								   HorizontalAlignment="Left"
+								   Source="{Binding image, TargetNullValue={x:Null}}"
+								   Stretch="Fill" />
+							<StackPanel Grid.Column="2"
+										Orientation="Vertical">
+								<TextBlock Text="{Binding title}"
+										   Style="{StaticResource Title}" />
+								<TextBlock Text="{Binding author}"
+										   Style="{StaticResource Author}" />
+							</StackPanel>
+							<StackPanel Orientation="Vertical"
+										Grid.Column="4">
+								<TextBlock Text="Cho mượn"
+										   Style="{StaticResource AvailableText}" />
+								<ToggleSwitch x:ConnectionId='4' Style="{StaticResource Available}"
+											  OnContent=""
+											  OffContent=""
+											                       
+											  Tag="{Binding postId}"
+											  IsOn="{Binding isAvailable}" />
+							</StackPanel>
+						</Grid>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
 		</StackPanel>
-		<ListView x:ConnectionId='2' Grid.Row="1"
-				  Margin="0,10,0,0"
-				  Name="listBoxPostedBooks">
-			<ListView.ItemContainerStyle>
-				<Style TargetType="ListViewItem">
-					<Setter Property="HorizontalContentAlignment"
-							Value="Stretch">
-					</Setter>
-				</Style>
-			</ListView.ItemContainerStyle>
-			<ListView.ItemTemplate>
-				<DataTemplate>
-					<Grid Margin="10"
-						  Background="{StaticResource BackgroundColor}">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="60"
-											  x:Name="ImageColumn" />
-							<ColumnDefinition Width="10" />
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="100" />
-						</Grid.ColumnDefinitions>
-						<Image Grid.Column="0"
-							   Height="60"
-							   HorizontalAlignment="Left"
-							   Source="{Binding image, TargetNullValue={x:Null}}"
-							   Stretch="Fill" />
-						<StackPanel Grid.Column="2"
-									Orientation="Vertical">
-							<TextBlock Text="{Binding title}"
-									   FontSize="24"
-									   Foreground="{StaticResource TextColor}"
-									   Height="45" />
-							<TextBlock Text="{Binding author}"
-									   FontSize="20"
-									   Foreground="{StaticResource TextColor}"
-									   Height="40" />
-						</StackPanel>
-						<StackPanel Orientation="Vertical" Grid.Column="3">
-							<TextBlock Text="Còn trống" />
-							<ToggleSwitch>
-								<ToggleSwitch.OffContent>
-									<Rectangle Height="10"
-											   Width="10"
-											   AutomationProperties.Name="Off"
-											   Fill="{StaticResource ToggleOnBrush}" />
-								</ToggleSwitch.OffContent>
-								<ToggleSwitch.OnContent>
-									<Ellipse Height="10"
-											 Width="10"
-											 AutomationProperties.Name="On"
-											 Fill="{StaticResource ToggleOffBrush}" />
-								</ToggleSwitch.OnContent>
-							</ToggleSwitch>
-						</StackPanel>
-					</Grid>
-				</DataTemplate>
-			</ListView.ItemTemplate>
-		</ListView>
-	</Grid>
+	</ScrollViewer>
 </Page>
 

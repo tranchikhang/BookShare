@@ -42,7 +42,7 @@
 						<TextBlock FontSize="30"
 								   Name="tblkTitle" />
 						<TextBlock Text="Tác giả"
-								   FontFamily="Segoe WP Light"/>
+								   FontFamily="Segoe WP Light" />
 						<TextBlock Name="tblkAuthor"
 								   FontSize="26"
 								   FontFamily="Segoe WP Light" />
@@ -52,7 +52,9 @@
 						<Button Name="buttonAddBook"
 								Width="80"
 								Click="AddToYourBook" />
-						<ScrollViewer Name="scrollViewerDes" Height="300" Padding="0,0,10,0">
+						<ScrollViewer Name="scrollViewerDes"
+									  Height="300"
+									  Padding="0,0,10,0">
 							<TextBlock Name="tblkDes"
 									   FontSize="18" />
 						</ScrollViewer>

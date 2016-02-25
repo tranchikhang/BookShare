@@ -260,3 +260,11 @@ D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\AppPage\BookShelf.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\BookShelf.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\BookShelf.xaml
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\BookShelf.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\AppPage\RequestList.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\RequestList.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\RequestList.g.i.cs
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\RequestList.g.cs
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\RequestList.xaml
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\RequestList.xaml
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\RequestList.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\RequestList.xbf

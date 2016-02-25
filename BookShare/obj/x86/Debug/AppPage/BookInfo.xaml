@@ -42,7 +42,7 @@
 						<TextBlock x:ConnectionId='6' FontSize="30"
 								   Name="tblkTitle" />
 						<TextBlock Text="Tác giả"
-								   FontFamily="Segoe WP Light"/>
+								   FontFamily="Segoe WP Light" />
 						<TextBlock x:ConnectionId='7' Name="tblkAuthor"
 								   FontSize="26"
 								   FontFamily="Segoe WP Light" />
@@ -52,7 +52,9 @@
 						<Button x:ConnectionId='9' Name="buttonAddBook"
 								Width="80"
 								                      />
-						<ScrollViewer x:ConnectionId='10' Name="scrollViewerDes" Height="300" Padding="0,0,10,0">
+						<ScrollViewer x:ConnectionId='10' Name="scrollViewerDes"
+									  Height="300"
+									  Padding="0,0,10,0">
 							<TextBlock x:ConnectionId='11' Name="tblkDes"
 									   FontSize="18" />
 						</ScrollViewer>

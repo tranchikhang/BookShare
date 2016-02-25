@@ -22,7 +22,9 @@
 			<StackPanel Orientation="Vertical"
 						Visibility="Collapsed"
 						Name="stackPanelAddNew">
-				<TextBlock Text="Không có sách nào, bắt đầu Tìm kiếm để thêm sách" />
+				<TextBlock Text="Không có sách nào, bắt đầu Tìm kiếm để thêm sách"
+						   FontSize="24"
+						   FontFamily="Segoe UI"/>
 				<Button Content="Tìm kiếm" />
 			</StackPanel>
 			<ListView Margin="0,10,0,0"

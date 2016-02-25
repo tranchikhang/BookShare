@@ -68,7 +68,9 @@ namespace BookShare.AppPage
 
 		private void RequestListClick ( object sender , RoutedEventArgs e )
 		{
-
+			MainSplitView.IsPaneOpen = false;
+			if ( MainSplitView.Content != null )
+				mainFrame.Navigate ( typeof ( RequestList ) );
 		}
 
 		private void BookShelfClick ( object sender , RoutedEventArgs e )

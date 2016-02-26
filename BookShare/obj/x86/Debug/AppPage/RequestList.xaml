@@ -22,7 +22,7 @@
 					  VerticalScrollBarVisibility="Hidden"
 					  Grid.Column="0">
 			<StackPanel Orientation="Vertical">
-				<ProgressBar x:ConnectionId='3' IsIndeterminate="True"
+				<ProgressBar x:ConnectionId='5' IsIndeterminate="True"
 							 Height="30"
 							 VerticalAlignment="Top"
 							 Name="progressBar" />
@@ -32,7 +32,7 @@
 						   Height="Auto"
 						   Visibility="Collapsed"
 						   FontFamily="Segoe UI"/>
-				<ListView x:ConnectionId='4' Margin="0,10,0,0"
+				<ListView x:ConnectionId='6' Margin="0,10,0,0"
 						  Name="listViewBook">
 					<ListView.ItemContainerStyle>
 						<Style TargetType="ListViewItem">
@@ -43,7 +43,7 @@
 					</ListView.ItemContainerStyle>
 					<ListView.ItemTemplate>
 						<DataTemplate>
-							<Grid x:ConnectionId='5' Margin="10"
+							<Grid x:ConnectionId='7' Margin="10"
 								  Tag="{Binding postId}"
 								                         
 								  Background="{StaticResource BackgroundColor}">
@@ -104,12 +104,14 @@
 						<StackPanel Grid.Column="2"
 									Margin="0,0,0,0"
 									Orientation="Vertical">
-							<Button Content="Đồng ý"
+							<Button x:ConnectionId='3' Content="Đồng ý"
 									Style="{StaticResource Accept}"
-									Tag="{Binding requestId}" />
-							<Button Content="Từ chối"
+									Tag="{Binding requestId}"
+									                     />
+							<Button x:ConnectionId='4' Content="Từ chối"
 									Style="{StaticResource Deny}"
-									Tag="{Binding requestId}" />
+									Tag="{Binding requestId}"
+									                   />
 						</StackPanel>
 					</Grid>
 				</DataTemplate>

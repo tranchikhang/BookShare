@@ -106,10 +106,12 @@
 									Orientation="Vertical">
 							<Button Content="Đồng ý"
 									Style="{StaticResource Accept}"
-									Tag="{Binding requestId}" />
+									Tag="{Binding requestId}"
+									Click="AcceptRequest"/>
 							<Button Content="Từ chối"
 									Style="{StaticResource Deny}"
-									Tag="{Binding requestId}" />
+									Tag="{Binding requestId}"
+									Click="DenyRequest"/>
 						</StackPanel>
 					</Grid>
 				</DataTemplate>

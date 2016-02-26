@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -35,11 +37,13 @@ namespace BookShare.AppPage
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
+			//get all books user posted
 			GetPostedBooks ();
+			messageDialog = new MessageDialog ( "" );
 		}
 
 		private List<PostedBook> postedBooks;
-		private List<Request> requestList;
+		private MessageDialog messageDialog;
 
 		private async void GetPostedBooks ()
 		{
@@ -87,8 +91,76 @@ namespace BookShare.AppPage
 		private void BookGridTapped ( object sender , TappedRoutedEventArgs e )
 		{
 			string tag = ( ( Grid ) sender ).Tag.ToString ();
-			listViewRequest.ItemsSource = postedBooks.First ( p => p.postId == tag ).requests;
-			listViewRequest.Visibility = Visibility.Visible;
+			if ( listViewRequest.Tag != null && listViewRequest.Tag.ToString () == tag )
+			{
+				//same book, hide request list
+				listViewRequest.Visibility = Visibility.Collapsed;
+				listViewRequest.Tag = "";
+			}
+			else
+			{
+				//different book, show request list
+				listViewRequest.Tag = tag;
+				listViewRequest.ItemsSource = postedBooks.First ( p => p.postId == tag ).requests;
+				listViewRequest.Visibility = Visibility.Visible;
+			}
+		}
+
+		private async void AcceptRequest ( object sender , RoutedEventArgs e )
+		{
+			progressBar.Visibility = Visibility.Visible;
+			string requestId = ( ( Button ) sender ).Tag.ToString ();
+			string status = await SendUserResponse ( true , requestId );
+			if ( status == "OK" )
+			{
+				//send response succeed
+				progressBar.Visibility = Visibility.Collapsed;
+			}
+			else
+			{
+				//send response failed
+				progressBar.Visibility = Visibility.Collapsed;
+				messageDialog.Title = "Lỗi";
+				messageDialog.Content = "Đã xảy ra lỗi, thử lại sau" );
+				await messageDialog.ShowAsync ();
+			}
+		}
+
+		private async void DenyRequest ( object sender , RoutedEventArgs e )
+		{
+			progressBar.Visibility = Visibility.Visible;
+			string requestId = ( ( Button ) sender ).Tag.ToString ();
+			string status = await SendUserResponse ( false , requestId );
+			if ( status == "OK" )
+			{
+				//send response succeed
+				progressBar.Visibility = Visibility.Collapsed;
+			}
+			else
+			{
+				//send response failed
+				progressBar.Visibility = Visibility.Collapsed;
+				messageDialog.Title = "Lỗi";
+				messageDialog.Content = "Đã xảy ra lỗi, thử lại sau" );
+				await messageDialog.ShowAsync ();
+			}
+		}
+
+		private async Task<string> SendUserResponse ( bool isAccept , string requestId )
+		{
+			dynamic data = new
+			{
+				requestId = requestId ,
+				isAccept = isAccept
+			};
+			string result = await RestAPI.SendJson ( data , RestAPI.phpAddress , "RespondToRequest" );
+			dynamic json = JObject.Parse ( result );
+			string status = json.status;
+			if ( status == "200" )
+			{
+				return "OK";
+			}
+			return "ERROR";
 		}
 	}
 }

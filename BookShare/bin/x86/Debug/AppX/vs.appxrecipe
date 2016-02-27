@@ -22,13 +22,13 @@
     <AppXManifest Include="D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-02-25T10:47:42.651</Modified>
+      <Modified>2016-02-27T14:36:33.464</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\BookShare.exe">
       <PackagePath>entrypoint\BookShare.exe</PackagePath>
-      <Modified>2016-02-25T10:47:41.844</Modified>
+      <Modified>2016-02-27T14:36:32.513</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\tranc\.nuget\packages\Microsoft.ApplicationInsights\1.0.0\lib\portable-win81+wpa81\Microsoft.ApplicationInsights.dll">
       <PackagePath>Microsoft.ApplicationInsights.dll</PackagePath>
@@ -502,7 +502,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\BookShare.xr.xml">
       <PackagePath>BookShare.xr.xml</PackagePath>
-      <Modified>2016-02-25T06:51:44.665</Modified>
+      <Modified>2016-02-27T14:13:42.495</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -510,11 +510,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2016-02-25T10:47:42.468</Modified>
+      <Modified>2016-02-27T14:36:33.286</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Core\BookShare.exe">
       <PackagePath>BookShare.exe</PackagePath>
-      <Modified>2016-02-25T10:47:42.647</Modified>
+      <Modified>2016-02-27T14:36:33.462</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

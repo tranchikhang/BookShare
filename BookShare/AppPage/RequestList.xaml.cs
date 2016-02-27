@@ -30,15 +30,11 @@ namespace BookShare.AppPage
 		public RequestList ()
 		{
 			this.InitializeComponent ();
-			progressBar.Visibility = Visibility.Visible;
-			listViewBook.Visibility = Visibility.Collapsed;
-			listViewRequest.Visibility = Visibility.Collapsed;
+			scrollViewerBooks.Visibility = Visibility.Collapsed;
 		}
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
-			//get all books user posted
-			GetPostedBooks ();
 			messageDialog = new MessageDialog ( "" );
 		}
 
@@ -84,26 +80,20 @@ namespace BookShare.AppPage
 			{
 				//204
 			}
+			//hide progress bar
 			progressBar.Visibility = Visibility.Collapsed;
-			listViewBook.Visibility = Visibility.Visible;
 		}
 
 		private void BookGridTapped ( object sender , TappedRoutedEventArgs e )
 		{
+			//user click on a book
+			//get the tag contains postId
 			string tag = ( ( Grid ) sender ).Tag.ToString ();
-			if ( listViewRequest.Tag != null && listViewRequest.Tag.ToString () == tag )
-			{
-				//same book, hide request list
-				listViewRequest.Visibility = Visibility.Collapsed;
-				listViewRequest.Tag = "";
-			}
-			else
-			{
-				//different book, show request list
-				listViewRequest.Tag = tag;
-				listViewRequest.ItemsSource = postedBooks.First ( p => p.postId == tag ).requests;
-				listViewRequest.Visibility = Visibility.Visible;
-			}
+
+			//show requests
+			listViewReceivedRequest.ItemsSource = postedBooks.First ( p => p.postId == tag ).requests;
+			scrollViewerBooks.Visibility = Visibility.Collapsed;
+			scrollViewerReceivedRequest.Visibility = Visibility.Visible;
 		}
 
 		private async void AcceptRequest ( object sender , RoutedEventArgs e )
@@ -121,7 +111,7 @@ namespace BookShare.AppPage
 				//send response failed
 				progressBar.Visibility = Visibility.Collapsed;
 				messageDialog.Title = "Lỗi";
-				messageDialog.Content = "Đã xảy ra lỗi, thử lại sau" );
+				messageDialog.Content = "Đã xảy ra lỗi, thử lại sau";
 				await messageDialog.ShowAsync ();
 			}
 		}
@@ -141,26 +131,60 @@ namespace BookShare.AppPage
 				//send response failed
 				progressBar.Visibility = Visibility.Collapsed;
 				messageDialog.Title = "Lỗi";
-				messageDialog.Content = "Đã xảy ra lỗi, thử lại sau" );
+				messageDialog.Content = "Đã xảy ra lỗi, thử lại sau";
 				await messageDialog.ShowAsync ();
 			}
 		}
 
-		private async Task<string> SendUserResponse ( bool isAccept , string requestId )
+		private async Task<string> SendUserResponse ( bool isAccepted , string requestId )
 		{
 			dynamic data = new
 			{
 				requestId = requestId ,
-				isAccept = isAccept
+				isAccepted = isAccepted
 			};
 			string result = await RestAPI.SendJson ( data , RestAPI.phpAddress , "RespondToRequest" );
 			dynamic json = JObject.Parse ( result );
 			string status = json.status;
 			if ( status == "200" )
 			{
+				string mes = json.message;
 				return "OK";
 			}
 			return "ERROR";
+		}
+
+		private void ToReceivedRequest ( object sender , TappedRoutedEventArgs e )
+		{
+			//display list of book that user posted
+			//show progress bar and book view
+			scrollViewerBooks.Visibility = Visibility.Visible;
+			progressBar.Visibility = Visibility.Visible;
+			//hide the request type
+			listviewRequestType.Visibility = Visibility.Collapsed;
+			//get all books user posted
+			GetPostedBooks ();
+		}
+
+		private void ToSentRequest ( object sender , TappedRoutedEventArgs e )
+		{
+			listviewRequestType.Visibility = Visibility.Collapsed;
+		}
+
+		private void BookListBack ( object sender , RoutedEventArgs e )
+		{
+			//user is on book list and press back
+			//hide book list and show request type
+			scrollViewerBooks.Visibility = Visibility.Collapsed;
+			listviewRequestType.Visibility = Visibility.Visible;
+		}
+
+		private void ReceivedRequestBack ( object sender , RoutedEventArgs e )
+		{
+			//user is on list of received request
+			//hide request list and show book list
+			scrollViewerReceivedRequest.Visibility = Visibility.Collapsed;
+			scrollViewerBooks.Visibility = Visibility.Visible;
 		}
 	}
 }

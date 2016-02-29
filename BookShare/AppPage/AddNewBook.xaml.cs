@@ -114,7 +114,7 @@ namespace BookShare.AppPage
 					year = comboYear.SelectedValue ,
 					genreId = comboBoxGenre.SelectedValue ,
 					description = textBoxDes.Text ,
-					image = imageString,
+					image = imageString ,
 					userId = UserData.id
 				};
 				string result = await RestAPI.SendJson ( sendJson , RestAPI.phpAddress , "AddNewBook" );
@@ -123,13 +123,13 @@ namespace BookShare.AppPage
 				string message = json.message;
 				if ( status == "200" )
 				{
-					CustomNotification.DisplayNotification ( message );
+					CustomNotification.ShowNotification ( message );
 					Frame.Navigate ( typeof ( MainPage ) );
 				}
 			}
 			else
 			{
-				CustomNotification.DisplayNotification ( "Kiểm tra lại thông tin đã nhập" );
+				CustomNotification.ShowNotification ( "Kiểm tra lại thông tin đã nhập" );
 			}
 		}
 

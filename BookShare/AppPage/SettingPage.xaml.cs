@@ -112,7 +112,7 @@ namespace BookShare.AppPage
 			}
 			else
 			{
-				CustomNotification.DisplayNotification ( "loi" );
+				CustomNotification.ShowNotification ( "loi" );
 			}
 		}
 
@@ -137,7 +137,7 @@ namespace BookShare.AppPage
 				string result = await RestAPI.SendJson ( newUser , RestAPI.phpAddress , "SetAccountInfo" );
 				//show new value
 				DisplayUserInfo ();
-				CustomNotification.DisplayNotification("Cập nhật thành công");
+				CustomNotification.ShowNotification("Cập nhật thành công");
 				ToastNotificationManager.History.Clear ();
 			}
 		}

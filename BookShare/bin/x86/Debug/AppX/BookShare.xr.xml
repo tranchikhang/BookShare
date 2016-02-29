@@ -15,6 +15,9 @@
     <RootPropertyPathName Name="author" />
     <RootPropertyPathName Name="title" />
     <RootPropertyPathName Name="image" />
+    <RootPropertyPathName Name="postUserAccount" />
+    <RootPropertyPathName Name="postUserAva" />
+    <RootPropertyPathName Name="bookId" />
     <RootPropertyPathName Name="requestId" />
     <RootPropertyPathName Name="requestUserAccount" />
     <RootPropertyPathName Name="requestUserAva" />
@@ -45,6 +48,7 @@
       <RootProperty Name="Margin" />
       <RootProperty Name="Padding" />
       <RootProperty Name="Tag" />
+      <RootProperty Name="Width" />
       <RootProperty Name="Name" />
       <RootProperty Name="VerticalAlignment" />
       <RootEvent Name="Tapped" />
@@ -66,7 +70,6 @@
       <RootProperty Name="Name" />
       <RootProperty Name="Height" />
       <RootProperty Name="Background" />
-      <RootProperty Name="Visibility" />
       <RootProperty Name="Margin" />
       <RootProperty Name="VerticalScrollBarVisibility" />
       <RootMethod Name="GetVerticalScrollBarVisibility" />
@@ -89,10 +92,10 @@
       <RootProperty Name="Style" />
       <RootProperty Name="FontStyle" />
       <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Width" />
       <RootProperty Name="TextWrapping" />
       <RootProperty Name="Height" />
       <RootProperty Name="Visibility" />
-      <RootProperty Name="Width" />
       <RootProperty Name="Foreground" />
       <RootProperty Name="Margin" />
       <RootProperty Name="VerticalAlignment" />
@@ -173,7 +176,6 @@
       <RootProperty Name="Margin" />
       <RootProperty Name="ItemContainerStyle" />
       <RootProperty Name="ItemTemplate" />
-      <RootProperty Name="Items" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ListViewItem" />
     <RootType FullName="Windows.UI.Xaml.Controls.Control">
@@ -248,13 +250,18 @@
       <RootProperty Name="FontSize" />
     </RootType>
     <RootType FullName="BookShare.AppPage.Register" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Pivot">
+      <RootProperty Name="Items" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.PivotItem">
+      <RootProperty Name="Header" />
+      <RootProperty Name="Content" />
+    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Border">
       <RootProperty Name="Background" />
       <RootProperty Name="Child" />
-      <RootProperty Name="Style" />
       <RootProperty Name="BorderBrush" />
       <RootProperty Name="BorderThickness" />
-      <RootProperty Name="Padding" />
     </RootType>
     <RootType FullName="BookShare.AppPage.RequestList" />
     <RootType FullName="Windows.UI.Xaml.Controls.RelativePanel">

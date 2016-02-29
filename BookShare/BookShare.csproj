@@ -143,6 +143,7 @@
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\City.cs" />
     <Compile Include="Model\District.cs" />
+    <Compile Include="Model\Post.cs" />
     <Compile Include="Model\PostedBook.cs" />
     <Compile Include="Model\Request.cs" />
     <Compile Include="Model\User.cs" />

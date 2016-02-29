@@ -86,9 +86,7 @@ namespace BookShare.AppPage
 			string message = json.message;
 			if ( status != "200" )
 			{
-				( ( App ) Application.Current ).globalMessageDialog.Title = status;
-				( ( App ) Application.Current ).globalMessageDialog.Content = message;
-				await ( ( App ) Application.Current ).globalMessageDialog.ShowAsync ();
+				CustomNotification.ShowDialogMessage ( status , message );
 			}
 			( ( ToggleSwitch ) sender ).IsEnabled = true;
 		}

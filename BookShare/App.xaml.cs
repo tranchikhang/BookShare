@@ -1,4 +1,5 @@
-﻿using BookShare.Model;
+﻿using BookShare.Helper;
+using BookShare.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,7 +41,6 @@ namespace BookShare
 
 		//my variable
 		public Frame MainFrame;
-		public MessageDialog globalMessageDialog;
 
 		/// <summary>
 		/// Invoked when the application is launched normally by the end user.  Other entry points
@@ -92,7 +92,6 @@ namespace BookShare
 
 				//initialize things
 				UserData.settings = new AppSettings ();
-				globalMessageDialog = new MessageDialog ( "" );
 
 				bool isFirstOpen = UserData.settings.GetValueOrDefault ( AppSettings.keyFirstOpen , true );
 				if ( isFirstOpen )

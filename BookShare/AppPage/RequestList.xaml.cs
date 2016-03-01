@@ -45,7 +45,7 @@ namespace BookShare.AppPage
 		private List<PostedBook> bookUserPosted;
 		private List<PostedBook> bookUserRequested;
 		private ObservableCollection<Request> receivedRequest;
-		private ObservableCollection<Post> postRequested;
+		private ObservableCollection<Post> requestedPost;
 
 		private async void GetData ()
 		{
@@ -90,7 +90,8 @@ namespace BookShare.AppPage
 					{
 						Post r = new Post
 						{
-							postUserId = json.postedBooks[i].posts[j].posttUserId ,
+							postId = json.postedBooks[i].posts[j].postId ,
+							postUserId = json.postedBooks[i].posts[j].postUserId ,
 							postUserAccount = json.postedBooks[i].posts[j].postUserAccount ,
 							postUserAva = RestAPI.serverAddress + "resources/images/defaultAva.png"
 						};
@@ -247,16 +248,36 @@ namespace BookShare.AppPage
 
 			//show posts
 			//find post in book's request list
-			postRequested = bookUserRequested.First ( p => p.bookId == tag ).posts;
-			listViewSentRequest.ItemsSource = postRequested;
+			requestedPost = bookUserRequested.First ( p => p.bookId == tag ).posts;
+			listViewSentRequest.ItemsSource = requestedPost;
 			//hide posted books
 			scrollViewerBooks2.Visibility = Visibility.Collapsed;
 			//show post list
 			scrollViewerSentRequest.Visibility = Visibility.Visible;
 		}
 
-		private void DeleteRequest ( object sender , RoutedEventArgs e )
+		private async void DeleteRequest ( object sender , RoutedEventArgs e )
 		{
+			string postId = ( ( Button ) sender ).Tag.ToString ();
+			dynamic data = new
+			{
+				postId = postId ,
+				userId = UserData.id
+			};
+			string result = await RestAPI.SendJson ( data , RestAPI.phpAddress , "DeleteRequestToPost" );
+			dynamic json = JObject.Parse ( result );
+			string status = json.status;
+			if ( status == "200" )
+			{
+				//send response succeed
+				//return request id to remove
+				requestedPost.Remove ( requestedPost.First ( p => p.postId == postId ) );
+			}
+			else
+			{
+				//send response failed
+				CustomNotification.ShowDialogMessage ();
+			}
 		}
 	}
 }

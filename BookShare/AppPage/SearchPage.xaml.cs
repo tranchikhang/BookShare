@@ -67,5 +67,16 @@ namespace BookShare.AppPage
 		{
 			Frame.Navigate ( typeof ( AddNewBook ) );
 		}
+
+		private void SearchBox_GotFocus ( object sender , Windows.UI.Xaml.RoutedEventArgs e )
+		{
+			if ( SearchBox.Text == "Nhập nội dung tìm kiếm" )
+				SearchBox.Text = "";
+		}
+
+		private void SearchClick ( object sender , Windows.UI.Xaml.RoutedEventArgs e )
+		{
+			SendSearchQuery ( SearchBox.Text );
+		}
 	}
 }

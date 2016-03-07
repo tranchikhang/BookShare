@@ -207,5 +207,11 @@ namespace BookShare.AppPage
 				}
 			}
 		}
+
+		private void UserAccountTapped ( object sender , TappedRoutedEventArgs e )
+		{
+			string userId = ( ( TextBlock ) sender ).Tag.ToString ();
+			Frame.Navigate ( typeof ( UserInfo ) , userId );
+		}
 	}
 }

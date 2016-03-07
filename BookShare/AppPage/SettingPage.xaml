@@ -78,7 +78,7 @@
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
 						<Setter Target="textBlockAccount.(RelativePanel.Below)"
-								Value="userAva" />
+								Value="buttonAddFile" />
 						<Setter Target="textBlockAccount.(RelativePanel.AlignLeftWith)"
 								Value="userAva" />
 						<Setter Target="textBoxAccount.(RelativePanel.Below)"
@@ -146,7 +146,13 @@
 						   RelativePanel.AlignLeftWith="textBlockTitle"
 						   Name="userAva"
 						   Width="200"
+						   Stretch="Fill"
 						   Height="200" />
+					<Button Content="chọn file"
+							RelativePanel.Below="userAva"
+							Name="buttonAddFile"
+							Margin="0,10,0,10"
+							Click="AddFileClick" />
 					<TextBlock Text="Tên tài khoản"
 							   Style="{StaticResource TextBlockField}"
 							   Name="textBlockAccount"

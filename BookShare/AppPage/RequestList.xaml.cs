@@ -35,10 +35,11 @@ namespace BookShare.AppPage
 			//hide posted book and requested book
 			scrollViewerBooks.Visibility = Visibility.Visible;
 			scrollViewerBooks2.Visibility = Visibility.Visible;
-			//hide received request list and sent request list
+			//hide received request list and sent request list 
 			scrollViewerReceivedRequest.Visibility = Visibility.Collapsed;
 			scrollViewerSentRequest.Visibility = Visibility.Collapsed;
-
+			//hide notification
+			scrollViewerNotification.Visibility = Visibility.Visible;
 			GetData ();
 		}
 
@@ -47,6 +48,8 @@ namespace BookShare.AppPage
 		private ObservableCollection<Request> receivedRequest;
 		private ObservableCollection<Post> requestedPost;
 
+		private ObservableCollection<RequestNotification> requestNotifications;
+
 		private async void GetData ()
 		{
 			//show progress bar and book view
@@ -54,6 +57,7 @@ namespace BookShare.AppPage
 			//get books that user posted
 			string r1 = await GetPostedBooks ();
 			string r2 = await GetSentRequests ();
+			string r3 = await GetRequestNotifications ();
 			if ( r1 == "OK" )
 			{
 				//hide progress bar
@@ -62,6 +66,38 @@ namespace BookShare.AppPage
 			else
 			{
 				CustomNotification.ShowDialogMessage ();
+			}
+		}
+
+		private async Task<string> GetRequestNotifications ()
+		{
+			string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetRequestNotifications" );
+			dynamic json = JObject.Parse ( result );
+			string status = json.status;
+			if ( status == "200" )
+			{
+				//success
+				requestNotifications = new ObservableCollection<RequestNotification> ();
+				for ( int i = 0 ; i < json.notifications.Count ; i++ )
+				{
+					//create new request notification
+					RequestNotification rn = new RequestNotification ()
+					{
+						requestId = json.notifications[i].requestId ,
+						requestAccepted = ( json.notifications[i].requestAccepted == 1 ) ? true : false ,
+						userAccount = json.notifications[i].userAccount ,
+						bookId = json.notifications[i].bookId ,
+						bookTitle = json.notifications[i].bookTitle
+					};
+					rn.SetContent ();
+					requestNotifications.Add ( rn );
+				}
+				listViewNotification.ItemsSource = requestNotifications;
+				return "OK";
+			}
+			else
+			{
+				return "";
 			}
 		}
 
@@ -272,6 +308,31 @@ namespace BookShare.AppPage
 				//send response succeed
 				//return request id to remove
 				requestedPost.Remove ( requestedPost.First ( p => p.postId == postId ) );
+			}
+			else
+			{
+				//send response failed
+				CustomNotification.ShowDialogMessage ();
+			}
+		}
+
+		private void ToUser ( object sender , RoutedEventArgs e )
+		{
+			//move to user page
+		}
+
+		private async void DeactiveRequest ( object sender , RoutedEventArgs e )
+		{
+			//deactive request
+			string requestId = ( ( Button ) sender ).Tag.ToString ();
+			string result = await RestAPI.SendJson ( requestId , RestAPI.phpAddress , "DeactiveRequest" );
+			dynamic json = JObject.Parse ( result );
+			string status = json.status;
+			if ( status == "200" )
+			{
+				//send response succeed
+				//return request id to remove
+				requestNotifications.Remove ( requestNotifications.First ( p => p.requestId == requestId ) );
 			}
 			else
 			{

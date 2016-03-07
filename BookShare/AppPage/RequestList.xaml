@@ -27,7 +27,7 @@
 					<Grid>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="30" />
-							<ColumnDefinition Width="100" />
+							<ColumnDefinition Width="110" />
 						</Grid.ColumnDefinitions>
 						<TextBlock Text="&#xE898;"
 								   Width="100"
@@ -58,8 +58,7 @@
 									<DataTemplate>
 										<Grid Margin="10"
 											  Tag="{Binding postId}"
-											  Tapped="BookGridTapped"
-											  Background="{StaticResource BackgroundColor}">
+											  Tapped="BookGridTapped">
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition Width="60" />
 												<ColumnDefinition Width="10" />
@@ -105,35 +104,35 @@
 								<ListView.ItemTemplate>
 									<DataTemplate>
 										<Grid>
-												<Grid.ColumnDefinitions>
-													<ColumnDefinition Width="60" />
-													<ColumnDefinition Width="*" />
-													<ColumnDefinition Width="100" />
-												</Grid.ColumnDefinitions>
-												<Image Grid.Column="0"
-													   Height="60"
-													   Stretch="Fill"
-													   Source="{Binding requestUserAva}" />
-												<StackPanel Orientation="Vertical"
-															Grid.Column="1"
-															Margin="5,0,0,0">
-													<TextBlock Text="{Binding requestUserAccount}"
-															   Style="{StaticResource RequestUserAccount}"
-															   Tag="{Binding userid}" />
-													<TextBlock Text="dia chi" />
-												</StackPanel>
-												<StackPanel Grid.Column="2"
-															Orientation="Vertical">
-													<Button Content="Đồng ý"
-															Style="{StaticResource Accept}"
-															Tag="{Binding requestId}"
-															Click="AcceptRequest" />
-													<Button Content="Từ chối"
-															Style="{StaticResource Deny}"
-															Tag="{Binding requestId}"
-															Click="DenyRequest" />
-												</StackPanel>
-											</Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="60" />
+												<ColumnDefinition Width="*" />
+												<ColumnDefinition Width="100" />
+											</Grid.ColumnDefinitions>
+											<Image Grid.Column="0"
+												   Height="60"
+												   Stretch="Fill"
+												   Source="{Binding requestUserAva}" />
+											<StackPanel Orientation="Vertical"
+														Grid.Column="1"
+														Margin="5,0,0,0">
+												<TextBlock Text="{Binding requestUserAccount}"
+														   Style="{StaticResource RequestUserAccount}"
+														   Tag="{Binding userid}" />
+												<TextBlock Text="dia chi" />
+											</StackPanel>
+											<StackPanel Grid.Column="2"
+														Orientation="Vertical">
+												<Button Content="Đồng ý"
+														Style="{StaticResource Accept}"
+														Tag="{Binding requestId}"
+														Click="AcceptRequest" />
+												<Button Content="Từ chối"
+														Style="{StaticResource Deny}"
+														Tag="{Binding requestId}"
+														Click="DenyRequest" />
+											</StackPanel>
+										</Grid>
 									</DataTemplate>
 								</ListView.ItemTemplate>
 							</ListView>
@@ -146,10 +145,9 @@
 					<Grid>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="30" />
-							<ColumnDefinition Width="100" />
+							<ColumnDefinition Width="110" />
 						</Grid.ColumnDefinitions>
 						<TextBlock Text="&#xE896;"
-								   Width="100"
 								   FontFamily="Segoe MDL2 Assets" />
 						<TextBlock Text="Đã gửi"
 								   Grid.Column="1"
@@ -177,8 +175,7 @@
 									<DataTemplate>
 										<Grid Margin="10"
 											  Tag="{Binding bookId}"
-											  Tapped="RequestedBookGridTapped"
-											  Background="{StaticResource BackgroundColor}">
+											  Tapped="RequestedBookGridTapped">
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition Width="60" />
 												<ColumnDefinition Width="10" />
@@ -250,6 +247,67 @@
 								</ListView.ItemTemplate>
 							</ListView>
 						</StackPanel>
+					</ScrollViewer>
+				</Grid>
+			</PivotItem>
+			<PivotItem>
+				<PivotItem.Header>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="30" />
+							<ColumnDefinition Width="110" />
+						</Grid.ColumnDefinitions>
+						<TextBlock Text="&#xE896;"
+								   FontFamily="Segoe MDL2 Assets" />
+						<TextBlock Text="Thông báo"
+								   Grid.Column="1"
+								   Style="{StaticResource PivotTextBlock}" />
+					</Grid>
+				</PivotItem.Header>
+				<Grid>
+					<ScrollViewer Name="scrollViewerNotification">
+						<ListView Name="listViewNotification">
+							<ListView.ItemContainerStyle>
+								<Style TargetType="ListViewItem">
+									<Setter Property="HorizontalContentAlignment"
+											Value="Stretch">
+									</Setter>
+								</Style>
+							</ListView.ItemContainerStyle>
+							<ListView.ItemTemplate>
+								<DataTemplate>
+									<Grid Margin="10">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="60" />
+											<ColumnDefinition Width="*" />
+											<ColumnDefinition Width="60" />
+											<ColumnDefinition Width="60" />
+										</Grid.ColumnDefinitions>
+										<TextBlock Text="{Binding userAccount}"
+												   TextWrapping="Wrap"
+												   Foreground="Crimson"
+												   Grid.Column="0" />
+										<TextBlock Text="{Binding content}"
+												   TextWrapping="Wrap"
+												   Grid.Column="1" />
+										<Button Grid.Column="2"
+												Content="&#xE8F3;"
+												Width="50"
+												Tag="{Binding bookId}"
+												Height="50"
+												Click="ToUser"
+												FontFamily="Segoe MDL2 Assets" />
+										<Button Grid.Column="3"
+												Content="&#xE74D;"
+												Width="50"
+												Height="50"
+												Click="DeactiveRequest"
+												Tag="{Binding requestId}"
+												FontFamily="Segoe MDL2 Assets" />
+									</Grid>
+								</DataTemplate>
+							</ListView.ItemTemplate>
+						</ListView>
 					</ScrollViewer>
 				</Grid>
 			</PivotItem>

@@ -9,43 +9,32 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/Resources/LightTheme.xaml" />
+				<ResourceDictionary Source="/Resources/BookInfo.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
-	<Grid Background="{StaticResource BackgroundColor}">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="50"
-							  x:Name="LeftBlank" />
-			<ColumnDefinition Width="*" />
-			<ColumnDefinition Width="50"
-							  x:Name="RightBlank" />
-		</Grid.ColumnDefinitions>
-		<ScrollViewer Grid.Column="1">
+	<ScrollViewer>
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="*" />
 				</Grid.RowDefinitions>
-				<Grid Grid.Row="0">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="270" />
-						<ColumnDefinition Width="*" />
-					</Grid.ColumnDefinitions>
-					<Image Grid.Column="0"
-						   VerticalAlignment="Top"
-						   Height="405"
+				<RelativePanel Grid.Row="0">
+					<Image Height="405"
+						   Width="270"
 						   Name="BookCover"
 						   Stretch="Fill" />
-					<StackPanel Grid.Column="1"
-								Margin="15,0,0,0"
+					<StackPanel Margin="15,0,0,0"
+								Height="Auto"
+								Width="Auto"
+								Name="stackPanelInfo"
 								Orientation="Vertical">
-						<TextBlock FontSize="30"
+						<TextBlock Style="{StaticResource Title}"
 								   Name="tblkTitle" />
 						<TextBlock Text="Tác giả"
 								   FontFamily="Segoe WP Light" />
 						<TextBlock Name="tblkAuthor"
-								   FontSize="26"
-								   FontFamily="Segoe WP Light" />
+								   Style="{StaticResource Author}" />
 						<TextBlock Text="Năm" />
 						<TextBlock Name="tblkYear"
 								   FontSize="22" />
@@ -59,7 +48,7 @@
 									   FontSize="18" />
 						</ScrollViewer>
 					</StackPanel>
-				</Grid>
+				</RelativePanel>
 				<ListView Grid.Row="1"
 						  Margin="0,10,0,10"
 						  Name="listLenders">
@@ -86,7 +75,8 @@
 											Grid.Column="2">
 									<TextBlock Text="{Binding account}"
 											   FontSize="24"
-											   Tag="{Binding userid}" />
+											   Tag="{Binding userid}"
+											   Tapped="UserAccountTapped"/>
 									<TextBlock Text="{Binding address}"
 											   FontSize="24" />
 									<Button Content="Mượn"
@@ -99,18 +89,17 @@
 					</ListView.ItemTemplate>
 				</ListView>
 			</Grid>
-		</ScrollViewer>
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
 				<VisualState x:Name="WideState">
 					<VisualState.StateTriggers>
-						<AdaptiveTrigger MinWindowWidth="900" />
+						<AdaptiveTrigger MinWindowWidth="700" />
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
-						<Setter Target="LeftBlank.Width"
-								Value="70" />
-						<Setter Target="RightBlank.Width"
-								Value="70" />
+						<Setter Target="stackPanelInfo.(RelativePanel.RightOf)"
+								Value="BookCover" />
+						<Setter Target="stackPanelInfo.(RelativePanel.AlignTopWith)"
+								Value="BookCover" />
 					</VisualState.Setters>
 				</VisualState>
 				<VisualState x:Name="NarrowState">
@@ -118,13 +107,16 @@
 						<AdaptiveTrigger MinWindowWidth="0" />
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
-						<Setter Target="LeftBlank.Width"
-								Value="30" />
-						<Setter Target="RightBlank.Width"
-								Value="30" />
+						<Setter Target="stackPanelInfo.(RelativePanel.Below)"
+								Value="BookCover" />
+						<Setter Target="stackPanelInfo.(RelativePanel.AlignLeftWith)"
+								Value="BookCover" />
+						<Setter Target="stackPanelInfo.(RelativePanel.AlignTopWith)"
+								Value="" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
-	</Grid>
+	</ScrollViewer>
+	
 </Page>

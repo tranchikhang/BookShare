@@ -26,13 +26,14 @@ namespace BookShare.AppPage
 		{
 			this.InitializeComponent ();
 			( ( App ) Application.Current ).MainFrame = mainFrame;
-			//if ( MainSplitView.Content != null )
-			//mainFrame.Navigate ( typeof ( SearchPage ) );
 		}
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
 			base.OnNavigatedTo ( e );
+			MainSplitView.IsPaneOpen = false;
+			if ( MainSplitView.Content != null )
+				mainFrame.Navigate ( typeof ( GreetingPage ) );
 		}
 
 		private void HamburgerClick ( object sender , RoutedEventArgs e )
@@ -44,7 +45,7 @@ namespace BookShare.AppPage
 		{
 			MainSplitView.IsPaneOpen = false;
 			if ( MainSplitView.Content != null )
-				mainFrame.Navigate ( typeof ( SearchPage ) );
+				mainFrame.Navigate ( typeof ( GreetingPage ) );
 		}
 
 		private void SettingClick ( object sender , RoutedEventArgs e )
@@ -52,19 +53,7 @@ namespace BookShare.AppPage
 			MainSplitView.IsPaneOpen = false;
 			if ( MainSplitView.Content != null )
 				mainFrame.Navigate ( typeof ( SettingPage ) );
-		}
-
-		private void SearchBox_GotFocus ( object sender , RoutedEventArgs e )
-		{
-			if ( SearchBox.Text == "Nhập nội dung tìm kiếm" )
-				SearchBox.Text = "";
-		}
-
-		private void SearchClick ( object sender , RoutedEventArgs e )
-		{
-			string query = SearchBox.Text;
-			mainFrame.Navigate ( typeof ( SearchPage ) , query );
-		}		
+		}	
 
 		private void RequestListClick ( object sender , RoutedEventArgs e )
 		{

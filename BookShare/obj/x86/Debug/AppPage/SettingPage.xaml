@@ -78,7 +78,7 @@
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
 						<Setter Target="textBlockAccount.(RelativePanel.Below)"
-								Value="userAva" />
+								Value="buttonAddFile" />
 						<Setter Target="textBlockAccount.(RelativePanel.AlignLeftWith)"
 								Value="userAva" />
 						<Setter Target="textBoxAccount.(RelativePanel.Below)"
@@ -146,54 +146,60 @@
 						   RelativePanel.AlignLeftWith="textBlockTitle"
 						   Name="userAva"
 						   Width="200"
+						   Stretch="Fill"
 						   Height="200" />
-					<TextBlock x:ConnectionId='7' Text="Tên tài khoản"
+					<Button x:ConnectionId='7' Content="chọn file"
+							RelativePanel.Below="userAva"
+							Name="buttonAddFile"
+							Margin="0,10,0,10"
+							                     />
+					<TextBlock x:ConnectionId='8' Text="Tên tài khoản"
 							   Style="{StaticResource TextBlockField}"
 							   Name="textBlockAccount"
 							   Width="150" />
-					<TextBox x:ConnectionId='8' Name="textBoxAccount"
+					<TextBox x:ConnectionId='9' Name="textBoxAccount"
 							 Width="300"
 							 IsEnabled="False"
 							 Style="{StaticResource TextBoxField}" />
-					<TextBlock x:ConnectionId='9' Text="Tên đầy đủ"
+					<TextBlock x:ConnectionId='10' Text="Tên đầy đủ"
 							   Name="textBlockFullName"
 							   Style="{StaticResource TextBlockField}"
 							   Width="150" />
-					<TextBox x:ConnectionId='10' Name="textBoxFullName"
+					<TextBox x:ConnectionId='11' Name="textBoxFullName"
 							 Width="300"
 							 Style="{StaticResource TextBoxField}" />
-					<TextBlock x:ConnectionId='11' Text="Email"
+					<TextBlock x:ConnectionId='12' Text="Email"
 							   Name="textBlockEmail"
 							   Style="{StaticResource TextBlockField}"
 							   Width="150" />
-					<TextBox x:ConnectionId='12' Name="textBoxEmail"
+					<TextBox x:ConnectionId='13' Name="textBoxEmail"
 							 Width="300"
 							 Style="{StaticResource TextBoxField}" />
-					<TextBlock x:ConnectionId='13' Text="Địa chỉ"
+					<TextBlock x:ConnectionId='14' Text="Địa chỉ"
 							   Name="textBlockAddress"
 							   Style="{StaticResource TextBlockField}"
 							   Width="150" />
-					<ComboBox x:ConnectionId='14' Name="comboCity"
+					<ComboBox x:ConnectionId='15' Name="comboCity"
 							  Width="170"
 							  DisplayMemberPath="cityName"
 							                                               
 							  SelectedValuePath="cityId"
 							  SelectedValue="{Binding cityId}"
 							  Margin="0,10,0,10" />
-					<ComboBox x:ConnectionId='15' Name="comboDistrict"
+					<ComboBox x:ConnectionId='16' Name="comboDistrict"
 							  Width="130"
 							  DisplayMemberPath="districtName"
 							  SelectedValuePath="districtId"
 							  Margin="0,10,0,10" />
-					<TextBox x:ConnectionId='16' Name="textBoxAddress"
+					<TextBox x:ConnectionId='17' Name="textBoxAddress"
 							 Width="300"
 							 Style="{StaticResource TextBoxField}" />
-					<Button x:ConnectionId='17' Content="Đổi mật khẩu"
+					<Button x:ConnectionId='18' Content="Đổi mật khẩu"
 							Height="40"
 							Style="{StaticResource ChangePass}"
 							Name="buttonChangePass"
 							Width="150" />
-					<Button x:ConnectionId='18' Content="Lưu thay đổi"
+					<Button x:ConnectionId='19' Content="Lưu thay đổi"
 							Style="{StaticResource Save}"
 							                 
 							Name="buttonSave" />

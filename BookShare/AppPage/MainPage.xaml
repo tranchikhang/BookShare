@@ -47,40 +47,7 @@
 				</StackPanel>
 			</SplitView.Pane>
 			<SplitView.Content>
-				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="51" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
-					<Grid Grid.Row="0"
-						  Margin="10,0,10,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="300" />
-							<ColumnDefinition Width="59" />
-							<ColumnDefinition Width="*" />
-						</Grid.ColumnDefinitions>
-						<TextBox Name="SearchBox"
-								 Height="49"
-								 Padding="10,10,0,0"
-								 VerticalAlignment="Center"
-								 Text="Nhập nội dung tìm kiếm"
-								 GotFocus="SearchBox_GotFocus"
-								 Grid.Column="0" />
-						<Button Name="Search"
-								Grid.Column="1"
-								Width="49"
-								Click="SearchClick"
-								Height="49"
-								Margin="10,0,0,0"
-								Foreground="{StaticResource AccentColor}"
-								Background="{StaticResource BackgroundColor}"
-								FontFamily="Segoe MDL2 Assets"
-								Content="&#59166;" />
-					</Grid>
-					<Frame Margin="10"
-						   Name="mainFrame"
-						   Grid.Row="1" />
-				</Grid>
+				<Frame Name="mainFrame" />
 			</SplitView.Content>
 		</SplitView>
 		<VisualStateManager.VisualStateGroups>

@@ -47,45 +47,12 @@
 				</StackPanel>
 			</SplitView.Pane>
 			<SplitView.Content>
-				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="51" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
-					<Grid Grid.Row="0"
-						  Margin="10,0,10,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="300" />
-							<ColumnDefinition Width="59" />
-							<ColumnDefinition Width="*" />
-						</Grid.ColumnDefinitions>
-						<TextBox x:ConnectionId='8' Name="SearchBox"
-								 Height="49"
-								 Padding="10,10,0,0"
-								 VerticalAlignment="Center"
-								 Text="Nhập nội dung tìm kiếm"
-								                              
-								 Grid.Column="0" />
-						<Button x:ConnectionId='9' Name="Search"
-								Grid.Column="1"
-								Width="49"
-								                   
-								Height="49"
-								Margin="10,0,0,0"
-								Foreground="{StaticResource AccentColor}"
-								Background="{StaticResource BackgroundColor}"
-								FontFamily="Segoe MDL2 Assets"
-								Content="&#59166;" />
-					</Grid>
-					<Frame x:ConnectionId='7' Margin="10"
-						   Name="mainFrame"
-						   Grid.Row="1" />
-				</Grid>
+				<Frame x:ConnectionId='7' Name="mainFrame" />
 			</SplitView.Content>
 		</SplitView>
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
-				<VisualState x:ConnectionId='10' x:Name="WideState">
+				<VisualState x:ConnectionId='8' x:Name="WideState">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="900" />
 					</VisualState.StateTriggers>
@@ -95,7 +62,7 @@
 					</VisualState.Setters>
 				</VisualState>
 
-				<VisualState x:ConnectionId='11' x:Name="NarrowState">
+				<VisualState x:ConnectionId='9' x:Name="NarrowState">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="0" />
 					</VisualState.StateTriggers>

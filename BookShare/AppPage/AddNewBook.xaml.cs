@@ -63,22 +63,7 @@ namespace BookShare.AppPage
 			comboBoxGenre.ItemsSource = l;
 		}
 
-		private async Task<string> StorageFileToBase64 ( StorageFile file )
-		{
-			string Base64String = "";
-
-			if ( file != null )
-			{
-				IRandomAccessStream fileStream = await file.OpenAsync ( FileAccessMode.Read );
-				var reader = new DataReader ( fileStream.GetInputStreamAt ( 0 ) );
-				await reader.LoadAsync ( ( uint ) fileStream.Size );
-				byte[] byteArray = new byte[fileStream.Size];
-				reader.ReadBytes ( byteArray );
-				Base64String = Convert.ToBase64String ( byteArray );
-			}
-
-			return Base64String;
-		}
+		
 
 		private async void AddFileClick ( object sender , RoutedEventArgs e )
 		{
@@ -106,7 +91,7 @@ namespace BookShare.AppPage
 				&& suggestAuthor.Text != "" && comboYear.SelectedValue != null )
 			{
 				//send request
-				string imageString = await StorageFileToBase64 ( file );
+				string imageString = await ImageUpload.StorageFileToBase64 ( file );
 				dynamic sendJson = new
 				{
 					title = textBoxTitle.Text ,

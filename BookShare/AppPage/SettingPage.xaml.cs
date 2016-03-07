@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Windows.Storage;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -30,12 +31,13 @@ namespace BookShare.AppPage
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
 			mes = new MessageDialog ( "" );
-			
+			isAvaChanged = false;
 		}
 
 		private ObservableCollection<District> district;
 		private ObservableCollection<City> city;
 		private User user;
+		private bool isAvaChanged;
 		MessageDialog mes;
 
 		private void DisplayUserInfo ()
@@ -44,7 +46,7 @@ namespace BookShare.AppPage
 			textBoxEmail.Text = user.email;
 			textBoxFullName.Text = ( user.fullname == null ) ? "" : user.fullname;
 			textBoxAddress.Text = ( user.address == null ) ? "" : user.address;
-
+			userAva.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage ( new System.Uri ( user.ava ) );
 			//check if user city is null
 			if ( user.cityId != null )
 			{
@@ -60,7 +62,7 @@ namespace BookShare.AppPage
 				object d = district.First ( o => o.districtId == user.districtId );
 				comboDistrict.SelectedItem = d;
 			}
-			
+
 			progressBar.Visibility = Visibility.Collapsed;
 			relativePanel.Visibility = Visibility.Visible;
 		}
@@ -73,15 +75,24 @@ namespace BookShare.AppPage
 			if ( status == "200" )
 			{
 				//deserialize user
-				user = new User
-				{
-					account = json.user.account ,
-					email = json.user.email ,
-					fullname = json.user.fullname ,
-					address = json.user.address ,
-					districtId = json.user.districtId ,
-					cityId = json.user.cityId ,
-				};
+				//user = new User
+				//{
+				//	account = json.user.account ,
+				//	email = json.user.email ,
+				//	fullname = ( json.user.fullname != null ) ? json.user.fullname : "" ,
+				//	address = ( json.user.address != null ) ? json.user.address : "" ,
+				//	districtId = ( json.user.districtId != null ) ? json.user.districtId : "" ,
+				//	cityId = ( json.user.cityId != null ) ? json.user.cityId : "" ,
+				//	ava = ( json.user.ava != null ) ? json.user.ava : user.defaultAva
+				//};
+				user = new User ();
+				user.account = json.user.account;
+				user.email = json.user.email;
+				user.fullname = ( json.user.fullname != null ) ? json.user.fullname : "";
+				user.address = ( json.user.address != null ) ? json.user.address : "";
+				user.districtId = ( json.user.districtId != null ) ? json.user.districtId : "";
+				user.cityId = ( json.user.cityId != null ) ? json.user.cityId : "";
+				user.ava = ( json.user.ava != null ) ? json.user.ava : user.defaultAva;
 				//deserialize all location into list
 				district = new ObservableCollection<District> ();
 
@@ -126,6 +137,7 @@ namespace BookShare.AppPage
 			else
 			{
 				UpdateLocalInfo ();
+				string imageString = await ImageUpload.StorageFileToBase64 ( file );
 				dynamic newUser = new
 				{
 					userId = UserData.id ,
@@ -137,7 +149,7 @@ namespace BookShare.AppPage
 				string result = await RestAPI.SendJson ( newUser , RestAPI.phpAddress , "SetAccountInfo" );
 				//show new value
 				DisplayUserInfo ();
-				CustomNotification.ShowNotification("Cập nhật thành công");
+				CustomNotification.ShowNotification ( "Cập nhật thành công" );
 				ToastNotificationManager.History.Clear ();
 			}
 		}
@@ -147,7 +159,7 @@ namespace BookShare.AppPage
 			user.email = textBoxEmail.Text;
 			user.fullname = textBoxFullName.Text;
 			user.address = textBoxAddress.Text;
-			user.districtId = comboDistrict.SelectedValue.ToString();
+			user.districtId = comboDistrict.SelectedValue.ToString ();
 			user.cityId = comboCity.SelectedValue.ToString ();
 		}
 
@@ -158,6 +170,19 @@ namespace BookShare.AppPage
 				comboDistrict.ItemsSource =
 				district.Where ( o => o.cityId == comboCity.SelectedValue.ToString () );
 			}
+		}
+
+		private StorageFile file;
+
+		private async void AddFileClick ( object sender , RoutedEventArgs e )
+		{
+
+			var picker = new Windows.Storage.Pickers.FileOpenPicker ();
+			picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+			picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+			picker.FileTypeFilter.Add ( ".jpg" );
+
+			file = await picker.PickSingleFileAsync ();
 		}
 	}
 }

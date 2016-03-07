@@ -68,7 +68,8 @@
 		<Setter Property="Foreground"
 				Value="{StaticResource TextColor}" />
 	</Style>
-	<Style TargetType="TextBox" x:Key="TextBoxField">
+	<Style TargetType="TextBox"
+		   x:Key="TextBoxField">
 		<Setter Property="FontFamily"
 				Value="Segoe UI" />
 		<Setter Property="FontSize"
@@ -120,5 +121,5 @@
 		<Setter Property="VerticalScrollBarVisibility"
 				Value="Hidden" />
 	</Style>
-	
+
 </ResourceDictionary>

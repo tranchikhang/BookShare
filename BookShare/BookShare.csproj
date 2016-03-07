@@ -131,7 +131,11 @@
     <Compile Include="AppPage\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppPage\UserInfo.xaml.cs">
+      <DependentUpon>UserInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helper\CustomNotification.cs" />
+    <Compile Include="Helper\ImageUpload.cs" />
     <Compile Include="Helper\RegexUtilities.cs" />
     <Compile Include="Helper\RestAPI.cs" />
     <Compile Include="Helper\WindowResize.cs" />
@@ -146,6 +150,7 @@
     <Compile Include="Model\Post.cs" />
     <Compile Include="Model\PostedBook.cs" />
     <Compile Include="Model\Request.cs" />
+    <Compile Include="Model\RequestNotification.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\UserData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -215,9 +220,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AppPage\UserInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\BookInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Resources\BookShelf.xaml">
       <SubType>Designer</SubType>
@@ -234,6 +248,11 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <Page Include="Resources\Greeting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="Resources\LightTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -245,6 +264,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Resources\SaveButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Resources\UserInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

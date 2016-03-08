@@ -159,6 +159,7 @@
 							   Width="150" />
 					<TextBox Name="textBoxAccount"
 							 Width="300"
+							 Text="{Binding account}"
 							 IsEnabled="False"
 							 Style="{StaticResource TextBoxField}" />
 					<TextBlock Text="Tên đầy đủ"
@@ -167,6 +168,7 @@
 							   Width="150" />
 					<TextBox Name="textBoxFullName"
 							 Width="300"
+							 Text="{Binding fullname}"
 							 Style="{StaticResource TextBoxField}" />
 					<TextBlock Text="Email"
 							   Name="textBlockEmail"
@@ -174,6 +176,7 @@
 							   Width="150" />
 					<TextBox Name="textBoxEmail"
 							 Width="300"
+							 Text="{Binding email}"
 							 Style="{StaticResource TextBoxField}" />
 					<TextBlock Text="Địa chỉ"
 							   Name="textBlockAddress"
@@ -193,6 +196,7 @@
 							  Margin="0,10,0,10" />
 					<TextBox Name="textBoxAddress"
 							 Width="300"
+							 Text="{Binding address}"
 							 Style="{StaticResource TextBoxField}" />
 					<Button Content="Đổi mật khẩu"
 							Height="40"

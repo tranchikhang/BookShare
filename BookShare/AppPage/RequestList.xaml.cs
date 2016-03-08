@@ -58,13 +58,14 @@ namespace BookShare.AppPage
 			string r1 = await GetPostedBooks ();
 			string r2 = await GetSentRequests ();
 			string r3 = await GetRequestNotifications ();
-			if ( r1 == "OK" )
+			if ( r1 != null && r2 != null && r3 != null )
 			{
 				//hide progress bar
 				progressBar.Visibility = Visibility.Collapsed;
 			}
 			else
 			{
+				progressBar.Visibility = Visibility.Collapsed;
 				CustomNotification.ShowDialogMessage ();
 			}
 		}
@@ -139,6 +140,10 @@ namespace BookShare.AppPage
 				listViewBook2.ItemsSource = bookUserRequested;
 				return "OK";
 			}
+			else if ( status == "204" )
+			{
+				return "Empty";
+			}
 			else
 			{
 				return "";
@@ -188,6 +193,10 @@ namespace BookShare.AppPage
 				}
 				listViewBook.ItemsSource = bookUserPosted;
 				return "OK";
+			}
+			else if ( status == "204" )
+			{
+				return "Empty";
 			}
 			else
 			{

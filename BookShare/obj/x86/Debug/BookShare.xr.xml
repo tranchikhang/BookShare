@@ -28,12 +28,12 @@
     <RootPropertyPathName Name="cityId" />
     <RootPropertyPathName Name="districtName" />
     <RootPropertyPathName Name="districtId" />
+    <RootPropertyPathName Name="email" />
+    <RootPropertyPathName Name="fullname" />
     <RootPropertyPathName Name="book" />
     <RootPropertyPathName Name="bookid" />
     <RootPropertyPathName Name="id" />
     <RootPropertyPathName Name="fullAddress" />
-    <RootPropertyPathName Name="email" />
-    <RootPropertyPathName Name="fullname" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
     <RootType FullName="Windows.UI.Xaml.Application">
@@ -124,8 +124,8 @@
       <RootProperty Name="Style" />
       <RootProperty Name="PlaceholderText" />
       <RootProperty Name="FontSize" />
-      <RootProperty Name="FontFamily" />
       <RootProperty Name="Margin" />
+      <RootProperty Name="FontFamily" />
       <RootProperty Name="TextAlignment" />
       <RootEvent Name="GotFocus" />
     </RootType>
@@ -264,6 +264,8 @@
       <RootProperty Name="Name" />
     </RootType>
     <RootType FullName="BookShare.AppPage.MainPage" />
+    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
+    <RootType FullName="BookShare.AppPage.MessagePage" />
     <RootType FullName="Windows.UI.Xaml.Controls.CheckBox">
       <RootProperty Name="Name" />
       <RootProperty Name="IsChecked" />
@@ -288,7 +290,6 @@
     <RootType FullName="BookShare.AppPage.SettingPage" />
     <RootType FullName="BookShare.AppPage.StartPage" />
     <RootType FullName="BookShare.AppPage.SearchPage" />
-    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="BookShare.AppPage.UserInfo" />
     <RootType FullName="BookShare.MainPage" />
     <RootType FullName="Windows.UI.Xaml.Media.SolidColorBrush">

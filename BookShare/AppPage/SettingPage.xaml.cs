@@ -1,7 +1,9 @@
 ﻿using BookShare.Helper;
 using BookShare.Model;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.Storage;
@@ -31,22 +33,17 @@ namespace BookShare.AppPage
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
 			mes = new MessageDialog ( "" );
-			isAvaChanged = false;
 		}
 
 		private ObservableCollection<District> district;
 		private ObservableCollection<City> city;
 		private User user;
-		private bool isAvaChanged;
 		MessageDialog mes;
 
 		private void DisplayUserInfo ()
 		{
-			textBoxAccount.Text = user.account;
-			textBoxEmail.Text = user.email;
-			textBoxFullName.Text = ( user.fullname == null ) ? "" : user.fullname;
-			textBoxAddress.Text = ( user.address == null ) ? "" : user.address;
-			userAva.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage ( new System.Uri ( user.ava ) );
+			this.DataContext = user;
+			userAva.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage ( new Uri ( user.ava ) );
 			//check if user city is null
 			if ( user.cityId != null )
 			{
@@ -62,68 +59,33 @@ namespace BookShare.AppPage
 				object d = district.First ( o => o.districtId == user.districtId );
 				comboDistrict.SelectedItem = d;
 			}
-
-			progressBar.Visibility = Visibility.Collapsed;
-			relativePanel.Visibility = Visibility.Visible;
 		}
 
 		private async void GetUserInfo ()
 		{
 			string sendResult = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetAccountInfo" );
-			dynamic json = JObject.Parse ( sendResult );
-			string status = json.status;
-			if ( status == "200" )
+			try
 			{
-				//deserialize user
-				//user = new User
-				//{
-				//	account = json.user.account ,
-				//	email = json.user.email ,
-				//	fullname = ( json.user.fullname != null ) ? json.user.fullname : "" ,
-				//	address = ( json.user.address != null ) ? json.user.address : "" ,
-				//	districtId = ( json.user.districtId != null ) ? json.user.districtId : "" ,
-				//	cityId = ( json.user.cityId != null ) ? json.user.cityId : "" ,
-				//	ava = ( json.user.ava != null ) ? json.user.ava : user.defaultAva
-				//};
-				user = new User ();
-				user.account = json.user.account;
-				user.email = json.user.email;
-				user.fullname = ( json.user.fullname != null ) ? json.user.fullname : "";
-				user.address = ( json.user.address != null ) ? json.user.address : "";
-				user.districtId = ( json.user.districtId != null ) ? json.user.districtId : "";
-				user.cityId = ( json.user.cityId != null ) ? json.user.cityId : "";
-				user.ava = ( json.user.ava != null ) ? json.user.ava : user.defaultAva;
+				string data = JsonHelper.DecodeJson ( sendResult );
+				Dictionary<string , object> d = JsonConvert.DeserializeObject<Dictionary<string , object>> ( data );
+				user = JsonHelper.ConvertToUser ( d["user"].ToString () );
+				user.id = UserData.id;
+				user.SetAva ();
+
 				//deserialize all location into list
-				district = new ObservableCollection<District> ();
-
-
-				for ( int i = 0 ; i < json.allDistrict.Count ; i++ )
-				{
-					district.Add ( new District
-					{
-						districtId = json.allDistrict[i].districtId ,
-						districtName = json.allDistrict[i].districtName ,
-						cityId = json.allDistrict[i].cityId
-					} );
-				}
-
-				city = new ObservableCollection<City> ();
-				for ( int i = 0 ; i < json.allCity.Count ; i++ )
-				{
-					city.Add ( new City
-					{
-						cityId = json.allCity[i].cityId ,
-						cityName = json.allCity[i].cityName
-					} );
-				}
+				district = JsonHelper.ConvertToDistricts ( d["allDistrict"].ToString () );
+				city = JsonHelper.ConvertToCities ( d["allCity"].ToString () );
 
 				comboCity.ItemsSource = city;
 				comboDistrict.ItemsSource = district;
 				DisplayUserInfo ();
+
+				progressBar.Visibility = Visibility.Collapsed;
+				relativePanel.Visibility = Visibility.Visible;
 			}
-			else
+			catch ( Exception ex )
 			{
-				CustomNotification.ShowNotification ( "loi" );
+				CustomNotification.ShowDialogMessage ( content: ex.Message );
 			}
 		}
 
@@ -137,7 +99,11 @@ namespace BookShare.AppPage
 			else
 			{
 				UpdateLocalInfo ();
-				string imageString = await ImageUpload.StorageFileToBase64 ( file );
+				string imageString = "";
+				if ( file != null )
+					imageString = await ImageUpload.StorageFileToBase64 ( file );
+				else
+					imageString = "";
 				dynamic newUser = new
 				{
 					userId = UserData.id ,
@@ -145,6 +111,7 @@ namespace BookShare.AppPage
 					fullname = textBoxFullName.Text ,
 					address = textBoxAddress.Text ,
 					districtId = comboDistrict.SelectedValue ,
+					ava = imageString
 				};
 				string result = await RestAPI.SendJson ( newUser , RestAPI.phpAddress , "SetAccountInfo" );
 				//show new value

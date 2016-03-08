@@ -41,6 +41,10 @@
 								 Checked="RequestListClick"
 								 Content="Yêu cầu" />
 					<RadioButton Style="{StaticResource NavRadioButtonStyle}"
+								 Tag="&#xE8BD;"
+								 Checked="MessageListClick"
+								 Content="Tin nhắn" />
+					<RadioButton Style="{StaticResource NavRadioButtonStyle}"
 								 Tag="&#xE713;"
 								 Checked="SettingClick"
 								 Content="Cài đặt" />

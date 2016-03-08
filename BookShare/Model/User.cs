@@ -11,6 +11,7 @@ namespace BookShare.Model
 	[JsonObject ( MemberSerialization.OptIn )]
 	class User
 	{
+		[JsonProperty]
 		public string id { get; set; }
 
 		[JsonProperty]
@@ -22,10 +23,10 @@ namespace BookShare.Model
 		[JsonProperty]
 		public string fullname { get; set; }
 
-		public string fullAddress { get; set; }
-
 		[JsonProperty]
 		public string address { get; set; }
+
+		public string fullAddress { get; set; }
 
 		[JsonProperty]
 		public string districtId { get; set; }
@@ -42,6 +43,22 @@ namespace BookShare.Model
 		[JsonProperty]
 		public string ava { get; set; }
 
-		public string defaultAva = RestAPI.serverAddress + "resources/images/defaultAva.png";
+		[JsonProperty]
+		public bool isAvaExist { get; set; }
+
+		public User ()
+		{
+			//
+		}
+
+		public void SetAva ()
+		{
+			if ( isAvaExist )
+			{
+				ava = RestAPI.serverAddress + "resources/images/users/" + id + ".jpg";
+			}
+			else
+				ava = RestAPI.serverAddress + "resources/images/defaultAva.png";
+		}
 	}
 }

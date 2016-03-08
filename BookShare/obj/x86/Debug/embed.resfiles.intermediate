@@ -5,6 +5,7 @@ AppPage\BookShelf.xbf
 AppPage\GreetingPage.xbf
 AppPage\Login.xbf
 AppPage\MainPage.xbf
+AppPage\MessagePage.xbf
 AppPage\Register.xbf
 AppPage\RequestList.xbf
 AppPage\SearchPage.xbf
@@ -18,6 +19,7 @@ Resources\ChangePassButton.xbf
 Resources\CustomRadioButton.xbf
 Resources\Greeting.xbf
 Resources\LightTheme.xbf
+Resources\MessagePage.xbf
 Resources\RequestList.xbf
 Resources\SaveButton.xbf
 Resources\UserInfo.xbf

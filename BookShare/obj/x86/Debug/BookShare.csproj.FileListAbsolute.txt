@@ -282,3 +282,11 @@ D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\UserInfo.xaml
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\UserInfo.xaml
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\UserInfo.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\UserInfo.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\AppPage\MessagePage.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\MessagePage.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\MessagePage.g.i.cs
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\MessagePage.g.cs
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\MessagePage.xaml
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\MessagePage.xaml
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\MessagePage.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\MessagePage.xbf

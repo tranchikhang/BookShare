@@ -41,18 +41,22 @@
 								                           
 								 Content="Yêu cầu" />
 					<RadioButton x:ConnectionId='6' Style="{StaticResource NavRadioButtonStyle}"
+								 Tag="&#xE8BD;"
+								                           
+								 Content="Tin nhắn" />
+					<RadioButton x:ConnectionId='7' Style="{StaticResource NavRadioButtonStyle}"
 								 Tag="&#xE713;"
 								                       
 								 Content="Cài đặt" />
 				</StackPanel>
 			</SplitView.Pane>
 			<SplitView.Content>
-				<Frame x:ConnectionId='7' Name="mainFrame" />
+				<Frame x:ConnectionId='8' Name="mainFrame" />
 			</SplitView.Content>
 		</SplitView>
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
-				<VisualState x:ConnectionId='8' x:Name="WideState">
+				<VisualState x:ConnectionId='9' x:Name="WideState">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="900" />
 					</VisualState.StateTriggers>
@@ -62,7 +66,7 @@
 					</VisualState.Setters>
 				</VisualState>
 
-				<VisualState x:ConnectionId='9' x:Name="NarrowState">
+				<VisualState x:ConnectionId='10' x:Name="NarrowState">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="0" />
 					</VisualState.StateTriggers>

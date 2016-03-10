@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Roots >
+  <Roots.Interfaces>
+    <RootInterface FullName="Windows.UI.Xaml.Data.IValueConverter" />
+  </Roots.Interfaces>
   <Roots.PropertyPathNames>
     <RootPropertyPathName Name="authorName" />
     <RootPropertyPathName Name="gid" />
@@ -17,9 +20,12 @@
     <RootPropertyPathName Name="image" />
     <RootPropertyPathName Name="numberShared" />
     <RootPropertyPathName Name="bookId" />
+    <RootPropertyPathName Name="isNewMessage" />
+    <RootPropertyPathName Name="lastMessage" />
+    <RootPropertyPathName Name="userAccount" />
+    <RootPropertyPathName Name="ava" />
     <RootPropertyPathName Name="requestId" />
     <RootPropertyPathName Name="content" />
-    <RootPropertyPathName Name="userAccount" />
     <RootPropertyPathName Name="postUserAccount" />
     <RootPropertyPathName Name="postUserAva" />
     <RootPropertyPathName Name="requestUserAccount" />
@@ -38,7 +44,9 @@
   <Roots.RootTypes>
     <RootType FullName="Windows.UI.Xaml.Application">
       <RootProperty Name="RequestedTheme" />
+      <RootProperty Name="Resources" />
     </RootType>
+    <RootType FullName="BookShare.Helper.BoolToFontWeightConverter" />
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
       <RootProperty Name="Resources" />
       <RootProperty Name="Content" />
@@ -102,6 +110,7 @@
       <RootProperty Name="FontFamily" />
       <RootProperty Name="Foreground" />
       <RootProperty Name="TextAlignment" />
+      <RootProperty Name="FontWeight" />
       <RootProperty Name="FontStyle" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="TextWrapping" />
@@ -165,6 +174,7 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Data.Binding">
       <RootProperty Name="TargetNullValue" />
+      <RootProperty Name="Converter" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.VisualStateGroup">
       <RootProperty Name="States" />
@@ -264,7 +274,6 @@
       <RootProperty Name="Name" />
     </RootType>
     <RootType FullName="BookShare.AppPage.MainPage" />
-    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="BookShare.AppPage.MessagePage" />
     <RootType FullName="Windows.UI.Xaml.Controls.CheckBox">
       <RootProperty Name="Name" />
@@ -290,6 +299,7 @@
     <RootType FullName="BookShare.AppPage.SettingPage" />
     <RootType FullName="BookShare.AppPage.StartPage" />
     <RootType FullName="BookShare.AppPage.SearchPage" />
+    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="BookShare.AppPage.UserInfo" />
     <RootType FullName="BookShare.MainPage" />
     <RootType FullName="Windows.UI.Xaml.Media.SolidColorBrush">

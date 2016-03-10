@@ -137,6 +137,7 @@
     <Compile Include="AppPage\UserInfo.xaml.cs">
       <DependentUpon>UserInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helper\BoolToFontWeightConverter.cs" />
     <Compile Include="Helper\CustomNotification.cs" />
     <Compile Include="Helper\ImageUpload.cs" />
     <Compile Include="Helper\JsonHelper.cs" />
@@ -150,7 +151,9 @@
     <Compile Include="Model\Author.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\City.cs" />
+    <Compile Include="Model\Conversation.cs" />
     <Compile Include="Model\District.cs" />
+    <Compile Include="Model\Message.cs" />
     <Compile Include="Model\Post.cs" />
     <Compile Include="Model\PostedBook.cs" />
     <Compile Include="Model\Request.cs" />

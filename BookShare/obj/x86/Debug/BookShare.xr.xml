@@ -20,12 +20,15 @@
     <RootPropertyPathName Name="image" />
     <RootPropertyPathName Name="numberShared" />
     <RootPropertyPathName Name="bookId" />
-    <RootPropertyPathName Name="isNewMessage" />
-    <RootPropertyPathName Name="lastMessage" />
-    <RootPropertyPathName Name="userAccount" />
-    <RootPropertyPathName Name="ava" />
-    <RootPropertyPathName Name="requestId" />
+    <RootPropertyPathName Name="Visibility" />
+    <RootPropertyPathName Name="userId" />
+    <RootPropertyPathName Name="isSender" />
     <RootPropertyPathName Name="content" />
+    <RootPropertyPathName Name="datetime" />
+    <RootPropertyPathName Name="lastMessage" />
+    <RootPropertyPathName Name="isNewMessage" />
+    <RootPropertyPathName Name="userAccount" />
+    <RootPropertyPathName Name="requestId" />
     <RootPropertyPathName Name="postUserAccount" />
     <RootPropertyPathName Name="postUserAva" />
     <RootPropertyPathName Name="requestUserAccount" />
@@ -46,7 +49,10 @@
       <RootProperty Name="RequestedTheme" />
       <RootProperty Name="Resources" />
     </RootType>
-    <RootType FullName="BookShare.Helper.BoolToFontWeightConverter" />
+    <RootType FullName="BookShare.Helper.Converter.BoolToFontWeightConverter" />
+    <RootType FullName="BookShare.Helper.Converter.BoolToPositionConverter" />
+    <RootType FullName="BookShare.Helper.Converter.BoolToColorConverter" />
+    <RootType FullName="BookShare.Helper.Converter.NewMessageColorConverter" />
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
       <RootProperty Name="Resources" />
       <RootProperty Name="Content" />
@@ -62,9 +68,12 @@
       <RootProperty Name="RowDefinitions" />
       <RootProperty Name="Margin" />
       <RootProperty Name="Padding" />
-      <RootProperty Name="Tag" />
-      <RootProperty Name="Width" />
       <RootProperty Name="Name" />
+      <RootProperty Name="Visibility" />
+      <RootProperty Name="Tag" />
+      <RootProperty Name="BorderBrush" />
+      <RootProperty Name="BorderThickness" />
+      <RootProperty Name="Width" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
       <RootEvent Name="Tapped" />
@@ -110,7 +119,7 @@
       <RootProperty Name="FontFamily" />
       <RootProperty Name="Foreground" />
       <RootProperty Name="TextAlignment" />
-      <RootProperty Name="FontWeight" />
+      <RootProperty Name="Padding" />
       <RootProperty Name="FontStyle" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="TextWrapping" />
@@ -119,6 +128,7 @@
       <RootProperty Name="Width" />
       <RootProperty Name="Margin" />
       <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="FontWeight" />
       <RootEvent Name="Tapped" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
@@ -128,9 +138,9 @@
       <RootProperty Name="Padding" />
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Text" />
+      <RootProperty Name="Style" />
       <RootProperty Name="Width" />
       <RootProperty Name="IsEnabled" />
-      <RootProperty Name="Style" />
       <RootProperty Name="PlaceholderText" />
       <RootProperty Name="FontSize" />
       <RootProperty Name="Margin" />
@@ -168,12 +178,15 @@
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="FontSize" />
       <RootEvent Name="Click" />
+      <RootEvent Name="Tapped" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.DataTemplate">
       <RootProperty Name="Template" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Data.Binding">
       <RootProperty Name="TargetNullValue" />
+      <RootProperty Name="ElementName" />
+      <RootProperty Name="Path" />
       <RootProperty Name="Converter" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.VisualStateGroup">
@@ -213,13 +226,13 @@
     <RootType FullName="Windows.UI.Xaml.Controls.ListViewItem" />
     <RootType FullName="Windows.UI.Xaml.Controls.Control">
       <RootProperty Name="HorizontalContentAlignment" />
+      <RootProperty Name="Padding" />
       <RootProperty Name="FontFamily" />
       <RootProperty Name="FontSize" />
       <RootProperty Name="Foreground" />
       <RootProperty Name="Background" />
       <RootProperty Name="BorderBrush" />
       <RootProperty Name="BorderThickness" />
-      <RootProperty Name="Padding" />
       <RootProperty Name="VerticalContentAlignment" />
       <RootProperty Name="Template" />
     </RootType>

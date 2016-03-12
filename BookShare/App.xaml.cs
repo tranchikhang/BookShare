@@ -77,7 +77,7 @@ namespace BookShare
 				Window.Current.Content = rootFrame;
 
 				//register event handler for backbutton
-				SystemNavigationManager.GetForCurrentView ().BackRequested += App_BackRequested;
+				//SystemNavigationManager.GetForCurrentView ().BackRequested += App_BackRequested;
 
 			}
 

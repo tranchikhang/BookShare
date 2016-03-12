@@ -3,8 +3,11 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:local="using:BookShare"
 			 RequestedTheme="Light"
-			 xmlns:converter="using:BookShare.Helper">
+			 xmlns:converter="using:BookShare.Helper.Converter">
 	<Application.Resources>
-		<converter:BoolToFontWeightConverter x:Key="convert" />
+		<converter:BoolToFontWeightConverter x:Key="ConvertFontWeight" />
+		<converter:BoolToPositionConverter x:Key="ConvertPosition" />
+		<converter:BoolToColorConverter x:Key="ConvertMessageColor" />
+		<converter:NewMessageColorConverter x:Key="NewMessageColorConverter" />
 	</Application.Resources>
 </Application>

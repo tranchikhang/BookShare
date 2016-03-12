@@ -137,7 +137,11 @@
     <Compile Include="AppPage\UserInfo.xaml.cs">
       <DependentUpon>UserInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helper\BoolToFontWeightConverter.cs" />
+    <Compile Include="Helper\Converter\BoolToColorConverter.cs" />
+    <Compile Include="Helper\Converter\BoolToFontWeightConverter.cs" />
+    <Compile Include="Helper\Converter\BoolToPositionConverter.cs" />
+    <Compile Include="Helper\ControlMethods.cs" />
+    <Compile Include="Helper\Converter\NewMessageColorConverter.cs" />
     <Compile Include="Helper\CustomNotification.cs" />
     <Compile Include="Helper\ImageUpload.cs" />
     <Compile Include="Helper\JsonHelper.cs" />

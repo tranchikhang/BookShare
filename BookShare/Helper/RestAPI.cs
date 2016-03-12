@@ -13,7 +13,8 @@ namespace BookShare.Helper
 		public static string phpAddress = serverAddress + "api/v1/main.php";
 		private static HttpClient httpClient;
 		private static HttpResponseMessage response;
-		static public async Task<string> SendJson(object data , string address , string key)
+		public enum ResponseStatus { OK, Empty, Failed };
+		static public async Task<string> SendJson ( object data , string address , string key )
 		{
 			string json = JsonConvert.SerializeObject ( data );
 			//string tokenJson = JsonConvert.SerializeObject ( UserData.token );
@@ -44,7 +45,7 @@ namespace BookShare.Helper
 				response.EnsureSuccessStatusCode ();
 				responseText = await response.Content.ReadAsStringAsync ();
 			}
-			catch (Exception ex)
+			catch ( Exception ex )
 			{
 				// Need to convert int HResult to hex string
 				responseText = "Error = " + ex.HResult.ToString ( "X" ) + "  Message: " + ex.Message;

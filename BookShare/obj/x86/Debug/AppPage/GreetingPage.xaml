@@ -21,28 +21,20 @@
 			  Margin="10,0,10,0">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="300" />
-				<ColumnDefinition Width="59" />
+				<ColumnDefinition Width="49" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 			<TextBox x:ConnectionId='3' Name="SearchBox"
-					 Height="49"
-					 Padding="10,10,0,0"
-					 VerticalAlignment="Center"
-					 Text="Nhập nội dung tìm kiếm"
-					                              
+					 Style="{StaticResource TextBoxSearch}"
+					 PlaceholderText="Nhập nội dung tìm kiếm"
 					 Grid.Column="0" />
 			<Button x:ConnectionId='4' Name="Search"
+					Style="{StaticResource ButtonSearch}"
 					Grid.Column="1"
-					Width="49"
 					                   
-					Height="49"
-					Margin="10,0,0,0"
-					Foreground="{StaticResource AccentColor}"
-					Background="{StaticResource BackgroundColor}"
-					FontFamily="Segoe MDL2 Assets"
 					Content="&#59166;" />
 		</Grid>
-		<ListView x:ConnectionId='1' Margin="0,10,0,0"
+		<ListView x:ConnectionId='1' Margin="0,5,0,0"
 				  Grid.Row="1"
 				  Name="listViewBooks">
 			<ListView.ItemContainerStyle>
@@ -72,7 +64,7 @@
 							<TextBlock x:ConnectionId='2' Text="{Binding title}"
 									   FontSize="26"
 									                       
-									   Tag="{Binding bookId}" />
+									   Tag="{Binding id}" />
 							<TextBlock Text="{Binding author}"
 									   FontSize="22" />
 							<Grid>

@@ -12,14 +12,6 @@ namespace BookShare.Helper
 {
 	class JsonHelper
 	{
-		public static string IsSucceed ( string r )
-		{
-			dynamic json = JObject.Parse ( r );
-			string status = json.status;
-			if ( status == "200" )
-				return json;
-			else return "";
-		}
 		public static RestAPI.ResponseStatus IsRequestSucceed ( string r )
 		{
 			try
@@ -44,18 +36,33 @@ namespace BookShare.Helper
 		public static string DecodeJson ( string r )
 		{
 			Dictionary<string , string> dict = JsonConvert.DeserializeObject<Dictionary<string , string>> ( r );
-			if ( IsRequestSucceed ( r ) == RestAPI.ResponseStatus.OK )
-			{
-				return dict["data"];
-			}
-			else
-				throw new Exception ( dict["message"] );
+			return dict["data"];
 		}
 
 		public static User ConvertToUser ( string r )
 		{
 			User user = JsonConvert.DeserializeObject<User> ( r );
 			return user;
+		}
+
+		public static ObservableCollection<User> ConvertToUsers ( string r )
+		{
+			ObservableCollection<User> users = new ObservableCollection<User> ();
+			users = JsonConvert.DeserializeObject<ObservableCollection<User>> ( r );
+			return users;
+		}
+
+		public static ObservableCollection<Post> ConvertToPosts ( string r )
+		{
+			ObservableCollection<Post> posts = new ObservableCollection<Post> ();
+			posts = JsonConvert.DeserializeObject<ObservableCollection<Post>> ( r );
+			return posts;
+		}
+
+		public static Book ConvertToBook ( string r )
+		{
+			Book book = JsonConvert.DeserializeObject<Book> ( r );
+			return book;
 		}
 
 		public static ObservableCollection<District> ConvertToDistricts ( string r )
@@ -79,11 +86,18 @@ namespace BookShare.Helper
 			return messages;
 		}
 
-		public static ObservableCollection<Conversation> ConvertConversation ( string r )
+		public static ObservableCollection<Conversation> ConverToConversations ( string r )
 		{
 			ObservableCollection<Conversation> conversations = new ObservableCollection<Conversation> ();
 			conversations = JsonConvert.DeserializeObject<ObservableCollection<Conversation>> ( r );
 			return conversations;
+		}
+
+		public static ObservableCollection<Book> ConvertToBooks ( string r )
+		{
+			ObservableCollection<Book> books = new ObservableCollection<Book> ();
+			books = JsonConvert.DeserializeObject<ObservableCollection<Book>> ( r );
+			return books;
 		}
 	}
 }

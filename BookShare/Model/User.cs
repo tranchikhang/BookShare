@@ -11,40 +11,39 @@ namespace BookShare.Model
 	[JsonObject ( MemberSerialization.OptIn )]
 	class User
 	{
-		[JsonProperty]
+		[JsonProperty ( PropertyName = "userId" )]
 		public string id { get; set; }
 
-		[JsonProperty]
-		public string email { get; set; }
-
-		[JsonProperty]
+		[JsonProperty ( PropertyName = "userAccount" )]
 		public string account { get; set; }
 
-		[JsonProperty]
+		[JsonProperty ( PropertyName = "userEmail" )]
+		public string email { get; set; }
+
+		[JsonProperty ( PropertyName = "userFullname" )]
 		public string fullname { get; set; }
 
-		[JsonProperty]
+		[JsonProperty ( PropertyName = "userAddress" , NullValueHandling = NullValueHandling.Ignore )]
 		public string address { get; set; }
 
 		public string fullAddress { get; set; }
 
-		[JsonProperty]
+		[JsonProperty ( PropertyName = "userDistrictId" )]
 		public string districtId { get; set; }
 
-		[JsonProperty]
+		[JsonProperty ( PropertyName = "userDistrict" )]
 		public string district { get; set; }
 
-		[JsonProperty]
+		[JsonProperty ( PropertyName = "userCityId" )]
 		public string cityId { get; set; }
 
-		[JsonProperty]
+		[JsonProperty ( PropertyName = "userCity" )]
 		public string city { get; set; }
 
-		[JsonProperty]
-		public string ava { get; set; }
-
-		[JsonProperty]
+		[JsonProperty ( PropertyName = "isAvaExist" )]
 		public bool isAvaExist { get; set; }
+
+		public string ava { get; set; }
 
 		public User ()
 		{
@@ -59,6 +58,14 @@ namespace BookShare.Model
 			}
 			else
 				ava = RestAPI.serverAddress + "resources/images/defaultAva.png";
+		}
+
+		public void SetAddress ()
+		{
+			if ( address == null )
+				fullAddress = district + ", " + city;
+			else
+				fullAddress = address + ", " + district + ", " + city;
 		}
 	}
 }

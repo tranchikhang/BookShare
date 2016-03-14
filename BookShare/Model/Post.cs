@@ -10,15 +10,13 @@ namespace BookShare.Model
 	[JsonObject ( MemberSerialization.OptIn )]
 	class Post
 	{
-		[JsonProperty]
-		public string postId { get; set; }
-		[JsonProperty]
-		public string postUserAccount { get; set; }
-		[JsonProperty]
-		public string postUserAva { get; set; }
-		[JsonProperty]
-		public string postUserId { get; set; }
-		[JsonProperty]
-		public string postMessage { get; set; }
+		[JsonProperty ( PropertyName = "postId" )]
+		public string id { get; set; }
+
+		[JsonProperty ( PropertyName = "isSendable" )]
+		public bool isSendable { get; set; }
+
+		[JsonProperty ( PropertyName = "user" )]
+		public User user { get; set; }
 	}
 }

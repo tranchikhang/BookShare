@@ -44,13 +44,13 @@ namespace BookShare.AppPage
 
 		private async void GetMessages ()
 		{
-			string sendResult = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetMessages" );
-			try
+			string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetMessages" );
+			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
-				string data = JsonHelper.DecodeJson ( sendResult );
+				string data = JsonHelper.DecodeJson ( result );
 				if ( data != "" )
 				{
-					conversations = JsonHelper.ConvertConversation ( data );
+					conversations = JsonHelper.ConverToConversations ( data );
 					foreach ( Conversation c in conversations )
 					{
 						c.CheckNewMessage ();
@@ -61,10 +61,6 @@ namespace BookShare.AppPage
 					ControlMethods.SwitchVisibility ( true , listViewConversation );
 					ControlMethods.SwitchVisibility ( false , progressBar );
 				}
-			}
-			catch ( Exception ex )
-			{
-				CustomNotification.ShowDialogMessage ( content: ex.Message );
 			}
 		}
 
@@ -143,36 +139,23 @@ namespace BookShare.AppPage
 			else if ( textBoxContent.Text.Length > 0 )
 			{
 				string toUserId = ( ( Button ) sender ).Tag.ToString ();
-				RestAPI.ResponseStatus r = await SendMessage ( toUserId );
-				if ( r != RestAPI.ResponseStatus.OK )
+				dynamic dataToSend = new
 				{
-					CustomNotification.ShowDialogMessage ();
-				}
-				else
+					toUserId = toUserId ,
+					fromUserId = UserData.id ,
+					message = textBoxContent.Text
+				};
+				string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "SendMessage" );
+				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 				{
 					Message newMes = new Message ( UserData.id , toUserId , textBoxContent.Text );
 					currentConversations.messages.Add ( newMes );
 					textBoxContent.Text = "";
 				}
-			}
-		}
-
-		private async Task<RestAPI.ResponseStatus> SendMessage ( string toUserId )
-		{
-			dynamic dataToSend = new
-			{
-				toUserId = toUserId ,
-				fromUserId = UserData.id ,
-				message = textBoxContent.Text
-			};
-			string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "SendMessage" );
-			try
-			{
-				return JsonHelper.IsRequestSucceed ( result );
-			}
-			catch ( Exception ex )
-			{
-				return RestAPI.ResponseStatus.Failed;
+				else
+				{
+					CustomNotification.ShowDialogMessage ();
+				}
 			}
 		}
 	}

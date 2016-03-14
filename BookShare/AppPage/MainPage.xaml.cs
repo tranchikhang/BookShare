@@ -26,14 +26,14 @@ namespace BookShare.AppPage
 		{
 			this.InitializeComponent ();
 			( ( App ) Application.Current ).MainFrame = mainFrame;
+			if ( MainSplitView.Content != null )
+				mainFrame.Navigate ( typeof ( GreetingPage ) );
 		}
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
 			base.OnNavigatedTo ( e );
 			MainSplitView.IsPaneOpen = false;
-			if ( MainSplitView.Content != null )
-				mainFrame.Navigate ( typeof ( GreetingPage ) );
 		}
 
 		private void HamburgerClick ( object sender , RoutedEventArgs e )

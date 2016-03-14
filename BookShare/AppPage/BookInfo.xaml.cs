@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -32,10 +33,15 @@ namespace BookShare.AppPage
 		public BookInfo ()
 		{
 			this.InitializeComponent ();
+			ControlMethods.SwitchVisibility ( true , progressBar );
+			relativePanelInfo.Visibility = Visibility.Collapsed;
+			ControlMethods.SwitchVisibility ( false , listViewLenders );
 		}
 
 		private string bookId;
-		private List<object> lenders;
+		private Book selectedBook;
+		private ObservableCollection<Post> lenders;
+
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
 			bookId = e.Parameter as String;
@@ -45,7 +51,6 @@ namespace BookShare.AppPage
 
 		private void DisplayBackButton ()
 		{
-			//Frame rootFrame = ( ( App ) Application.Current ).AppSplitView.Content as Frame;
 			Frame rootFrame = ( ( App ) Application.Current ).MainFrame;
 			if ( rootFrame.CanGoBack )
 			{
@@ -61,16 +66,13 @@ namespace BookShare.AppPage
 
 		private async void LoadBookInfo ()
 		{
-			Book book = new Book ();
-			Author author = new Author ();
-
 			//send request with book id and user id
-			dynamic data = new
+			dynamic bookToSend = new
 			{
 				bookId = bookId ,
 				userId = UserData.id
 			};
-			string bookInfo = await RestAPI.SendJson ( data , RestAPI.phpAddress , "GetBookById" );
+			string bookInfo = await RestAPI.SendJson ( bookToSend , RestAPI.phpAddress , "GetBookById" );
 
 			dynamic getLenders = new
 			{
@@ -79,44 +81,16 @@ namespace BookShare.AppPage
 			};
 			string bookLenders = await RestAPI.SendJson ( getLenders , RestAPI.phpAddress , "GetLenderForBook" );
 
-			//deserialize into dictionary
-			Dictionary<string , object> d = JsonConvert.DeserializeObject<Dictionary<string , object>> ( bookInfo );
-			book = JsonConvert.DeserializeObject<Book> ( d["book"].ToString () );
-			author = JsonConvert.DeserializeObject<Author> ( d["author"].ToString () );
-			bool isBookAdded = ( bool ) d["isBookAdded"];
-
-			book.SetImageLink ();
-
-			if ( bookLenders != "empty" )
+			//deserialize json into book
+			if ( JsonHelper.IsRequestSucceed ( bookInfo ) == RestAPI.ResponseStatus.OK )
 			{
-				dynamic json = JArray.Parse ( bookLenders );
-				lenders = new List<object> ();
-				for ( int i = 0 ; i < json.Count ; i++ )
-				{
-					lenders.Add ( new
-					{
-						postid = json[i].postId ,
-						userid = json[i].userId ,
-						account = json[i].account ,
-						address = json[i].district + " - " + json[i].city ,
-						userAva = RestAPI.serverAddress + "resources/images/defaultAva.png" ,
-						isSent = ( json[i].isRequestSent == null ) ? true : false
-					} );
-				}
-				listLenders.ItemsSource = lenders;
+				string data = JsonHelper.DecodeJson ( bookInfo );
+				selectedBook = JsonHelper.ConvertToBook ( data );
 			}
-
-			DisplayBookInfo ( book , author , isBookAdded );
-		}
-
-		private void DisplayBookInfo ( Book book , Author author , bool isBookAdded )
-		{
-			BookCover.Source = new BitmapImage ( new Uri ( @book.image ) );
-			tblkTitle.Text = book.title;
-			tblkAuthor.Text = author.name;
-			tblkYear.Text = book.year;
-			tblkDes.Text = book.description;
-			if ( isBookAdded )
+			selectedBook.SetImageLink ();
+			BookCover.Source = new BitmapImage ( new Uri ( @selectedBook.image ) );
+			//if book exist in user book list, change button content
+			if ( selectedBook.isBookAdded )
 			{
 				buttonAddBook.Content = "Xóa";
 				buttonAddBook.Tag = 0;
@@ -126,6 +100,25 @@ namespace BookShare.AppPage
 				buttonAddBook.Content = "Thêm";
 				buttonAddBook.Tag = 1;
 			}
+			//deserialize json into lenders
+			if ( JsonHelper.IsRequestSucceed ( bookLenders ) == RestAPI.ResponseStatus.OK )
+			{
+				string data = JsonHelper.DecodeJson ( bookLenders );
+				lenders = JsonHelper.ConvertToPosts ( data );
+			}
+			foreach ( Post p in lenders )
+			{
+				p.user.SetAddress ();
+				p.user.SetAva ();
+			}
+
+			//set binding source
+			listViewLenders.ItemsSource = lenders;
+			stackPanelInfo.DataContext = selectedBook;
+
+			ControlMethods.SwitchVisibility ( false , progressBar );
+			relativePanelInfo.Visibility = Visibility.Visible;
+			ControlMethods.SwitchVisibility ( true , listViewLenders );
 		}
 
 		private void SendRequest ( object sender , RoutedEventArgs e )
@@ -141,20 +134,15 @@ namespace BookShare.AppPage
 				postId = postId ,
 				userId = UserData.id
 			};
-			string sendResult = await RestAPI.SendJson ( request , RestAPI.phpAddress , "SendRequest" );
-			dynamic json = JObject.Parse ( sendResult );
-			string status = json.status;
-			string message = json.message;
-			if ( status == "200" )
+			string result = await RestAPI.SendJson ( request , RestAPI.phpAddress , "SendRequest" );
+			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
-				MessageDialog dialog = new MessageDialog ( message );
-				await dialog.ShowAsync ();
+				CustomNotification.ShowNotification ( "Đã gửi yêu cầu" );
 				( ( Button ) sender ).IsEnabled = false;
 			}
 			else
 			{
-				MessageDialog dialog = new MessageDialog ( "Có lỗi xảy ra, thử lại sau" );
-				await dialog.ShowAsync ();
+				CustomNotification.ShowDialogMessage ();
 			}
 		}
 
@@ -169,18 +157,14 @@ namespace BookShare.AppPage
 					userId = UserData.id
 				};
 				string addResult = await RestAPI.SendJson ( book , RestAPI.phpAddress , "AddToYourBook" );
-				dynamic json = JObject.Parse ( addResult );
-				string status = json.status;
-				string message = json.message;
-				if ( status != "200" )
-				{
-					MessageDialog dialog = new MessageDialog ( "Có lỗi xảy ra, thử lại sau" );
-					await dialog.ShowAsync ();
-				}
-				else
+				if ( JsonHelper.IsRequestSucceed ( addResult ) == RestAPI.ResponseStatus.OK )
 				{
 					( ( Button ) sender ).Content = "Xóa";
 					( ( Button ) sender ).Tag = 0;
+				}
+				else
+				{
+					CustomNotification.ShowDialogMessage ();
 				}
 			}
 			else
@@ -192,18 +176,14 @@ namespace BookShare.AppPage
 					userId = UserData.id
 				};
 				string addResult = await RestAPI.SendJson ( book , RestAPI.phpAddress , "RemoveFromYourBook" );
-				dynamic json = JObject.Parse ( addResult );
-				string status = json.status;
-				string message = json.message;
-				if ( status != "200" )
-				{
-					MessageDialog dialog = new MessageDialog ( "Có lỗi xảy ra, thử lại sau" );
-					await dialog.ShowAsync ();
-				}
-				else
+				if ( JsonHelper.IsRequestSucceed ( addResult ) == RestAPI.ResponseStatus.OK )
 				{
 					( ( Button ) sender ).Content = "Thêm";
 					( ( Button ) sender ).Tag = 1;
+				}
+				else
+				{
+					CustomNotification.ShowDialogMessage ();
 				}
 			}
 		}

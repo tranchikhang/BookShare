@@ -290,3 +290,6 @@ D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\qualifiers.txt.intermediate
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\MultipleQualifiersPerDimensionFound.txt
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\ProjectArchitectures.txt
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\BookShare.csprojResolveAssemblyReference.cache
+D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\SearchPage.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\SearchPage.xaml
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\SearchPage.xbf

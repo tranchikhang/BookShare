@@ -8,90 +8,98 @@
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Resources/LightTheme.xaml" />
 				<ResourceDictionary Source="/Resources/BookInfo.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
 	<ScrollViewer>
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="*" />
-				</Grid.RowDefinitions>
-				<RelativePanel Grid.Row="0">
-					<Image x:ConnectionId='4' Height="405"
-						   Width="270"
-						   Name="BookCover"
-						   Stretch="Fill" />
-					<StackPanel x:ConnectionId='5' Margin="15,0,0,0"
-								Height="Auto"
-								Width="Auto"
-								Name="stackPanelInfo"
-								Orientation="Vertical">
-						<TextBlock x:ConnectionId='6' Style="{StaticResource Title}"
-								   Name="tblkTitle" />
-						<TextBlock Text="Tác giả"
-								   FontFamily="Segoe WP Light" />
-						<TextBlock x:ConnectionId='7' Name="tblkAuthor"
-								   Style="{StaticResource Author}" />
-						<TextBlock Text="Năm" />
-						<TextBlock x:ConnectionId='8' Name="tblkYear"
-								   FontSize="22" />
-						<Button x:ConnectionId='9' Name="buttonAddBook"
-								Width="80"
-								                      />
-						<ScrollViewer x:ConnectionId='10' Name="scrollViewerDes"
-									  Height="300"
-									  Padding="0,0,10,0">
-							<TextBlock x:ConnectionId='11' Name="tblkDes"
-									   FontSize="18" />
-						</ScrollViewer>
-					</StackPanel>
-				</RelativePanel>
-				<ListView x:ConnectionId='1' Grid.Row="1"
-						  Margin="0,10,0,10"
-						  Name="listLenders">
-					<ListView.ItemContainerStyle>
-						<Style TargetType="ListViewItem">
-							<Setter Property="HorizontalContentAlignment"
-									Value="Stretch">
-							</Setter>
-						</Style>
-					</ListView.ItemContainerStyle>
-					<ListView.ItemTemplate>
-						<DataTemplate>
-							<Grid Margin="0,10,0,10">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="100" />
-									<ColumnDefinition Width="20" />
-									<ColumnDefinition Width="*" />
-								</Grid.ColumnDefinitions>
-								<Image Grid.Column="0"
-									   Height="100"
-									   Stretch="Fill"
-									   Source="{Binding userAva}" />
-								<StackPanel Orientation="Vertical"
-											Grid.Column="2">
-									<TextBlock x:ConnectionId='2' Text="{Binding account}"
-											   FontSize="24"
-											   Tag="{Binding userid}"
-											                             />
-									<TextBlock Text="{Binding address}"
-											   FontSize="24" />
-									<Button x:ConnectionId='3' Content="Mượn"
-											                   
-											IsEnabled="{Binding isSent}"
-											Tag="{Binding postid}" />
-								</StackPanel>
-							</Grid>
-						</DataTemplate>
-					</ListView.ItemTemplate>
-				</ListView>
-			</Grid>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			<ProgressBar x:ConnectionId='1' IsIndeterminate="True"
+						 Height="30"
+						 VerticalAlignment="Top"
+						 Name="progressBar" />
+			<RelativePanel x:ConnectionId='2' Grid.Row="0"
+						   Name="relativePanelInfo">
+				<Image x:ConnectionId='6' Height="405"
+					   Width="270"
+					   Name="BookCover"
+					   Stretch="Fill" />
+				<StackPanel x:ConnectionId='7' Margin="10,0,0,0"
+							Height="Auto"
+							Width="Auto"
+							Name="stackPanelInfo"
+							Orientation="Vertical">
+					<TextBlock x:ConnectionId='8' Style="{StaticResource Title}"
+							   Text="{Binding title}"
+							   Name="tblkTitle" />
+					<TextBlock Text="Tác giả"
+							   FontFamily="Segoe WP Light" />
+					<TextBlock x:ConnectionId='9' Name="tblkAuthor"
+							   Text="{Binding author}"
+							   Style="{StaticResource Author}" />
+					<TextBlock Text="Năm" />
+					<TextBlock x:ConnectionId='10' Name="tblkYear"
+							   Text="{Binding year}"
+							   FontSize="22" />
+					<Button x:ConnectionId='11' Name="buttonAddBook"
+							Style="{StaticResource ButtonAddBook}"
+							                      />
+					<ScrollViewer x:ConnectionId='12' Name="scrollViewerDes"
+								  Height="300"
+								  Padding="0,0,10,0">
+						<TextBlock x:ConnectionId='13' Name="tblkDes"
+								   Text="{Binding description}"
+								   FontSize="18" />
+					</ScrollViewer>
+				</StackPanel>
+			</RelativePanel>
+			<ListView x:ConnectionId='3' Grid.Row="1"
+					  Margin="0,5,0,5"
+					  Name="listViewLenders">
+				<ListView.ItemContainerStyle>
+					<Style TargetType="ListViewItem">
+						<Setter Property="HorizontalContentAlignment"
+								Value="Stretch">
+						</Setter>
+					</Style>
+				</ListView.ItemContainerStyle>
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<Grid Margin="0,5,0,5">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="100" />
+								<ColumnDefinition Width="20" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<Image Grid.Column="0"
+								   Height="100"
+								   Stretch="Fill"
+								   Source="{Binding user.ava}" />
+							<StackPanel Orientation="Vertical"
+										Grid.Column="2">
+								<TextBlock x:ConnectionId='4' Text="{Binding user.account}"
+										   FontSize="24"
+										   Tag="{Binding user.id}"
+										                              />
+								<TextBlock Text="{Binding user.fullAddress}"
+										   FontSize="24" />
+								<Button x:ConnectionId='5' Content="Mượn"
+										                   
+										IsEnabled="{Binding isSendable}"
+										Tag="{Binding id}" />
+							</StackPanel>
+						</Grid>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</Grid>
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
-				<VisualState x:ConnectionId='12' x:Name="WideState">
+				<VisualState x:ConnectionId='14' x:Name="WideState">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="700" />
 					</VisualState.StateTriggers>
@@ -102,7 +110,7 @@
 								Value="BookCover" />
 					</VisualState.Setters>
 				</VisualState>
-				<VisualState x:ConnectionId='13' x:Name="NarrowState">
+				<VisualState x:ConnectionId='15' x:Name="NarrowState">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="0" />
 					</VisualState.StateTriggers>
@@ -118,6 +126,6 @@
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
 	</ScrollViewer>
-	
+
 </Page>
 

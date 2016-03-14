@@ -10,11 +10,11 @@ namespace BookShare.Model
 	[JsonObject ( MemberSerialization.OptIn )]
 	class Author
 	{
-		[JsonProperty]
+		[JsonProperty ( PropertyName = "authorId" )]
 		public string id { get; set; }
 
-		[JsonProperty]
-		public string name { get; set; }
+		[JsonProperty ( PropertyName = "author" )]
+		public string author { get; set; }
 
 		[JsonProperty]
 		private string description { get; set; }

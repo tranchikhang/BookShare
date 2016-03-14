@@ -127,10 +127,10 @@ namespace BookShare.AppPage
 					{
 						Post r = new Post
 						{
-							postId = json.postedBooks[i].posts[j].postId ,
-							postUserId = json.postedBooks[i].posts[j].postUserId ,
-							postUserAccount = json.postedBooks[i].posts[j].postUserAccount ,
-							postUserAva = RestAPI.serverAddress + "resources/images/defaultAva.png"
+							//postId = json.postedBooks[i].posts[j].postId ,
+							//postUserId = json.postedBooks[i].posts[j].postUserId ,
+							//postUserAccount = json.postedBooks[i].posts[j].postUserAccount ,
+							//postUserAva = RestAPI.serverAddress + "resources/images/defaultAva.png"
 						};
 						pl.Add ( r );
 					}
@@ -316,7 +316,7 @@ namespace BookShare.AppPage
 			{
 				//send response succeed
 				//return request id to remove
-				requestedPost.Remove ( requestedPost.First ( p => p.postId == postId ) );
+				//requestedPost.Remove ( requestedPost.First ( p => p.postId == postId ) );
 			}
 			else
 			{

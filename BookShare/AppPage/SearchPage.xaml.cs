@@ -8,6 +8,9 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml;
+using System.Collections.ObjectModel;
+using BookShare.Model;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -21,39 +24,44 @@ namespace BookShare.AppPage
 		public SearchPage ()
 		{
 			this.InitializeComponent ();
+			ControlMethods.SwitchVisibility ( true , progressBar );
+			ControlMethods.SwitchVisibility ( false , listViewResults );
+			stackPanelAddNew.Visibility = Visibility.Collapsed;
+
 		}
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
-			string query = e.Parameter as String;
+			query = ( string ) e.Parameter;
 			SendSearchQuery ( query );
 		}
+		public string query;
+		private ObservableCollection<Book> books;
 
 		private async void SendSearchQuery ( string query )
 		{
 			string result = await RestAPI.SendJson ( query , RestAPI.phpAddress , "GetSearchResult" );
-			if ( result == "empty" )
+			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.Empty )
 			{
 				//no book to display
-				//option to add new book
-				stackPanelAddNew.Visibility = Windows.UI.Xaml.Visibility.Visible;
+				//show option to add new book
+				ControlMethods.SwitchVisibility ( false , listViewResults );
+				ControlMethods.SwitchVisibility ( false , progressBar );
+				stackPanelAddNew.Visibility = Visibility.Visible;
 			}
-			else
+			else if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
-				dynamic json = JArray.Parse ( result );
-				var l = new List<object> ();
-				for ( int i = 0 ; i < json.Count ; i++ )
+				//result is not empty
+				string data = JsonHelper.DecodeJson ( result );
+				books = JsonHelper.ConvertToBooks ( data );
+				foreach ( Book b in books )
 				{
-					l.Add ( new
-					{
-						bookid = json[i].bookid ,
-						book = json[i].book ,
-						authorid = json[i].authorid ,
-						author = json[i].author ,
-						image = RestAPI.serverAddress + "cover/" + json[i].bookid + ".jpg"
-					} );
+					b.SetImageLink ();
 				}
-				listBoxResults.ItemsSource = l;
+				listViewResults.ItemsSource = books;
+				stackPanelAddNew.Visibility = Visibility.Collapsed;
+				ControlMethods.SwitchVisibility ( true , listViewResults );
+				ControlMethods.SwitchVisibility ( false , progressBar );
 			}
 		}
 
@@ -63,18 +71,12 @@ namespace BookShare.AppPage
 			Frame.Navigate ( typeof ( BookInfo ) , value );
 		}
 
-		private void AddNewBook ( object sender , Windows.UI.Xaml.RoutedEventArgs e )
+		private void AddNewBook ( object sender , RoutedEventArgs e )
 		{
 			Frame.Navigate ( typeof ( AddNewBook ) );
 		}
 
-		private void SearchBox_GotFocus ( object sender , Windows.UI.Xaml.RoutedEventArgs e )
-		{
-			if ( SearchBox.Text == "Nhập nội dung tìm kiếm" )
-				SearchBox.Text = "";
-		}
-
-		private void SearchClick ( object sender , Windows.UI.Xaml.RoutedEventArgs e )
+		private void SearchClick ( object sender , RoutedEventArgs e )
 		{
 			SendSearchQuery ( SearchBox.Text );
 		}

@@ -11,10 +11,10 @@ namespace BookShare.Model
 	[JsonObject ( MemberSerialization.OptIn )]
 	class Book
 	{
-		[JsonProperty]
+		[JsonProperty ( PropertyName = "bookId" )]
 		public string id { get; set; }
 
-		[JsonProperty]
+		[JsonProperty ( PropertyName = "title" )]
 		public string title { get; set; }
 
 		[JsonProperty]
@@ -23,11 +23,23 @@ namespace BookShare.Model
 		[JsonProperty ( NullValueHandling = NullValueHandling.Ignore )]
 		public string description { get; set; }
 
+		[JsonProperty ( PropertyName = "authorId" )]
+		public string authorId { get; set; }
+
+		[JsonProperty ( PropertyName = "author" )]
+		public string author { get; set; }
+
+		[JsonProperty ( PropertyName = "numberShared" )]
+		public string numberShared { get; set; }
+
+		[JsonProperty ( PropertyName = "isBookAdded" )]
+		public bool isBookAdded { get; set; }
+
 		public string image { get; set; }
 
 		public Book ()
 		{
-			description = "";
+			//
 		}
 
 		public void SetImageLink ()

@@ -63,9 +63,9 @@ namespace BookShare.Model
 		public void SetAddress ()
 		{
 			if ( address == null )
-				fullAddress = district + ", " + city;
+				fullAddress = "Quận " + district + ", " + city;
 			else
-				fullAddress = address + ", " + district + ", " + city;
+				fullAddress = address + ", quận " + district + ", " + city;
 		}
 	}
 }

@@ -41,6 +41,7 @@ namespace BookShare.AppPage
 		private void TimerTick ( object sender , object e )
 		{
 			timer.Stop ();
+			//hide progress bar
 			ControlMethods.SwitchVisibility ( false , progressBar );
 			if ( gridSendMessage.Visibility == Visibility.Visible )
 				gridSendMessage.Visibility = Visibility.Collapsed;

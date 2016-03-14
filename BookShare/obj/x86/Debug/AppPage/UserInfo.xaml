@@ -13,7 +13,17 @@
 		</ResourceDictionary>
 	</Page.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<StackPanel x:ConnectionId='1' Orientation="Vertical"
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<ProgressBar x:ConnectionId='1' IsIndeterminate="True"
+					 Height="30"
+					 Grid.Row="0"
+					 VerticalAlignment="Top"
+					 Name="progressBar" />
+		<StackPanel x:ConnectionId='2' Orientation="Vertical"
+					Grid.Row="1"
 					Name="stackPanel"
 					Width="Auto">
 			<Image />
@@ -25,16 +35,17 @@
 					   Text="{Binding email}" />
 			<TextBlock Style="{StaticResource Address}"
 					   Text="{Binding fullAddress}" />
-			<TextBlock x:ConnectionId='6' FontFamily="Segoe MDL2 Assets"
+			<TextBlock x:ConnectionId='7' FontFamily="Segoe MDL2 Assets"
 					   Text="&#xE8BD;"
 					   HorizontalAlignment="Center"
 					                   
 					   FontSize="28" />
 		</StackPanel>
-		<Grid x:ConnectionId='2' Name="gridSendMessage"
+		<Grid x:ConnectionId='3' Name="gridSendMessage"
 			  Width="Auto"
+			  Grid.Row="1"
 			  HorizontalAlignment="Stretch"
-			  Margin="10,10,10,10">
+			  Margin="5,5,5,5">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="40" />
 				<RowDefinition Height="50" />
@@ -42,7 +53,7 @@
 				<RowDefinition Height="60" />
 			</Grid.RowDefinitions>
 			<Border Background="SteelBlue">
-				<Button x:ConnectionId='5' FontFamily="Segoe MDL2 Assets"
+				<Button x:ConnectionId='6' FontFamily="Segoe MDL2 Assets"
 						Foreground="White"
 						Background="SteelBlue"
 						FontSize="24"
@@ -53,7 +64,7 @@
 					   FontSize="30"
 					   Grid.Row="1"
 					   FontFamily="Segoe UI" />
-			<TextBox x:ConnectionId='3' PlaceholderText="Nội dung"
+			<TextBox x:ConnectionId='4' PlaceholderText="Nội dung"
 					 FontSize="22"
 					 Height="200"
 					 Name="textBoxContent"
@@ -61,7 +72,7 @@
 					 FontFamily="Segoe UI"
 					 TextWrapping="Wrap"
 					 Grid.Row="2" />
-			<Button x:ConnectionId='4' Content="Send"
+			<Button x:ConnectionId='5' Content="Send"
 					                       
 					Tag="{Binding id}"
 					Style="{StaticResource Send}"

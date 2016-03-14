@@ -13,7 +13,17 @@
 		</ResourceDictionary>
 	</Page.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<ProgressBar IsIndeterminate="True"
+					 Height="30"
+					 Grid.Row="0"
+					 VerticalAlignment="Top"
+					 Name="progressBar" />
 		<StackPanel Orientation="Vertical"
+					Grid.Row="1"
 					Name="stackPanel"
 					Width="Auto">
 			<Image />
@@ -33,8 +43,9 @@
 		</StackPanel>
 		<Grid Name="gridSendMessage"
 			  Width="Auto"
+			  Grid.Row="1"
 			  HorizontalAlignment="Stretch"
-			  Margin="10,10,10,10">
+			  Margin="5,5,5,5">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="40" />
 				<RowDefinition Height="50" />

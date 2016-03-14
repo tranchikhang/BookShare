@@ -29,60 +29,54 @@ namespace BookShare.AppPage
 		public UserInfo ()
 		{
 			this.InitializeComponent ();
-			stackPanel.Visibility = Visibility.Visible;
+			ControlMethods.SwitchVisibility ( true , progressBar );
+			stackPanel.Visibility = Visibility.Collapsed;
 			gridSendMessage.Visibility = Visibility.Collapsed;
+
+			timer = new DispatcherTimer ();
+			timer.Interval = TimeSpan.FromSeconds ( 1 );
+			timer.Tick += new EventHandler<object> ( TimerTick );
 		}
 
-		private async void LoadData ( string userId )
+		private void TimerTick ( object sender , object e )
 		{
-			string r = await GetUserInfo ( userId );
-			if ( r == "OK" )
-			{
-				DisplayData ();
-			}
-			else
-			{
-				CustomNotification.ShowDialogMessage ();
-			}
+			timer.Stop ();
+			ControlMethods.SwitchVisibility ( false , progressBar );
+			if ( gridSendMessage.Visibility == Visibility.Visible )
+				gridSendMessage.Visibility = Visibility.Collapsed;
+			if ( stackPanel.Visibility == Visibility.Collapsed )
+				stackPanel.Visibility = Visibility.Visible;
 		}
+
+		private User selectedUser;
+		DispatcherTimer timer;
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
 			string userId = e.Parameter as String;
 			LoadData ( userId );
+			timer.Start ();
 		}
 
-		private void DisplayData ()
+		private async void LoadData ( string userId )
 		{
-			this.DataContext = user;
-			if ( user.address == null )
-				user.fullAddress = "Quận " + user.district + ", " + user.city;
-			else
-				user.fullAddress = user.address + ", quận " + user.district + ", " + user.city;
-		}
-
-		private User user;
-
-		private async Task<string> GetUserInfo ( string userId )
-		{
+			//get user info
 			string result = await RestAPI.SendJson ( userId , RestAPI.phpAddress , "GetUserInfo" );
-			try
+			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
 				string data = JsonHelper.DecodeJson ( result );
-				user = JsonHelper.ConvertToUser ( data );
-				user.SetAva ();
-				return "OK";
-			}
-			catch ( Exception ex )
-			{
-				CustomNotification.ShowDialogMessage ( content: ex.Message );
-				return "";
+				selectedUser = JsonHelper.ConvertToUser ( data );
+				selectedUser.SetAddress ();
+				selectedUser.SetAva ();
+				this.DataContext = selectedUser;
+				//if timer is still running, then do nothing
+				if ( !timer.IsEnabled )
+					ControlMethods.SwitchVisibility ( false , progressBar );
 			}
 		}
 
 		private void SendTap ( object sender , TappedRoutedEventArgs e )
 		{
-			//
 			stackPanel.Visibility = Visibility.Collapsed;
 			gridSendMessage.Visibility = Visibility.Visible;
 		}
@@ -93,40 +87,38 @@ namespace BookShare.AppPage
 			gridSendMessage.Visibility = Visibility.Collapsed;
 		}
 
-		private async Task<string> SendMessage ( string toUserId )
-		{
-			dynamic dataToSend = new
-			{
-				toUserId = toUserId ,
-				fromUserId = UserData.id ,
-				message = textBoxContent.Text
-			};
-			string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "SendMessage" );
-			dynamic json = JObject.Parse ( result );
-			string status = json.status;
-			if ( status == "200" )
-			{
-				return "OK";
-			}
-			else
-			{
-				return "";
-			}
-		}
-
 		private async void SendMessageTap ( object sender , TappedRoutedEventArgs e )
 		{
 			//check length
-			string toUserId = ( ( Button ) sender ).Tag.ToString ();
-			string r = await SendMessage ( toUserId );
-			if ( r == "OK" )
+			if ( textBoxContent.Text.Length >= 300 )
+				CustomNotification.ShowDialogMessage ( content: "Tin nhắn không được quá 300 ký tự" );
+			else if ( textBoxContent.Text.Length > 0 )
 			{
-				gridSendMessage.Visibility = Visibility.Collapsed;
-				stackPanel.Visibility = Visibility.Visible;
-			}
-			else
-			{
-				CustomNotification.ShowDialogMessage ();
+				//start the timer
+				timer.Start ();
+				//show progressbar
+				ControlMethods.SwitchVisibility ( true , progressBar );
+				//send the message
+				string toUserId = ( ( Button ) sender ).Tag.ToString ();
+				dynamic dataToSend = new
+				{
+					toUserId = toUserId ,
+					fromUserId = UserData.id ,
+					message = textBoxContent.Text
+				};
+				string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "SendMessage" );
+				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
+				{
+					//clear message
+					textBoxContent.Text = "";
+					//if timer is still running, then do nothing
+					if ( !timer.IsEnabled )
+						ControlMethods.SwitchVisibility ( false , progressBar );
+				}
+				else
+				{
+					CustomNotification.ShowDialogMessage ();
+				}
 			}
 		}
 	}

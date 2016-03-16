@@ -25,6 +25,8 @@
 				Value="{StaticResource TextColor}" />
 		<Setter Property="TextAlignment"
 				Value="Center" />
+		<Setter Property="Margin"
+				Value="5,0,0,0" />
 	</Style>
 	<Style TargetType="TextBlock"
 		   x:Key="Title">
@@ -59,9 +61,9 @@
 	<Style TargetType="Button"
 		   x:Key="Accept">
 		<Setter Property="FontSize"
-				Value="18" />
+				Value="24" />
 		<Setter Property="FontFamily"
-				Value="Segoe UI" />
+				Value="Segoe MDL2 Assets" />
 		<Setter Property="Background"
 				Value="LimeGreen" />
 		<Setter Property="Foreground"
@@ -74,9 +76,9 @@
 	<Style TargetType="Button"
 		   x:Key="Deny">
 		<Setter Property="FontSize"
-				Value="18" />
+				Value="24" />
 		<Setter Property="FontFamily"
-				Value="Segoe UI" />
+				Value="Segoe MDL2 Assets" />
 		<Setter Property="Background"
 				Value="Crimson" />
 		<Setter Property="Foreground"
@@ -89,11 +91,26 @@
 	<Style TargetType="Button"
 		   x:Key="Delete">
 		<Setter Property="FontSize"
-				Value="18" />
+				Value="24" />
 		<Setter Property="FontFamily"
-				Value="Segoe UI" />
+				Value="Segoe MDL2 Assets" />
 		<Setter Property="Background"
-				Value="Crimson" />
+				Value="#F44336" />
+		<Setter Property="Foreground"
+				Value="White" />
+		<Setter Property="Width"
+				Value="100" />
+		<Setter Property="Height"
+				Value="60" />
+	</Style>
+	<Style TargetType="Button"
+		   x:Key="ToUser">
+		<Setter Property="FontSize"
+				Value="24" />
+		<Setter Property="FontFamily"
+				Value="Segoe MDL2 Assets" />
+		<Setter Property="Background"
+				Value="#4CAF50" />
 		<Setter Property="Foreground"
 				Value="White" />
 		<Setter Property="Width"

@@ -14,6 +14,7 @@ namespace BookShare.Helper
 		private static HttpClient httpClient;
 		private static HttpResponseMessage response;
 		public enum ResponseStatus { OK, Empty, Failed };
+
 		static public async Task<string> SendJson ( object data , string address , string key )
 		{
 			string json = JsonConvert.SerializeObject ( data );

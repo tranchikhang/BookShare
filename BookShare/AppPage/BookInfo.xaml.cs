@@ -36,17 +36,30 @@ namespace BookShare.AppPage
 			ControlMethods.SwitchVisibility ( true , progressBar );
 			relativePanelInfo.Visibility = Visibility.Collapsed;
 			ControlMethods.SwitchVisibility ( false , listViewLenders );
+
+			timer = new DispatcherTimer ();
+			timer.Interval = TimeSpan.FromSeconds ( 1 );
+			timer.Tick += new EventHandler<object> ( TimerTick );
+		}
+
+		private void TimerTick ( object sender , object e )
+		{
+			timer.Stop ();
+			//hide progress bar
+			ControlMethods.SwitchVisibility ( false , progressBar );
 		}
 
 		private string bookId;
 		private Book selectedBook;
 		private ObservableCollection<Post> lenders;
+		DispatcherTimer timer;
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
 			bookId = e.Parameter as String;
 			LoadBookInfo ();
 			DisplayBackButton ();
+			timer.Start ();
 		}
 
 		private void DisplayBackButton ()
@@ -116,7 +129,9 @@ namespace BookShare.AppPage
 			listViewLenders.ItemsSource = lenders;
 			stackPanelInfo.DataContext = selectedBook;
 
-			ControlMethods.SwitchVisibility ( false , progressBar );
+			//if timer is still running, then do nothing
+			if ( !timer.IsEnabled )
+				ControlMethods.SwitchVisibility ( false , progressBar );
 			relativePanelInfo.Visibility = Visibility.Visible;
 			ControlMethods.SwitchVisibility ( true , listViewLenders );
 		}
@@ -148,6 +163,8 @@ namespace BookShare.AppPage
 
 		private async void AddToYourBook ( object sender , RoutedEventArgs e )
 		{
+			timer.Start ();
+			ControlMethods.SwitchVisibility ( true , progressBar );
 			if ( ( ( Button ) sender ).Tag.ToString () == "1" )
 			{
 				//add book
@@ -186,6 +203,9 @@ namespace BookShare.AppPage
 					CustomNotification.ShowDialogMessage ();
 				}
 			}
+			//if timer is still running, then do nothing
+			if ( !timer.IsEnabled )
+				ControlMethods.SwitchVisibility ( false , progressBar );
 		}
 
 		private void UserAccountTapped ( object sender , TappedRoutedEventArgs e )

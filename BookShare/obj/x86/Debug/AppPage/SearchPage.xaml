@@ -15,6 +15,7 @@
 	<Grid Background="{StaticResource BackgroundColor}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="51" />
+			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<Grid Grid.Row="0"
@@ -49,7 +50,7 @@
 					Style="{StaticResource ButtonAddNew}"
 					                   />
 		</StackPanel>
-		<ListView x:ConnectionId='3' Grid.Row="1"
+		<ListView x:ConnectionId='3' Grid.Row="2"
 				  Margin="0,5,0,0"
 				  Name="listViewResults">
 			<ListView.ItemContainerStyle>

@@ -38,106 +38,80 @@
 					</Grid>
 				</PivotItem.Header>
 				<Grid Width="Auto">
-					<ScrollViewer x:ConnectionId='13' Name="scrollViewerBooks">
-						<StackPanel Orientation="Vertical">
-							<TextBlock Text="Không có yêu cầu mượn sách gửi cho bạn"
-									   FontSize="24"
-									   TextWrapping="Wrap"
-									   Height="Auto"
-									   Visibility="Collapsed"
-									   FontFamily="Segoe UI" />
-							<ListView x:ConnectionId='19' Name="listViewBook">
-								<ListView.ItemContainerStyle>
-									<Style TargetType="ListViewItem">
-										<Setter Property="HorizontalContentAlignment"
-												Value="Stretch">
-										</Setter>
-									</Style>
-								</ListView.ItemContainerStyle>
-								<ListView.ItemTemplate>
-									<DataTemplate>
-										<Grid x:ConnectionId='20' Margin="10"
-											  Tag="{Binding postId}"
-											                         >
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="60" />
-												<ColumnDefinition Width="10" />
-												<ColumnDefinition Width="*" />
-											</Grid.ColumnDefinitions>
-											<Image Grid.Column="0"
-												   Height="90"
-												   HorizontalAlignment="Left"
-												   Source="{Binding image, TargetNullValue={x:Null}}"
-												   Stretch="Fill" />
-											<StackPanel Grid.Column="2"
-														Orientation="Vertical">
-												<TextBlock Text="{Binding title}"
-														   Style="{StaticResource Title}" />
-												<TextBlock Text="{Binding author}"
-														   Style="{StaticResource Author}" />
-											</StackPanel>
-										</Grid>
-									</DataTemplate>
-								</ListView.ItemTemplate>
-							</ListView>
-						</StackPanel>
-					</ScrollViewer>
-					<ScrollViewer x:ConnectionId='14' Name="scrollViewerReceivedRequest">
-						<StackPanel>
-							<Border Background="SteelBlue">
-								<Button x:ConnectionId='18' FontFamily="Segoe MDL2 Assets"
-										Foreground="White"
-										Background="SteelBlue"
-										FontSize="24"
-										                            
-										Content="&#xE72B;" />
-							</Border>
-							<ListView x:ConnectionId='15' ScrollViewer.VerticalScrollBarVisibility="Hidden"
-									  Name="listViewReceivedRequest">
-								<ListView.ItemContainerStyle>
-									<Style TargetType="ListViewItem">
-										<Setter Property="HorizontalContentAlignment"
-												Value="Stretch">
-										</Setter>
-									</Style>
-								</ListView.ItemContainerStyle>
-								<ListView.ItemTemplate>
-									<DataTemplate>
-										<Grid>
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="60" />
-												<ColumnDefinition Width="*" />
-												<ColumnDefinition Width="100" />
-											</Grid.ColumnDefinitions>
-											<Image Grid.Column="0"
-												   Height="60"
-												   Stretch="Fill"
-												   Source="{Binding requestUserAva}" />
-											<StackPanel Orientation="Vertical"
-														Grid.Column="1"
-														Margin="5,0,0,0">
-												<TextBlock Text="{Binding requestUserAccount}"
-														   Style="{StaticResource RequestUserAccount}"
-														   Tag="{Binding userid}" />
-												<TextBlock Text="dia chi" />
-											</StackPanel>
-											<StackPanel Grid.Column="2"
-														Orientation="Vertical">
-												<Button x:ConnectionId='16' Content="Đồng ý"
-														Style="{StaticResource Accept}"
-														Tag="{Binding requestId}"
-														                      />
-												<Button x:ConnectionId='17' Content="Từ chối"
-														Style="{StaticResource Deny}"
-														Tag="{Binding requestId}"
-														                    />
-											</StackPanel>
-										</Grid>
-									</DataTemplate>
-								</ListView.ItemTemplate>
-							</ListView>
-						</StackPanel>
-					</ScrollViewer>
+					<ListView x:ConnectionId='9' Name="listViewPostedBook">
+						<ListView.ItemContainerStyle>
+							<Style TargetType="ListViewItem">
+								<Setter Property="HorizontalContentAlignment"
+										Value="Stretch">
+								</Setter>
+							</Style>
+						</ListView.ItemContainerStyle>
+						<ListView.ItemTemplate>
+							<DataTemplate>
+								<Grid x:ConnectionId='13' Margin="0,5,0,5"
+									  Tag="{Binding postId}"
+									                           >
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="60" />
+										<ColumnDefinition Width="10" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+									<Image Grid.Column="0"
+										   Height="90"
+										   HorizontalAlignment="Left"
+										   Source="{Binding image, TargetNullValue={x:Null}}"
+										   Stretch="Fill" />
+									<StackPanel Grid.Column="2"
+												Orientation="Vertical">
+										<TextBlock Text="{Binding title}"
+												   Style="{StaticResource Title}" />
+										<TextBlock Text="{Binding author}"
+												   Style="{StaticResource Author}" />
+									</StackPanel>
+								</Grid>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
+					<ListView x:ConnectionId='10' ScrollViewer.VerticalScrollBarVisibility="Hidden"
+							  Name="listViewReceivedRequest">
+						<ListView.ItemContainerStyle>
+							<Style TargetType="ListViewItem">
+								<Setter Property="HorizontalContentAlignment"
+										Value="Stretch">
+								</Setter>
+							</Style>
+						</ListView.ItemContainerStyle>
+						<ListView.ItemTemplate>
+							<DataTemplate>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="60" />
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="200" />
+									</Grid.ColumnDefinitions>
+									<Image Grid.Column="0"
+										   Height="60"
+										   Stretch="Fill"
+										   Source="{Binding user.ava}" />
+									<TextBlock Text="{Binding user.account}"
+											   Style="{StaticResource RequestUserAccount}"
+											   Tag="{Binding user.id}"
+											   Grid.Column="1" />
+									<StackPanel Grid.Column="2"
+												Orientation="Horizontal">
+										<Button x:ConnectionId='11' Content="&#xE8FB;"
+												Style="{StaticResource Accept}"
+												Tag="{Binding id}"
+												                      />
+										<Button x:ConnectionId='12' Content="&#xE894;"
+												Style="{StaticResource Deny}"
+												Tag="{Binding id}"
+												                    />
+									</StackPanel>
+								</Grid>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
 				</Grid>
 			</PivotItem>
 			<PivotItem>
@@ -155,99 +129,73 @@
 					</Grid>
 				</PivotItem.Header>
 				<Grid>
-					<ScrollViewer x:ConnectionId='6' Name="scrollViewerBooks2">
-						<StackPanel Orientation="Vertical">
-							<TextBlock Text="Không có yêu cầu mượn sách gửi cho bạn"
-									   FontSize="24"
-									   TextWrapping="Wrap"
-									   Height="Auto"
-									   Visibility="Collapsed"
-									   FontFamily="Segoe UI" />
-							<ListView x:ConnectionId='11' Name="listViewBook2">
-								<ListView.ItemContainerStyle>
-									<Style TargetType="ListViewItem">
-										<Setter Property="HorizontalContentAlignment"
-												Value="Stretch">
-										</Setter>
-									</Style>
-								</ListView.ItemContainerStyle>
-								<ListView.ItemTemplate>
-									<DataTemplate>
-										<Grid x:ConnectionId='12' Margin="10"
-											  Tag="{Binding bookId}"
-											                                  >
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="60" />
-												<ColumnDefinition Width="10" />
-												<ColumnDefinition Width="*" />
-											</Grid.ColumnDefinitions>
-											<Image Grid.Column="0"
-												   Height="90"
-												   HorizontalAlignment="Left"
-												   Source="{Binding image, TargetNullValue={x:Null}}"
-												   Stretch="Fill" />
-											<StackPanel Grid.Column="2"
-														Orientation="Vertical">
-												<TextBlock Text="{Binding title}"
-														   Style="{StaticResource Title}" />
-												<TextBlock Text="{Binding author}"
-														   Style="{StaticResource Author}" />
-											</StackPanel>
-										</Grid>
-									</DataTemplate>
-								</ListView.ItemTemplate>
-							</ListView>
-						</StackPanel>
-					</ScrollViewer>
-					<ScrollViewer x:ConnectionId='7' Name="scrollViewerSentRequest">
-						<StackPanel>
-							<Border Background="SteelBlue">
-								<Button x:ConnectionId='10' FontFamily="Segoe MDL2 Assets"
-										Foreground="White"
-										Background="SteelBlue"
-										FontSize="24"
-										                            
-										Content="&#xE72B;" />
-							</Border>
-							<ListView x:ConnectionId='8' ScrollViewer.VerticalScrollBarVisibility="Hidden"
-									  Name="listViewSentRequest">
-								<ListView.ItemContainerStyle>
-									<Style TargetType="ListViewItem">
-										<Setter Property="HorizontalContentAlignment"
-												Value="Stretch">
-										</Setter>
-									</Style>
-								</ListView.ItemContainerStyle>
-								<ListView.ItemTemplate>
-									<DataTemplate>
-										<Grid>
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="60" />
-												<ColumnDefinition Width="*" />
-												<ColumnDefinition Width="100" />
-											</Grid.ColumnDefinitions>
-											<Image Grid.Column="0"
-												   Height="60"
-												   Stretch="Fill"
-												   Source="{Binding postUserAva}" />
-											<StackPanel Orientation="Vertical"
-														Grid.Column="1"
-														Margin="5,0,0,0">
-												<TextBlock Text="{Binding postUserAccount}"
-														   Style="{StaticResource RequestUserAccount}" />
-												<TextBlock Text="dia chi" />
-											</StackPanel>
-											<Button x:ConnectionId='9' Content="Xóa"
-													Grid.Column="2"
-													Style="{StaticResource Delete}"
-													Tag="{Binding postId}"
-													                      />
-										</Grid>
-									</DataTemplate>
-								</ListView.ItemTemplate>
-							</ListView>
-						</StackPanel>
-					</ScrollViewer>
+					<ListView x:ConnectionId='5' Name="listViewRequestedBook">
+						<ListView.ItemContainerStyle>
+							<Style TargetType="ListViewItem">
+								<Setter Property="HorizontalContentAlignment"
+										Value="Stretch">
+								</Setter>
+							</Style>
+						</ListView.ItemContainerStyle>
+						<ListView.ItemTemplate>
+							<DataTemplate>
+								<Grid x:ConnectionId='8' Margin="0,5,0,5"
+									  Tag="{Binding bookId}"
+									                              >
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="60" />
+										<ColumnDefinition Width="10" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+									<Image Grid.Column="0"
+										   Height="90"
+										   HorizontalAlignment="Left"
+										   Source="{Binding image, TargetNullValue={x:Null}}"
+										   Stretch="Fill" />
+									<StackPanel Grid.Column="2"
+												Orientation="Vertical">
+										<TextBlock Text="{Binding title}"
+												   Style="{StaticResource Title}" />
+										<TextBlock Text="{Binding author}"
+												   Style="{StaticResource Author}" />
+									</StackPanel>
+								</Grid>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
+					<ListView x:ConnectionId='6' ScrollViewer.VerticalScrollBarVisibility="Hidden"
+							  Name="listViewSentRequest">
+						<ListView.ItemContainerStyle>
+							<Style TargetType="ListViewItem">
+								<Setter Property="HorizontalContentAlignment"
+										Value="Stretch">
+								</Setter>
+							</Style>
+						</ListView.ItemContainerStyle>
+						<ListView.ItemTemplate>
+							<DataTemplate>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="60" />
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="100" />
+									</Grid.ColumnDefinitions>
+									<Image Grid.Column="0"
+										   Height="60"
+										   Stretch="Fill"
+										   Source="{Binding user.ava}" />
+									<TextBlock Text="{Binding user.account}"
+											   Style="{StaticResource RequestUserAccount}"
+											   Grid.Column="1" />
+									<Button x:ConnectionId='7' Content="&#xE74D;"
+											Grid.Column="2"
+											Style="{StaticResource Delete}"
+											Tag="{Binding id}"
+											                      />
+								</Grid>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
 				</Grid>
 			</PivotItem>
 			<PivotItem>
@@ -265,50 +213,46 @@
 					</Grid>
 				</PivotItem.Header>
 				<Grid>
-					<ScrollViewer x:ConnectionId='2' Name="scrollViewerNotification">
-						<ListView x:ConnectionId='3' Name="listViewNotification">
-							<ListView.ItemContainerStyle>
-								<Style TargetType="ListViewItem">
-									<Setter Property="HorizontalContentAlignment"
-											Value="Stretch">
-									</Setter>
-								</Style>
-							</ListView.ItemContainerStyle>
-							<ListView.ItemTemplate>
-								<DataTemplate>
-									<Grid Margin="10">
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="60" />
-											<ColumnDefinition Width="*" />
-											<ColumnDefinition Width="60" />
-											<ColumnDefinition Width="60" />
-										</Grid.ColumnDefinitions>
-										<TextBlock Text="{Binding userAccount}"
-												   TextWrapping="Wrap"
-												   Foreground="Crimson"
-												   Grid.Column="0" />
-										<TextBlock Text="{Binding content}"
-												   TextWrapping="Wrap"
-												   Grid.Column="1" />
-										<Button x:ConnectionId='4' Grid.Column="2"
-												Content="&#xE8F3;"
-												Width="50"
-												Tag="{Binding bookId}"
-												Height="50"
-												              
-												FontFamily="Segoe MDL2 Assets" />
-										<Button x:ConnectionId='5' Grid.Column="3"
-												Content="&#xE74D;"
-												Width="50"
-												Height="50"
-												                       
-												Tag="{Binding requestId}"
-												FontFamily="Segoe MDL2 Assets" />
-									</Grid>
-								</DataTemplate>
-							</ListView.ItemTemplate>
-						</ListView>
-					</ScrollViewer>
+					<ListView x:ConnectionId='2' Name="listViewNotification">
+						<ListView.ItemContainerStyle>
+							<Style TargetType="ListViewItem">
+								<Setter Property="HorizontalContentAlignment"
+										Value="Stretch">
+								</Setter>
+							</Style>
+						</ListView.ItemContainerStyle>
+						<ListView.ItemTemplate>
+							<DataTemplate>
+								<Grid Margin="0,5,0,5">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="100" />
+										<ColumnDefinition Width="100" />
+									</Grid.ColumnDefinitions>
+									<TextBlock TextWrapping="Wrap"
+											   FontSize="24">
+										<TextBlock.Inlines>
+											<Run FontFamily="Segoe WP Light"
+												 Foreground="#F44336"
+												 Text="{Binding userAccount}" />
+											<Run Text="{Binding content}"
+												 FontFamily="Segoe WP Light" />
+										</TextBlock.Inlines>
+									</TextBlock>
+									<Button x:ConnectionId='3' Grid.Column="1"
+											Content="&#xE77B;"
+											Tag="{Binding userId}"
+											              
+											Style="{StaticResource ToUser}" />
+									<Button x:ConnectionId='4' Grid.Column="2"
+											Content="&#xE74D;"
+											Style="{StaticResource Delete}"
+											                       
+											Tag="{Binding requestId}" />
+								</Grid>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
 				</Grid>
 			</PivotItem>
 		</Pivot>

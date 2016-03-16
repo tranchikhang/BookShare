@@ -16,13 +16,15 @@
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
 				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
 			<ProgressBar IsIndeterminate="True"
 						 Height="30"
+						 Grid.Row="0"
 						 VerticalAlignment="Top"
 						 Name="progressBar" />
-			<RelativePanel Grid.Row="0"
+			<RelativePanel Grid.Row="1"
 						   Name="relativePanelInfo">
 				<Image Height="405"
 					   Width="270"
@@ -57,7 +59,7 @@
 					</ScrollViewer>
 				</StackPanel>
 			</RelativePanel>
-			<ListView Grid.Row="1"
+			<ListView Grid.Row="2"
 					  Margin="0,5,0,5"
 					  Name="listViewLenders">
 				<ListView.ItemContainerStyle>

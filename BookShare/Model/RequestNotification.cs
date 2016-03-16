@@ -15,6 +15,8 @@ namespace BookShare.Model
 		[JsonProperty]
 		public bool requestAccepted { get; set; }
 		[JsonProperty]
+		public string userId { get; set; }
+		[JsonProperty]
 		public string userAccount { get; set; }
 		[JsonProperty]
 		public string bookId { get; set; }

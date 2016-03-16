@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BookShare.Helper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,19 +12,30 @@ namespace BookShare.Model
 	[JsonObject ( MemberSerialization.OptIn )]
 	class PostedBook
 	{
-		[JsonProperty]
+		[JsonProperty ( PropertyName = "postId" )]
 		public string postId { get; set; }
-		[JsonProperty]
+
+		[JsonProperty ( PropertyName = "bookId" )]
 		public string bookId { get; set; }
-		[JsonProperty]
+
+		[JsonProperty ( PropertyName = "title" )]
 		public string title { get; set; }
+
 		[JsonProperty]
 		public string image { get; set; }
-		[JsonProperty]
+
+		[JsonProperty ( PropertyName = "author" )]
 		public string author { get; set; }
-		[JsonProperty]
+
+		[JsonProperty ( PropertyName = "requests" )]
 		public ObservableCollection<Request> requests { get; set; }
-		[JsonProperty]
+
+		[JsonProperty ( PropertyName = "posts" )]
 		public ObservableCollection<Post> posts { get; set; }
+
+		public void SetImageLink ()
+		{
+			this.image = RestAPI.serverAddress + "cover/" + bookId + ".jpg";
+		}
 	}
 }

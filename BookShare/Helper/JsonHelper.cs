@@ -99,5 +99,19 @@ namespace BookShare.Helper
 			books = JsonConvert.DeserializeObject<ObservableCollection<Book>> ( r );
 			return books;
 		}
+
+		public static ObservableCollection<PostedBook> ConvertToPostedBooks ( string r )
+		{
+			ObservableCollection<PostedBook> postedBooks = new ObservableCollection<PostedBook> ();
+			postedBooks = JsonConvert.DeserializeObject<ObservableCollection<PostedBook>> ( r );
+			return postedBooks;
+		}
+
+		public static ObservableCollection<RequestNotification> ConvertToRequestNotifications ( string r )
+		{
+			ObservableCollection<RequestNotification> requestNotifications = new ObservableCollection<RequestNotification> ();
+			requestNotifications = JsonConvert.DeserializeObject<ObservableCollection<RequestNotification>> ( r );
+			return requestNotifications;
+		}
 	}
 }

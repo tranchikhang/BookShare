@@ -238,13 +238,14 @@ namespace BookShare.AppPage
 				userId = UserData.id
 			};
 			string result = await RestAPI.SendJson ( data , RestAPI.phpAddress , "DeleteRequestToPost" );
-			dynamic json = JObject.Parse ( result );
-			string status = json.status;
-			if ( status == "200" )
+			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
 				//send response succeed
-				//return request id to remove
-				//requestedPost.Remove ( requestedPost.First ( p => p.postId == postId ) );
+				//remove request
+				requestedPost.Remove ( requestedPost.First ( p => p.id == postId ) );
+				//check if posts in book is empty
+				//if true, remove the book
+				requestedBooks.Remove ( requestedBooks.First ( r => r.posts.Count == 0 ) );
 			}
 			else
 			{

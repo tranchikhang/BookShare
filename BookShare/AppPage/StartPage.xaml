@@ -8,12 +8,15 @@
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Resources/LightTheme.xaml" />
+				<ResourceDictionary Source="/Resources/MyColors.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
-	<Grid Background="{StaticResource BackgroundColor}"
-		  Padding="10,0,10,0">
+	<Grid>
+		<Grid.Background>
+			<ImageBrush ImageSource="/Resources/Images/wallpaper.jpg"
+						Stretch="UniformToFill" />
+		</Grid.Background>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*" />
 			<RowDefinition Height="80" />
@@ -23,12 +26,20 @@
 		<Button Content="Đã có tài khoản? Đăng nhập ngay"
 				Grid.Row="1"
 				Width="400"
+				FontSize="24"
+				Height="50"
 				Click="LoginClick"
+				Foreground="White"
+				Background="{StaticResource MyGreen}"
 				HorizontalAlignment="Center" />
 		<Button Content="Đăng ký"
 				Grid.Row="2"
 				Width="400"
 				Click="RegisterClick"
+				Foreground="White"
+				FontSize="24"
+				Height="50"
+				Background="{StaticResource MyGreen}"
 				HorizontalAlignment="Center" />
 	</Grid>
 </Page>

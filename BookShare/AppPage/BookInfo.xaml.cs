@@ -119,10 +119,13 @@ namespace BookShare.AppPage
 				string data = JsonHelper.DecodeJson ( bookLenders );
 				lenders = JsonHelper.ConvertToPosts ( data );
 			}
-			foreach ( Post p in lenders )
+			if ( lenders != null && lenders.Count > 0 )
 			{
-				p.user.SetAddress ();
-				p.user.SetAva ();
+				foreach ( Post p in lenders )
+				{
+					p.user.SetAddress ();
+					p.user.SetAva ();
+				}
 			}
 
 			//set binding source

@@ -101,22 +101,7 @@
 		<Setter Property="BorderThickness"
 				Value="2" />
 	</Style>
-	<Style TargetType="AutoSuggestBox">
-		<Setter Property="FontFamily"
-				Value="Segoe UI" />
-		<Setter Property="FontSize"
-				Value="18" />
-		<Setter Property="VerticalAlignment"
-				Value="Center" />
-		<Setter Property="Foreground"
-				Value="White" />
-		<Setter Property="Background"
-				Value="SteelBlue" />
-		<Setter Property="BorderBrush"
-				Value="SteelBlue" />
-		<Setter Property="BorderThickness"
-				Value="2" />
-	</Style>
+	
 	<Style TargetType="ScrollViewer">
 		<Setter Property="VerticalScrollBarVisibility"
 				Value="Hidden" />

@@ -1,0 +1,18 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BookShare.Resources">
+	<SolidColorBrush x:Key="BackgroundColor"
+					 Color="White" />
+	<SolidColorBrush x:Key="ForegroundColor"
+					 Color="Black" />
+	<SolidColorBrush x:Key="TextColor"
+					 Color="Black" />
+	<SolidColorBrush x:Key="MyBlue"
+					 Color="#448AFF" />
+	<SolidColorBrush x:Key="MyRed"
+					 Color="#F44336" />
+	<SolidColorBrush x:Key="MyGreen"
+					 Color="#4CAF50" />
+</ResourceDictionary>
+

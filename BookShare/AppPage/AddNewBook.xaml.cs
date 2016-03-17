@@ -33,6 +33,8 @@ namespace BookShare.AppPage
 		public AddNewBook ()
 		{
 			this.InitializeComponent ();
+			gridNotification.Visibility = Visibility.Collapsed;
+			mainScrollViewer.Visibility = Visibility.Visible;
 			AddGenre ();
 			AddYear ();
 		}
@@ -63,7 +65,7 @@ namespace BookShare.AppPage
 			comboBoxGenre.ItemsSource = l;
 		}
 
-		
+
 
 		private async void AddFileClick ( object sender , RoutedEventArgs e )
 		{
@@ -87,12 +89,10 @@ namespace BookShare.AppPage
 
 		private async void AddBook ( object sender , RoutedEventArgs e )
 		{
-			if ( textBlockFile.Text != "" && textBoxTitle.Text != "" && textBoxDes.Text != ""
-				&& suggestAuthor.Text != "" && comboYear.SelectedValue != null )
+			if ( CheckField () )
 			{
-				//send request
 				string imageString = await ImageUpload.StorageFileToBase64 ( file );
-				dynamic sendJson = new
+				dynamic dataTosend = new
 				{
 					title = textBoxTitle.Text ,
 					author = suggestAuthor.Text ,
@@ -102,20 +102,33 @@ namespace BookShare.AppPage
 					image = imageString ,
 					userId = UserData.id
 				};
-				string result = await RestAPI.SendJson ( sendJson , RestAPI.phpAddress , "AddNewBook" );
-				dynamic json = JObject.Parse ( result );
-				string status = json.status;
-				string message = json.message;
-				if ( status == "200" )
+				string result = await RestAPI.SendJson ( dataTosend , RestAPI.phpAddress , "AddNewBook" );
+				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 				{
-					CustomNotification.ShowNotification ( message );
-					Frame.Navigate ( typeof ( MainPage ) );
+					textBlockTitle.Visibility = Visibility.Collapsed;
+					textBlockContent.Text = "Đã thêm sách mới";
+					ShowNotification ();
 				}
 			}
 			else
 			{
-				CustomNotification.ShowNotification ( "Kiểm tra lại thông tin đã nhập" );
+				textBlockTitle.Visibility = Visibility.Visible;
+				textBlockTitle.Text = "Lỗi";
+				textBlockContent.Text = "Kiểm tra thông tin nhập vào";
+				ShowNotification ();
 			}
+		}
+
+		private bool CheckField ()
+		{
+			//check empty
+			if ( textBlockFile.Text == "" || textBoxTitle.Text == "" || textBoxDes.Text == ""
+				|| suggestAuthor.Text == "" || comboYear.SelectedValue == null )
+				return false;
+			//check length
+			if ( textBoxTitle.Text.Length > 100 || textBoxDes.Text.Length > 5000 || suggestAuthor.Text.Length > 30 )
+				return false;
+			return true;
 		}
 
 		private async void SuggestTextChanged ( AutoSuggestBox sender , AutoSuggestBoxTextChangedEventArgs args )
@@ -125,13 +138,24 @@ namespace BookShare.AppPage
 			var l = new ObservableCollection<object> ();
 			for ( int i = 0 ; i < json.Count ; i++ )
 			{
-				l.Add ( new
+				l.Add (new
 				{
-					//authorId = json[i].authorId ,
 					authorName = json[i].authorName
 				} );
 			}
 			suggestAuthor.ItemsSource = l;
+		}
+
+		private void NotificationDismiss ( object sender , RoutedEventArgs e )
+		{
+			gridNotification.Visibility = Visibility.Collapsed;
+			mainScrollViewer.Visibility = Visibility.Visible;
+		}
+
+		private void ShowNotification()
+		{
+			gridNotification.Visibility = Visibility.Visible;
+			mainScrollViewer.Visibility = Visibility.Collapsed;
 		}
 	}
 }

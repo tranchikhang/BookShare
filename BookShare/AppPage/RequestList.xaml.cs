@@ -72,15 +72,17 @@ namespace BookShare.AppPage
 			{
 				string data = JsonHelper.DecodeJson ( result );
 				postedBooks = JsonHelper.ConvertToPostedBooks ( data );
-				foreach ( PostedBook pt in postedBooks )
-				{
-					pt.SetImageLink ();
-					foreach ( Request r in pt.requests )
+				if ( postedBooks != null && postedBooks.Count > 0 )
+					foreach ( PostedBook pt in postedBooks )
 					{
-						r.user.SetAddress ();
-						r.user.SetAva ();
+						pt.SetImageLink ();
+						if ( pt.requests != null && pt.requests.Count > 0 )
+							foreach ( Request r in pt.requests )
+							{
+								r.user.SetAddress ();
+								r.user.SetAva ();
+							}
 					}
-				}
 				listViewPostedBook.ItemsSource = postedBooks;
 			}
 		}
@@ -92,10 +94,11 @@ namespace BookShare.AppPage
 			{
 				string data = JsonHelper.DecodeJson ( result );
 				requestNotifications = JsonHelper.ConvertToRequestNotifications ( data );
-				foreach ( RequestNotification rq in requestNotifications )
-				{
-					rq.SetContent ();
-				}
+				if ( requestNotifications != null && requestNotifications.Count > 0 )
+					foreach ( RequestNotification rq in requestNotifications )
+					{
+						rq.SetContent ();
+					}
 				listViewNotification.ItemsSource = requestNotifications;
 			}
 		}
@@ -107,15 +110,17 @@ namespace BookShare.AppPage
 			{
 				string data = JsonHelper.DecodeJson ( result );
 				requestedBooks = JsonHelper.ConvertToPostedBooks ( data );
-				foreach ( PostedBook pt in requestedBooks )
-				{
-					pt.SetImageLink ();
-					foreach ( Post p in pt.posts )
+				if ( requestedBooks != null && requestedBooks.Count > 0 )
+					foreach ( PostedBook pt in requestedBooks )
 					{
-						p.user.SetAddress ();
-						p.user.SetAva ();
+						pt.SetImageLink ();
+						if ( pt.posts != null && pt.posts.Count > 0 )
+							foreach ( Post p in pt.posts )
+							{
+								p.user.SetAddress ();
+								p.user.SetAva ();
+							}
 					}
-				}
 				listViewRequestedBook.ItemsSource = requestedBooks;
 			}
 		}

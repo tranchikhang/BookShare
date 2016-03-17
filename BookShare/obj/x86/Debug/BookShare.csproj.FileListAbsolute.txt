@@ -22,7 +22,6 @@ D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\Greeting.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\LightTheme.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\MessagePage.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\RequestList.xbf
-D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\SaveButton.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\UserInfo.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\BookShare.xr.xml
 D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\BookShare.exe
@@ -193,7 +192,6 @@ D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\Greeting.xaml
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\LightTheme.xaml
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\MessagePage.xaml
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\RequestList.xaml
-D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\SaveButton.xaml
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\UserInfo.xaml
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\App.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\AddNewBook.xbf
@@ -218,7 +216,6 @@ D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\Greeting.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\LightTheme.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\MessagePage.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\RequestList.xbf
-D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\SaveButton.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\UserInfo.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\XamlSaveStateFile.xml
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\BookShare.exe
@@ -293,3 +290,15 @@ D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\BookShare.csprojResolveAssem
 D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\SearchPage.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\SearchPage.xaml
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\SearchPage.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\PageResource\AddNewBook.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\PageResource\AddNewBook.xaml
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\PageResource\AddNewBook.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\MyColors.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\MyColors.xaml
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\MyColors.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\PageResource\SettingPage.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\PageResource\SettingPage.xaml
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\PageResource\SettingPage.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\Notification.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\Notification.xaml
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\Notification.xbf

@@ -20,6 +20,9 @@ namespace BookShare.Model
 		[JsonProperty ( PropertyName = "userEmail" )]
 		public string email { get; set; }
 
+		[JsonProperty ( PropertyName = "userPassword" )]
+		public string password { get; set; }
+
 		[JsonProperty ( PropertyName = "userFullname" )]
 		public string fullname { get; set; }
 

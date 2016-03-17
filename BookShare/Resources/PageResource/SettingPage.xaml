@@ -1,0 +1,147 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BookShare.Resources.PageResource">
+	<ResourceDictionary.MergedDictionaries>
+	<ResourceDictionary Source="/Resources/MyColors.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+	<Style TargetType="TextBlock"
+		   x:Key="TextBlockMainTitle">
+		<Setter Property="FontFamily"
+				Value="Segoe UI" />
+		<Setter Property="FontSize"
+				Value="32" />
+		<Setter Property="Foreground"
+				Value="{StaticResource TextColor}" />
+		<Setter Property="Height"
+				Value="Auto" />
+
+	</Style>
+	<Style TargetType="TextBlock"
+		   x:Key="TextBlockField">
+		<Setter Property="FontFamily"
+				Value="Segoe UI" />
+		<Setter Property="FontSize"
+				Value="22" />
+		<Setter Property="Foreground"
+				Value="{StaticResource TextColor}" />
+		<Setter Property="Height"
+				Value="40" />
+		<Setter Property="Margin"
+				Value="0,2,0,0" />
+	</Style>
+	<Style TargetType="TextBlock"
+		   x:Key="TextBlockContent">
+		<Setter Property="FontFamily"
+				Value="Segoe WP Light" />
+		<Setter Property="FontSize"
+				Value="32" />
+		<Setter Property="TextWrapping"
+				Value="Wrap" />
+		<Setter Property="HorizontalAlignment"
+				Value="Center" />
+		<Setter Property="Foreground"
+				Value="{StaticResource TextColor}" />
+		<Setter Property="VerticalAlignment"
+				Value="Center" />
+	</Style>
+	<Style TargetType="TextBox" x:Key="TextBoxField">
+		<Setter Property="FontFamily"
+				Value="Segoe UI" />
+		<Setter Property="FontSize"
+				Value="22" />
+		<Setter Property="Height"
+				Value="Auto" />
+		<Setter Property="VerticalContentAlignment"
+				Value="Center" />
+		<Setter Property="Foreground"
+				Value="{StaticResource TextColor}" />
+		<Setter Property="Margin"
+				Value="0,2,0,0" />
+	</Style>
+	<Style TargetType="Button"
+		   x:Name="ChangePass">
+		<Setter Property="FontFamily"
+				Value="Segoe UI" />
+		<Setter Property="FontSize"
+				Value="22" />
+		<Setter Property="VerticalAlignment"
+				Value="Center" />
+		<Setter Property="Foreground"
+				Value="{StaticResource MyBlue}" />
+		<Setter Property="Background"
+				Value="White" />
+		<Setter Property="BorderBrush"
+				Value="{StaticResource MyBlue}" />
+		<Setter Property="BorderThickness"
+				Value="2" />
+		<Setter Property="Margin"
+				Value="0,2" />
+		<Setter Property="Height"
+				Value="50" />
+	</Style>
+	<Style TargetType="ComboBox">
+		<Setter Property="FontFamily"
+				Value="Segoe UI" />
+		<Setter Property="FontSize"
+				Value="22" />
+		<Setter Property="Height"
+				Value="50" />
+	</Style>
+	<Style TargetType="Button"
+		   x:Key="ButtonSave">
+		<Setter Property="FontFamily"
+				Value="Segoe UI" />
+		<Setter Property="FontSize"
+				Value="22" />
+		<Setter Property="HorizontalContentAlignment"
+				Value="Center" />
+		<Setter Property="VerticalContentAlignment"
+				Value="Center" />
+		<Setter Property="Foreground"
+				Value="White" />
+		<Setter Property="Height"
+				Value="50" />
+		<Setter Property="Width"
+				Value="150" />
+		<Setter Property="Margin"
+				Value="0,0,0,10" />
+		<Setter Property="Background"
+				Value="{StaticResource MyGreen}" />
+	</Style>
+	<Style TargetType="Button"
+		   x:Key="ButtonChangeOass">
+		<Setter Property="FontFamily"
+				Value="Segoe UI" />
+		<Setter Property="FontSize"
+				Value="22" />
+		<Setter Property="HorizontalContentAlignment"
+				Value="Center" />
+		<Setter Property="HorizontalAlignment"
+				Value="Center" />
+		<Setter Property="VerticalContentAlignment"
+				Value="Center" />
+		<Setter Property="Foreground"
+				Value="White" />
+		<Setter Property="Height"
+				Value="50" />
+		<Setter Property="Width"
+				Value="150" />
+		<Setter Property="Margin"
+				Value="0,20,0,10" />
+		<Setter Property="Background"
+				Value="{StaticResource MyBlue}" />
+	</Style>
+	<Style TargetType="PasswordBox">
+		<Setter Property="FontFamily"
+				Value="Segoe UI" />
+		<Setter Property="FontSize"
+				Value="22" />
+		<Setter Property="Foreground"
+				Value="{StaticResource TextColor}" />
+		<Setter Property="Height"
+				Value="40" />
+		<Setter Property="Margin"
+				Value="0,2,0,0" />
+	</Style>
+</ResourceDictionary>

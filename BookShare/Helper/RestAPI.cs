@@ -21,6 +21,7 @@ namespace BookShare.Helper
 			//string tokenJson = JsonConvert.SerializeObject ( UserData.token );
 			//create dictionary
 			var dict = new Dictionary<string , string> ();
+			dict["key"] = key;
 			dict[key] = json;
 			//dict["token"] = UserData.token;
 

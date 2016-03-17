@@ -6,7 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Windows.Security.Cryptography;
+using Windows.Security.Cryptography.Core;
 using Windows.Storage;
+using Windows.Storage.Streams;
+using Windows.UI.Core;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -25,20 +29,22 @@ namespace BookShare.AppPage
 		public SettingPage ()
 		{
 			this.InitializeComponent ();
-			GetUserInfo ();
 			progressBar.Visibility = Visibility.Visible;
 			relativePanel.Visibility = Visibility.Collapsed;
+			gridChangePass.Visibility = Visibility.Collapsed;
+			gridNotification.Visibility = Visibility.Collapsed;
+			GetUserInfo ();
+			progressBar.Visibility = Visibility.Collapsed;
+			relativePanel.Visibility = Visibility.Visible;
 		}
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
-			mes = new MessageDialog ( "" );
 		}
 
 		private ObservableCollection<District> district;
 		private ObservableCollection<City> city;
 		private User user;
-		MessageDialog mes;
 
 		private void DisplayUserInfo ()
 		{
@@ -64,39 +70,26 @@ namespace BookShare.AppPage
 		private async void GetUserInfo ()
 		{
 			string sendResult = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetAccountInfo" );
-			try
-			{
-				string data = JsonHelper.DecodeJson ( sendResult );
-				Dictionary<string , object> d = JsonConvert.DeserializeObject<Dictionary<string , object>> ( data );
-				user = JsonHelper.ConvertToUser ( d["user"].ToString () );
-				user.id = UserData.id;
-				user.SetAva ();
 
-				//deserialize all location into list
-				district = JsonHelper.ConvertToDistricts ( d["allDistrict"].ToString () );
-				city = JsonHelper.ConvertToCities ( d["allCity"].ToString () );
+			string data = JsonHelper.DecodeJson ( sendResult );
+			Dictionary<string , object> d = JsonConvert.DeserializeObject<Dictionary<string , object>> ( data );
+			user = JsonHelper.ConvertToUser ( d["user"].ToString () );
+			user.id = UserData.id;
+			user.SetAva ();
 
-				comboCity.ItemsSource = city;
-				comboDistrict.ItemsSource = district;
-				DisplayUserInfo ();
+			//deserialize all location into list
+			district = JsonHelper.ConvertToDistricts ( d["allDistrict"].ToString () );
+			city = JsonHelper.ConvertToCities ( d["allCity"].ToString () );
 
-				progressBar.Visibility = Visibility.Collapsed;
-				relativePanel.Visibility = Visibility.Visible;
-			}
-			catch ( Exception ex )
-			{
-				CustomNotification.ShowDialogMessage ( content: ex.Message );
-			}
+			comboCity.ItemsSource = city;
+			comboDistrict.ItemsSource = district;
+			DisplayUserInfo ();
 		}
 
 		private async void SaveClick ( object sender , RoutedEventArgs e )
 		{
-			if ( !RegexUtilities.IsValidEmail ( textBoxEmail.Text ) )
-			{
-				mes.Content = "Email không hợp lệ, kiểm tra lại";
-				await mes.ShowAsync ();
-			}
-			else
+			string r = Fieldvalidation ();
+			if ( r == "" )
 			{
 				UpdateLocalInfo ();
 				string imageString = "";
@@ -116,9 +109,25 @@ namespace BookShare.AppPage
 				string result = await RestAPI.SendJson ( newUser , RestAPI.phpAddress , "SetAccountInfo" );
 				//show new value
 				DisplayUserInfo ();
-				CustomNotification.ShowNotification ( "Cập nhật thành công" );
-				ToastNotificationManager.History.Clear ();
+				mainScrollViewer.ScrollToVerticalOffset ( 0 );
+				ShowNotification ( "Cập nhật thành công" );
 			}
+			else
+			{
+				mainScrollViewer.ScrollToVerticalOffset ( 0 );
+				ShowNotification ( r );
+			}
+		}
+
+		private string Fieldvalidation ()
+		{
+			if ( textBoxEmail.Text == "" || !RegexUtilities.IsValidEmail ( textBoxEmail.Text ) )
+				return "Email không hợp lệ, kiểm tra lại";
+			if ( textBoxFullName.Text.Length > 30 )
+				return "Tên không hợp lệ, kiểm tra lại";
+			if ( textBoxAddress.Text.Length > 30 )
+				return "Địa chỉ không hợp lệ, kiểm tra lại";
+			return "";
 		}
 
 		private void UpdateLocalInfo ()
@@ -150,6 +159,96 @@ namespace BookShare.AppPage
 			picker.FileTypeFilter.Add ( ".jpg" );
 
 			file = await picker.PickSingleFileAsync ();
+		}
+
+		private void ChangePassClick ( object sender , RoutedEventArgs e )
+		{
+			relativePanel.Visibility = Visibility.Collapsed;
+			gridChangePass.Visibility = Visibility.Visible;
+			HandleBackButton ();
+		}
+
+		private void HandleBackButton ()
+		{
+			//show back button
+			SystemNavigationManager.GetForCurrentView ().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+			//back button event
+			SystemNavigationManager.GetForCurrentView ().BackRequested += BackButtonClick;
+		}
+
+		private void BackButtonClick ( object sender , BackRequestedEventArgs e )
+		{
+			relativePanel.Visibility = Visibility.Visible;
+			gridChangePass.Visibility = Visibility.Collapsed;
+			SystemNavigationManager.GetForCurrentView ().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+		}
+
+		private async void ChangePass ( object sender , RoutedEventArgs e )
+		{
+			string r = CheckPasswordValid ();
+			if ( r == "" )
+			{
+				//ok
+				dynamic dataToSend = new
+				{
+					userNewPass = pwBoxNew.Password ,
+					userId = UserData.id
+				};
+				string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "ChangePass" );
+				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
+				{
+					user.password = pwBoxNew.Password;
+					gridNotification.Visibility = Visibility.Collapsed;
+					gridChangePass.Visibility = Visibility.Collapsed;
+					relativePanel.Visibility = Visibility.Visible;
+				}
+			}
+			else
+			{
+				ShowNotification ( r );
+			}
+
+		}
+		private string CheckPasswordValid ()
+		{
+			//check empty field
+			if ( pwBoxCurrent.Password == "" || pwBoxNew.Password == "" || pwBoxNewRe.Password == "" )
+				return "Điền thông tin vào các trường";
+			//check if current password matched old password
+			if ( ComputeMD5 ( pwBoxCurrent.Password ) != user.password )
+				return "Mật khẩu hiện tại không đúng";
+			//new password must be different from old one
+			if ( pwBoxCurrent.Password == pwBoxNew.Password )
+				return "Mật khẩu mới không được giống mật khẩu cũ";
+			//check new password length
+			if ( pwBoxNew.Password.Length > 16 || pwBoxNew.Password.Length < 5 )
+				return "Độ dài mật khẩu phải từ 5-16 kí tự";
+			//check new password recheck
+			if ( pwBoxNew.Password != pwBoxNewRe.Password )
+				return "Xác nhận lại mật khẩu mới";
+			return "";
+		}
+
+		private void NotificationDismiss ( object sender , RoutedEventArgs e )
+		{
+			textBlockContent.Text = "";
+			gridNotification.Visibility = Visibility.Collapsed;
+		}
+
+		public string ComputeMD5 ( string str )
+		{
+			var alg = HashAlgorithmProvider.OpenAlgorithm ( HashAlgorithmNames.Md5 );
+			IBuffer buff = CryptographicBuffer.ConvertStringToBinary ( str , BinaryStringEncoding.Utf8 );
+			var hashed = alg.HashData ( buff );
+			var res = CryptographicBuffer.EncodeToHexString ( hashed );
+			return res;
+		}
+
+		private void ShowNotification ( string content )
+		{
+			//notify user
+			textBlockContent.Text = content;
+			gridNotification.Visibility = Visibility.Visible;
 		}
 	}
 }

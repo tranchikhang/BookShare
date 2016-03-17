@@ -8,16 +8,17 @@
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Resources/LightTheme.xaml" />
-				<ResourceDictionary Source="/Resources/ChangePassButton.xaml" />
-				<ResourceDictionary Source="/Resources/SaveButton.xaml" />
+				<ResourceDictionary Source="/Resources/PageResource/SettingPage.xaml" />
+				<ResourceDictionary Source="/Resources/Notification.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
-	<ScrollViewer Margin="10,0,10,0">
+	<ScrollViewer x:ConnectionId='1' Margin="5,0,5,0"
+				  Name="mainScrollViewer"
+				  VerticalScrollBarVisibility="Hidden">
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
-				<VisualState x:ConnectionId='1' x:Name="WideState">
+				<VisualState x:ConnectionId='2' x:Name="WideState">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="700" />
 					</VisualState.StateTriggers>
@@ -72,7 +73,7 @@
 								Value="buttonChangePass" />
 					</VisualState.Setters>
 				</VisualState>
-				<VisualState x:ConnectionId='2' x:Name="NarrowState">
+				<VisualState x:ConnectionId='3' x:Name="NarrowState">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="0" />
 					</VisualState.StateTriggers>
@@ -132,85 +133,121 @@
 		<Grid Background="{StaticResource BackgroundColor}">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
-				<RowDefinition Height="300" />
+				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
-			<Grid Grid.Row="0"
-				  Margin="10,0,10,0">
-				<ProgressBar x:ConnectionId='3' IsIndeterminate="True" Height="30" VerticalAlignment="Top" Name="progressBar"/>
-				<RelativePanel x:ConnectionId='4' Name="relativePanel">
-					<TextBlock x:ConnectionId='5' Text="Thông tin tài khoản"
-							   FontSize="{StaticResource GroupSize}"
-							   Name="textBlockTitle"
-							   Height="50" />
-					<Image x:ConnectionId='6' RelativePanel.Below="textBlockTitle"
-						   RelativePanel.AlignLeftWith="textBlockTitle"
-						   Name="userAva"
-						   Width="200"
-						   Stretch="Fill"
-						   Height="200" />
-					<Button x:ConnectionId='7' Content="chọn file"
-							RelativePanel.Below="userAva"
-							Name="buttonAddFile"
-							Margin="0,10,0,10"
-							                     />
-					<TextBlock x:ConnectionId='8' Text="Tên tài khoản"
-							   Style="{StaticResource TextBlockField}"
-							   Name="textBlockAccount"
-							   Width="150" />
-					<TextBox x:ConnectionId='9' Name="textBoxAccount"
-							 Width="300"
-							 Text="{Binding account}"
-							 IsEnabled="False"
-							 Style="{StaticResource TextBoxField}" />
-					<TextBlock x:ConnectionId='10' Text="Tên đầy đủ"
-							   Name="textBlockFullName"
-							   Style="{StaticResource TextBlockField}"
-							   Width="150" />
-					<TextBox x:ConnectionId='11' Name="textBoxFullName"
-							 Width="300"
-							 Text="{Binding fullname}"
-							 Style="{StaticResource TextBoxField}" />
-					<TextBlock x:ConnectionId='12' Text="Email"
-							   Name="textBlockEmail"
-							   Style="{StaticResource TextBlockField}"
-							   Width="150" />
-					<TextBox x:ConnectionId='13' Name="textBoxEmail"
-							 Width="300"
-							 Text="{Binding email}"
-							 Style="{StaticResource TextBoxField}" />
-					<TextBlock x:ConnectionId='14' Text="Địa chỉ"
-							   Name="textBlockAddress"
-							   Style="{StaticResource TextBlockField}"
-							   Width="150" />
-					<ComboBox x:ConnectionId='15' Name="comboCity"
-							  Width="170"
-							  DisplayMemberPath="cityName"
-							                                               
-							  SelectedValuePath="cityId"
-							  SelectedValue="{Binding cityId}"
-							  Margin="0,10,0,10" />
-					<ComboBox x:ConnectionId='16' Name="comboDistrict"
-							  Width="130"
-							  DisplayMemberPath="districtName"
-							  SelectedValuePath="districtId"
-							  Margin="0,10,0,10" />
-					<TextBox x:ConnectionId='17' Name="textBoxAddress"
-							 Width="300"
-							 Text="{Binding address}"
-							 Style="{StaticResource TextBoxField}" />
-					<Button x:ConnectionId='18' Content="Đổi mật khẩu"
-							Height="40"
-							Style="{StaticResource ChangePass}"
-							Name="buttonChangePass"
-							Width="150" />
-					<Button x:ConnectionId='19' Content="Lưu thay đổi"
-							Style="{StaticResource Save}"
-							                 
-							Name="buttonSave" />
-				</RelativePanel>
+			<ProgressBar x:ConnectionId='4' IsIndeterminate="True"
+						 Height="30"
+						 VerticalAlignment="Top"
+						 Name="progressBar" />
+			<Grid x:ConnectionId='5' Name="gridNotification"
+				  Style="{StaticResource GridNotification}">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="50" />
+					<ColumnDefinition Width="10" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Button x:ConnectionId='28' Style="{StaticResource ButtonDismiss}"
+						Content="&#xE711;"
+						                            />
+				<TextBlock x:ConnectionId='29' Name="textBlockContent"
+						   Grid.Column="2"
+						   Style="{StaticResource TextBlockContent}" />
 			</Grid>
-			<Grid Grid.Row="1">
-
+			<RelativePanel x:ConnectionId='6' Name="relativePanel"
+						   Grid.Row="1">
+				<TextBlock x:ConnectionId='13' Text="Thông tin tài khoản"
+						   Style="{StaticResource TextBlockMainTitle}"
+						   Name="textBlockTitle" />
+				<Image x:ConnectionId='14' RelativePanel.Below="textBlockTitle"
+					   RelativePanel.AlignLeftWith="textBlockTitle"
+					   Name="userAva"
+					   Width="200"
+					   Stretch="Fill"
+					   Margin="5"
+					   Height="200" />
+				<Button x:ConnectionId='15' Content="chọn file"
+						RelativePanel.Below="userAva"
+						Name="buttonAddFile"
+						Margin="0,10,0,10"
+						                     />
+				<TextBlock x:ConnectionId='16' Text="Tên tài khoản"
+						   Style="{StaticResource TextBlockField}"
+						   Name="textBlockAccount"
+						   Width="150" />
+				<TextBox x:ConnectionId='17' Name="textBoxAccount"
+						 Width="350"
+						 Text="{Binding account}"
+						 IsEnabled="False"
+						 Style="{StaticResource TextBoxField}" />
+				<TextBlock x:ConnectionId='18' Text="Tên đầy đủ"
+						   Name="textBlockFullName"
+						   Style="{StaticResource TextBlockField}"
+						   Width="150" />
+				<TextBox x:ConnectionId='19' Name="textBoxFullName"
+						 Width="350"
+						 Text="{Binding fullname}"
+						 Style="{StaticResource TextBoxField}" />
+				<TextBlock x:ConnectionId='20' Text="Email"
+						   Name="textBlockEmail"
+						   Style="{StaticResource TextBlockField}"
+						   Width="150" />
+				<TextBox x:ConnectionId='21' Name="textBoxEmail"
+						 Width="350"
+						 Text="{Binding email}"
+						 Style="{StaticResource TextBoxField}" />
+				<TextBlock x:ConnectionId='22' Text="Địa chỉ"
+						   Margin="0,10,0,0"
+						   Name="textBlockAddress"
+						   Style="{StaticResource TextBlockField}"
+						   Width="150" />
+				<ComboBox x:ConnectionId='23' Name="comboCity"
+						  Width="200"
+						  DisplayMemberPath="cityName"
+						                                               
+						  SelectedValuePath="cityId"
+						  Margin="0,10,0,10"
+						  SelectedValue="{Binding cityId}" />
+				<ComboBox x:ConnectionId='24' Name="comboDistrict"
+						  Width="150"
+						  DisplayMemberPath="districtName"
+						  SelectedValuePath="districtId"
+						  Margin="0,10,0,10" />
+				<TextBox x:ConnectionId='25' Name="textBoxAddress"
+						 Width="300"
+						 Text="{Binding address}"
+						 Style="{StaticResource TextBoxField}" />
+				<Button x:ConnectionId='26' Content="Đổi mật khẩu"
+						Style="{StaticResource ChangePass}"
+						Name="buttonChangePass"
+						                        />
+				<Button x:ConnectionId='27' Content="Lưu thay đổi"
+						                 
+						Style="{StaticResource ButtonSave}"
+						Name="buttonSave" />
+			</RelativePanel>
+			<Grid x:ConnectionId='7' Name="gridChangePass"
+				  Grid.Row="1">
+				<StackPanel Orientation="Vertical">
+					<TextBlock Text="Mật khẩu hiện tại"
+							   Style="{StaticResource TextBlockField}"
+							   Width="250" />
+					<PasswordBox x:ConnectionId='8' Width="250"
+								 x:Name="pwBoxCurrent" />
+					<TextBlock x:ConnectionId='9' Text="Mật khẩu mới"
+							   x:Name="textBoxNewPass"
+							   Style="{StaticResource TextBlockField}"
+							   Width="250" />
+					<PasswordBox x:ConnectionId='10' Width="250"
+								 x:Name="pwBoxNew" />
+					<TextBlock Text="Nhập lại mật khẩu mới"
+							   Style="{StaticResource TextBlockField}"
+							   Width="250" />
+					<PasswordBox x:ConnectionId='11' Width="250"
+								 x:Name="pwBoxNewRe" />
+					<Button x:ConnectionId='12' Content="Đổi mật khẩu"
+							                  
+							Style="{StaticResource ButtonChangeOass}" />
+				</StackPanel>
 			</Grid>
 		</Grid>
 	</ScrollViewer>

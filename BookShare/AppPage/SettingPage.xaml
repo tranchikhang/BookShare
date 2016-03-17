@@ -8,13 +8,14 @@
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Resources/LightTheme.xaml" />
-				<ResourceDictionary Source="/Resources/ChangePassButton.xaml" />
-				<ResourceDictionary Source="/Resources/SaveButton.xaml" />
+				<ResourceDictionary Source="/Resources/PageResource/SettingPage.xaml" />
+				<ResourceDictionary Source="/Resources/Notification.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
-	<ScrollViewer Margin="10,0,10,0">
+	<ScrollViewer Margin="5,0,5,0"
+				  Name="mainScrollViewer"
+				  VerticalScrollBarVisibility="Hidden">
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
 				<VisualState x:Name="WideState">
@@ -132,85 +133,121 @@
 		<Grid Background="{StaticResource BackgroundColor}">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
-				<RowDefinition Height="300" />
+				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
-			<Grid Grid.Row="0"
-				  Margin="10,0,10,0">
-				<ProgressBar IsIndeterminate="True" Height="30" VerticalAlignment="Top" Name="progressBar"/>
-				<RelativePanel Name="relativePanel">
-					<TextBlock Text="Thông tin tài khoản"
-							   FontSize="{StaticResource GroupSize}"
-							   Name="textBlockTitle"
-							   Height="50" />
-					<Image RelativePanel.Below="textBlockTitle"
-						   RelativePanel.AlignLeftWith="textBlockTitle"
-						   Name="userAva"
-						   Width="200"
-						   Stretch="Fill"
-						   Height="200" />
-					<Button Content="chọn file"
-							RelativePanel.Below="userAva"
-							Name="buttonAddFile"
-							Margin="0,10,0,10"
-							Click="AddFileClick" />
-					<TextBlock Text="Tên tài khoản"
-							   Style="{StaticResource TextBlockField}"
-							   Name="textBlockAccount"
-							   Width="150" />
-					<TextBox Name="textBoxAccount"
-							 Width="300"
-							 Text="{Binding account}"
-							 IsEnabled="False"
-							 Style="{StaticResource TextBoxField}" />
-					<TextBlock Text="Tên đầy đủ"
-							   Name="textBlockFullName"
-							   Style="{StaticResource TextBlockField}"
-							   Width="150" />
-					<TextBox Name="textBoxFullName"
-							 Width="300"
-							 Text="{Binding fullname}"
-							 Style="{StaticResource TextBoxField}" />
-					<TextBlock Text="Email"
-							   Name="textBlockEmail"
-							   Style="{StaticResource TextBlockField}"
-							   Width="150" />
-					<TextBox Name="textBoxEmail"
-							 Width="300"
-							 Text="{Binding email}"
-							 Style="{StaticResource TextBoxField}" />
-					<TextBlock Text="Địa chỉ"
-							   Name="textBlockAddress"
-							   Style="{StaticResource TextBlockField}"
-							   Width="150" />
-					<ComboBox Name="comboCity"
-							  Width="170"
-							  DisplayMemberPath="cityName"
-							  SelectionChanged="comboCity_SelectionChanged"
-							  SelectedValuePath="cityId"
-							  SelectedValue="{Binding cityId}"
-							  Margin="0,10,0,10" />
-					<ComboBox Name="comboDistrict"
-							  Width="130"
-							  DisplayMemberPath="districtName"
-							  SelectedValuePath="districtId"
-							  Margin="0,10,0,10" />
-					<TextBox Name="textBoxAddress"
-							 Width="300"
-							 Text="{Binding address}"
-							 Style="{StaticResource TextBoxField}" />
-					<Button Content="Đổi mật khẩu"
-							Height="40"
-							Style="{StaticResource ChangePass}"
-							Name="buttonChangePass"
-							Width="150" />
-					<Button Content="Lưu thay đổi"
-							Style="{StaticResource Save}"
-							Click="SaveClick"
-							Name="buttonSave" />
-				</RelativePanel>
+			<ProgressBar IsIndeterminate="True"
+						 Height="30"
+						 VerticalAlignment="Top"
+						 Name="progressBar" />
+			<Grid Name="gridNotification"
+				  Style="{StaticResource GridNotification}">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="50" />
+					<ColumnDefinition Width="10" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Button Style="{StaticResource ButtonDismiss}"
+						Content="&#xE711;"
+						Click="NotificationDismiss" />
+				<TextBlock Name="textBlockContent"
+						   Grid.Column="2"
+						   Style="{StaticResource TextBlockContent}" />
 			</Grid>
-			<Grid Grid.Row="1">
-
+			<RelativePanel Name="relativePanel"
+						   Grid.Row="1">
+				<TextBlock Text="Thông tin tài khoản"
+						   Style="{StaticResource TextBlockMainTitle}"
+						   Name="textBlockTitle" />
+				<Image RelativePanel.Below="textBlockTitle"
+					   RelativePanel.AlignLeftWith="textBlockTitle"
+					   Name="userAva"
+					   Width="200"
+					   Stretch="Fill"
+					   Margin="5"
+					   Height="200" />
+				<Button Content="chọn file"
+						RelativePanel.Below="userAva"
+						Name="buttonAddFile"
+						Margin="0,10,0,10"
+						Click="AddFileClick" />
+				<TextBlock Text="Tên tài khoản"
+						   Style="{StaticResource TextBlockField}"
+						   Name="textBlockAccount"
+						   Width="150" />
+				<TextBox Name="textBoxAccount"
+						 Width="350"
+						 Text="{Binding account}"
+						 IsEnabled="False"
+						 Style="{StaticResource TextBoxField}" />
+				<TextBlock Text="Tên đầy đủ"
+						   Name="textBlockFullName"
+						   Style="{StaticResource TextBlockField}"
+						   Width="150" />
+				<TextBox Name="textBoxFullName"
+						 Width="350"
+						 Text="{Binding fullname}"
+						 Style="{StaticResource TextBoxField}" />
+				<TextBlock Text="Email"
+						   Name="textBlockEmail"
+						   Style="{StaticResource TextBlockField}"
+						   Width="150" />
+				<TextBox Name="textBoxEmail"
+						 Width="350"
+						 Text="{Binding email}"
+						 Style="{StaticResource TextBoxField}" />
+				<TextBlock Text="Địa chỉ"
+						   Margin="0,10,0,0"
+						   Name="textBlockAddress"
+						   Style="{StaticResource TextBlockField}"
+						   Width="150" />
+				<ComboBox Name="comboCity"
+						  Width="200"
+						  DisplayMemberPath="cityName"
+						  SelectionChanged="comboCity_SelectionChanged"
+						  SelectedValuePath="cityId"
+						  Margin="0,10,0,10"
+						  SelectedValue="{Binding cityId}" />
+				<ComboBox Name="comboDistrict"
+						  Width="150"
+						  DisplayMemberPath="districtName"
+						  SelectedValuePath="districtId"
+						  Margin="0,10,0,10" />
+				<TextBox Name="textBoxAddress"
+						 Width="300"
+						 Text="{Binding address}"
+						 Style="{StaticResource TextBoxField}" />
+				<Button Content="Đổi mật khẩu"
+						Style="{StaticResource ChangePass}"
+						Name="buttonChangePass"
+						Click="ChangePassClick" />
+				<Button Content="Lưu thay đổi"
+						Click="SaveClick"
+						Style="{StaticResource ButtonSave}"
+						Name="buttonSave" />
+			</RelativePanel>
+			<Grid Name="gridChangePass"
+				  Grid.Row="1">
+				<StackPanel Orientation="Vertical">
+					<TextBlock Text="Mật khẩu hiện tại"
+							   Style="{StaticResource TextBlockField}"
+							   Width="250" />
+					<PasswordBox Width="250"
+								 x:Name="pwBoxCurrent" />
+					<TextBlock Text="Mật khẩu mới"
+							   x:Name="textBoxNewPass"
+							   Style="{StaticResource TextBlockField}"
+							   Width="250" />
+					<PasswordBox Width="250"
+								 x:Name="pwBoxNew" />
+					<TextBlock Text="Nhập lại mật khẩu mới"
+							   Style="{StaticResource TextBlockField}"
+							   Width="250" />
+					<PasswordBox Width="250"
+								 x:Name="pwBoxNewRe" />
+					<Button Content="Đổi mật khẩu"
+							Click="ChangePass"
+							Style="{StaticResource ButtonChangeOass}" />
+				</StackPanel>
 			</Grid>
 		</Grid>
 	</ScrollViewer>

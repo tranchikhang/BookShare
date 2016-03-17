@@ -20,7 +20,10 @@ Resources\CustomRadioButton.xbf
 Resources\Greeting.xbf
 Resources\LightTheme.xbf
 Resources\MessagePage.xbf
+Resources\MyColors.xbf
+Resources\Notification.xbf
+Resources\PageResource\AddNewBook.xbf
+Resources\PageResource\SettingPage.xbf
 Resources\RequestList.xbf
-Resources\SaveButton.xbf
 Resources\SearchPage.xbf
 Resources\UserInfo.xbf

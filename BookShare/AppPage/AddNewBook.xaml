@@ -8,23 +8,36 @@
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Resources/SaveButton.xaml" />
-				<ResourceDictionary Source="/Resources/LightTheme.xaml" />
+				<ResourceDictionary Source="/Resources/PageResource/AddNewBook.xaml" />
+				<ResourceDictionary Source="/Resources/Notification.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
 	<Grid Background="{StaticResource BackgroundColor}">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition x:Name="LeftBlank" />
-			<ColumnDefinition Width="*" />
-			<ColumnDefinition x:Name="RightBlank" />
-		</Grid.ColumnDefinitions>
-		<ScrollViewer Grid.Column="1"
-					  Padding="0,0,15,0">
+		<Grid Name="gridNotification">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="100" />
+				<RowDefinition Height="70" />
+			</Grid.RowDefinitions>
+			<TextBlock Name="textBlockTitle"
+					   Style="{StaticResource TextBlockTitle}"/>
+			<TextBlock Name="textBlockContent"
+					   Grid.Row="1"
+					   Style="{StaticResource TextBlockContent}" />
+			<Button Grid.Row="2"
+					Style="{StaticResource ButtonDismiss}"
+					Content="OK" Click="NotificationDismiss"/>
+		</Grid>
+		<ScrollViewer Margin="10,0,10,0" Name="mainScrollViewer" Visibility="Collapsed">
 			<StackPanel Orientation="Vertical">
-				<TextBlock Text="Tên sách" />
-				<TextBox Name="textBoxTitle" />
-				<TextBlock Text="Tác giả" />
+				<Border>
+					<TextBlock Text="Tên sách" />
+				</Border>
+				<TextBox Name="textBoxTitle"/>
+				<Border>
+					<TextBlock Text="Tác giả" />
+				</Border>
 				<AutoSuggestBox Name="suggestAuthor"
 								TextChanged="SuggestTextChanged"
 								TextMemberPath="authorName">
@@ -33,56 +46,48 @@
 							<TextBlock Text="{Binding authorName}" />
 						</DataTemplate>
 					</AutoSuggestBox.ItemTemplate>
+					<AutoSuggestBox.TextBoxStyle>
+						<Style TargetType="TextBox">
+							<Setter Property="FontSize"
+									Value="22" />
+						</Style>
+					</AutoSuggestBox.TextBoxStyle>
 				</AutoSuggestBox>
-				<TextBlock Text="Năm" />
+				<Border>
+					<TextBlock Text="Năm" />
+				</Border>
 				<ComboBox Name="comboYear"
-						  Width="170"
 						  Margin="0,10,0,0" />
-				<TextBlock Text="Thể loại" />
+				<Border>
+					<TextBlock Text="Thể loại" />
+				</Border>
 				<ComboBox Name="comboBoxGenre"
-						  Width="170"
-						  Margin="0,10,0,0"
 						  SelectedValuePath="gid"
 						  DisplayMemberPath="gname" />
-				<TextBlock Text="Mô tả" />
+				<Border>
+					<TextBlock Text="Mô tả" />
+				</Border>
 				<TextBox Name="textBoxDes"
 						 TextWrapping="Wrap"
-						 Height="100" />
-				<TextBlock Text="Bìa sách" />
+						 Height="150" />
+				<Border>
+					<TextBlock Text="Bìa sách" />
+				</Border>
+				<Border>
+					<TextBlock Text="(nên chọn ảnh hình chữ nhật dọc, tỉ lệ khoảng 3/5)" 
+							   Height="Auto"/>
+				</Border>
 				<Button Content="chọn file"
+						Style="{StaticResource ButtonAddFile}"
 						Click="AddFileClick" />
-				<TextBlock Name="textBlockFile" />
+				<Border>
+					<TextBlock Name="textBlockFile" />
+				</Border>
 				<Button Content="Thêm sách"
 						Click="AddBook"
-						Style="{StaticResource Save}"
+						Style="{StaticResource ButtonSave}"
 						Margin="0,0,0,10" />
 			</StackPanel>
 		</ScrollViewer>
-		<VisualStateManager.VisualStateGroups>
-			<VisualStateGroup>
-				<VisualState x:Name="WideState">
-					<VisualState.StateTriggers>
-						<AdaptiveTrigger MinWindowWidth="900" />
-					</VisualState.StateTriggers>
-					<VisualState.Setters>
-						<Setter Target="LeftBlank.Width"
-								Value="50" />
-						<Setter Target="RightBlank.Width"
-								Value="50" />
-					</VisualState.Setters>
-				</VisualState>
-				<VisualState x:Name="NarrowState">
-					<VisualState.StateTriggers>
-						<AdaptiveTrigger MinWindowWidth="0" />
-					</VisualState.StateTriggers>
-					<VisualState.Setters>
-						<Setter Target="LeftBlank.Width"
-								Value="20" />
-						<Setter Target="RightBlank.Width"
-								Value="20" />
-					</VisualState.Setters>
-				</VisualState>
-			</VisualStateGroup>
-		</VisualStateManager.VisualStateGroups>
 	</Grid>
 </Page>

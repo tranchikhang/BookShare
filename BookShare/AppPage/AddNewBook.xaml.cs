@@ -4,22 +4,9 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage;
-using Windows.Storage.Streams;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -33,8 +20,6 @@ namespace BookShare.AppPage
 		public AddNewBook ()
 		{
 			this.InitializeComponent ();
-			gridNotification.Visibility = Visibility.Collapsed;
-			mainScrollViewer.Visibility = Visibility.Visible;
 			AddGenre ();
 			AddYear ();
 		}
@@ -105,17 +90,12 @@ namespace BookShare.AppPage
 				string result = await RestAPI.SendJson ( dataTosend , RestAPI.phpAddress , "AddNewBook" );
 				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 				{
-					textBlockTitle.Visibility = Visibility.Collapsed;
-					textBlockContent.Text = "Đã thêm sách mới";
-					ShowNotification ();
+					ShowNotification ( "Đã thêm sách mới" );
 				}
 			}
 			else
 			{
-				textBlockTitle.Visibility = Visibility.Visible;
-				textBlockTitle.Text = "Lỗi";
-				textBlockContent.Text = "Kiểm tra thông tin nhập vào";
-				ShowNotification ();
+				ShowNotification ( "Kiểm tra thông tin nhập vào" );
 			}
 		}
 
@@ -146,16 +126,17 @@ namespace BookShare.AppPage
 			suggestAuthor.ItemsSource = l;
 		}
 
-		private void NotificationDismiss ( object sender , RoutedEventArgs e )
+		private void ShowNotification ( string content )
 		{
-			gridNotification.Visibility = Visibility.Collapsed;
-			mainScrollViewer.Visibility = Visibility.Visible;
+			//notify user
+			textBlockContent.Text = content;
+			gridNotification.Visibility = Visibility.Visible;
 		}
 
-		private void ShowNotification()
+		private void NotificationDismiss ( object sender , RoutedEventArgs e )
 		{
-			gridNotification.Visibility = Visibility.Visible;
-			mainScrollViewer.Visibility = Visibility.Collapsed;
+			textBlockContent.Text = "";
+			gridNotification.Visibility = Visibility.Collapsed;
 		}
 	}
 }

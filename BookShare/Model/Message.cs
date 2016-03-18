@@ -28,12 +28,13 @@ namespace BookShare.Model
 			//
 		}
 
-		public Message ( string fromUserId , string toUserId , string content )
+		public Message ( string fromUserId , string toUserId , string content, string dateTime )
 		{
 			this.fromUserId = fromUserId;
 			this.toUserId = toUserId;
 			this.content = content;
 			isRead = true;
+			datetime = dateTime;
 		}
 	}
 }

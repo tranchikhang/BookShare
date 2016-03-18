@@ -31,30 +31,29 @@ namespace BookShare.AppPage
 			this.InitializeComponent ();
 		}
 
-		private async void LoginClick ( object sender , RoutedEventArgs e )
+		private void LoginClick ( object sender , RoutedEventArgs e )
 		{
-			MessageDialog mes = new MessageDialog ( "" );
-			mes.Title = "Thông báo";
-			//check username
-			if ( textBoxUser.Text == "" )
+			string r = FieldValidation ();
+			if ( r == "" )
 			{
-				mes.Content = "Bạn chưa nhập tên người dùng";
-				await mes.ShowAsync ();
+				SendLoginData ( textBoxUser.Text , pwBox.Password );
 			}
 			else
 			{
-				//check password
-				if ( pwBox.Password == "" )
-				{
-					mes.Content = "Bạn chưa nhập mật khẩu";
-					await mes.ShowAsync ();
-				}
-				else
-				{
-					SendLoginData ( textBoxUser.Text , pwBox.Password );
-				}
+				ShowNotification ( r );
 			}
 		}
+
+		private string FieldValidation ()
+		{
+			if ( textBoxUser.Text == "" )
+				return "Bạn chưa nhập tên người dùng";
+			if ( pwBox.Password == "" )
+				return "Bạn chưa nhập mật khẩu";
+			return "";
+		}
+
+		private User newUser;
 
 		private async void SendLoginData ( string user , string password )
 		{
@@ -64,18 +63,17 @@ namespace BookShare.AppPage
 				password = password
 			};
 			string result = await RestAPI.SendJson ( login , RestAPI.phpAddress , "Login" );
-			dynamic json = JObject.Parse ( result );
-			string status = json.status;
-			string message = json.message;
-			if ( status == "200" )
+			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
+				string data = JsonHelper.DecodeJson ( result );
+				newUser = JsonHelper.ConvertToUser ( data );
 				//save user token
-				UserData.token = message;
+				UserData.token = newUser.token;
 				UserData.settings.Add ( AppSettings.keyToken , UserData.token );
 				//save user id
-				UserData.id = json.id;
+				UserData.id = newUser.id;
 				if ( UserData.settings.Contain ( AppSettings.keyId ) )
-					UserData.settings.Update ( AppSettings.keyId, UserData.id );
+					UserData.settings.Update ( AppSettings.keyId , UserData.id );
 				else
 					UserData.settings.Add ( AppSettings.keyId , UserData.id );
 				//save opened status
@@ -88,9 +86,21 @@ namespace BookShare.AppPage
 			}
 			else
 			{
-				MessageDialog dialog = new MessageDialog ( message );
-				await dialog.ShowAsync ();
+				ShowNotification ( JsonHelper.GetJsonMessage ( result ) );
 			}
+		}
+
+		private void ShowNotification ( string content )
+		{
+			//notify user
+			textBlockContent.Text = content;
+			gridNotification.Visibility = Visibility.Visible;
+		}
+
+		private void NotificationDismiss ( object sender , RoutedEventArgs e )
+		{
+			textBlockContent.Text = "";
+			gridNotification.Visibility = Visibility.Collapsed;
 		}
 	}
 }

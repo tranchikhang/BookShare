@@ -1,26 +1,13 @@
 ﻿using BookShare.Helper;
 using BookShare.Model;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Core;
-using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using System;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -59,9 +46,14 @@ namespace BookShare.AppPage
 					}
 					listViewConversation.ItemsSource = conversations;
 					ControlMethods.SwitchVisibility ( true , listViewConversation );
-					ControlMethods.SwitchVisibility ( false , progressBar );
 				}
 			}
+			else
+			{
+				ShowNotification ( "Bạn không có tin nhắn nào" );
+			}
+			if ( result != null )
+				ControlMethods.SwitchVisibility ( false , progressBar );
 		}
 
 		private async void CovnersationGridTapped ( object sender , TappedRoutedEventArgs e )
@@ -134,9 +126,7 @@ namespace BookShare.AppPage
 		private async void SendMessageTap ( object sender , TappedRoutedEventArgs e )
 		{
 			//check length
-			if ( textBoxContent.Text.Length >= 300 )
-				CustomNotification.ShowDialogMessage ( content: "Tin nhắn không được quá 300 ký tự" );
-			else if ( textBoxContent.Text.Length > 0 )
+			if ( CheckMessageLength () == "" )
 			{
 				string toUserId = ( ( Button ) sender ).Tag.ToString ();
 				dynamic dataToSend = new
@@ -148,15 +138,40 @@ namespace BookShare.AppPage
 				string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "SendMessage" );
 				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 				{
-					Message newMes = new Message ( UserData.id , toUserId , textBoxContent.Text );
+					string dateTime = JsonHelper.DecodeJson ( result );
+					Message newMes = new Message ( UserData.id , toUserId , textBoxContent.Text , dateTime );
 					currentConversations.messages.Add ( newMes );
 					textBoxContent.Text = "";
 				}
 				else
 				{
-					CustomNotification.ShowDialogMessage ();
+					ShowNotification ( "Có lỗi, thử lại sau" );
 				}
 			}
+			else
+				ShowNotification ( CheckMessageLength () );
+		}
+
+		private string CheckMessageLength ()
+		{
+			if ( textBoxContent.Text.Length >= 300 )
+				return "Tin nhắn không được quá 300 ký tự";
+			if ( textBoxContent.Text.Length == 0 )
+				return "Nhập nội dung tin nhắn";
+			return "";
+		}
+
+		private void ShowNotification ( string content )
+		{
+			//notify user
+			textBlockContent.Text = content;
+			gridNotification.Visibility = Visibility.Visible;
+		}
+
+		private void NotificationDismiss ( object sender , RoutedEventArgs e )
+		{
+			textBlockContent.Text = "";
+			gridNotification.Visibility = Visibility.Collapsed;
 		}
 	}
 }

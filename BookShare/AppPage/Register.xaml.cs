@@ -30,50 +30,42 @@ namespace BookShare.AppPage
 		public Register ()
 		{
 			this.InitializeComponent ();
+			gridNotification.Visibility = Visibility.Collapsed;
 		}
 
-		private async void RegisterClick ( object sender , RoutedEventArgs e )
+		private void RegisterClick ( object sender , RoutedEventArgs e )
 		{
-			MessageDialog mes = new MessageDialog ( "" );
-			mes.Title = "Thông báo";
-			//check policy
-			if ( !IsPolicyChecked () )
+			string r = FieldValidation ();
+			if ( r == "" )
 			{
-				mes.Content = "Bạn chưa đồng ý các điều khoản";
-				await mes.ShowAsync ();
+				SendRegistrationData ( textBoxUser.Text , textBoxEmail.Text , textBoxFullName.Text , pwBox.Password );
 			}
 			else
 			{
-				//check account
-				if ( textBoxUser.Text == "" )
-				{
-					mes.Content = "Tên tài khoản không hợp lệ, kiểm tra lại";
-					await mes.ShowAsync ();
-				}
-				else
-				{
-					//check email
-					if ( !RegexUtilities.IsValidEmail ( textBoxEmail.Text ) )
-					{
-						mes.Content = "Email không hợp lệ, kiểm tra lại";
-						await mes.ShowAsync ();
-					}
-					else
-					{
-						//check 2 password
-						if ( pwBox.Password != pwBoxRe.Password && pwBox.Password != "" )
-						{
-							mes.Content = "Mật khẩu không chính xác, kiểm tra lại";
-							await mes.ShowAsync ();
-						}
-						else
-						{
-							SendRegistrationData ( textBoxUser.Text , textBoxEmail.Text , textBoxFullName.Text , pwBox.Password );
-						}
-					}
-				}
+				ShowNotification ( r );
 			}
 		}
+
+		private string FieldValidation ()
+		{
+			if ( chkBoxPolicy.IsChecked != true )
+				return "Bạn chưa đồng ý các điều khoản";
+			if ( textBoxUser.Text == "" )
+				return "Tên tài khoản không hợp lệ, kiểm tra lại";
+			if ( textBoxUser.Text.Length > 30 )
+				return "Tên tài khoản phải dưới 30 ký tự";
+			if ( textBoxFullName.Text.Length > 32 )
+				return "Tên đầy đủ phải dưới 32 ký tự";
+			if ( !RegexUtilities.IsValidEmail ( textBoxEmail.Text ) )
+				return "Email không hợp lệ, kiểm tra lại";
+			if ( pwBox.Password.Length > 16 || pwBox.Password.Length < 5 )
+				return "Độ dài mật khẩu phải từ 5-16 ký tự";
+			if ( pwBox.Password != pwBoxRe.Password && pwBox.Password != "" )
+				return "Mật khẩu không chính xác, kiểm tra lại";
+			return "";
+		}
+
+		private User newUser;
 
 		private async void SendRegistrationData ( string user , string email , string fullname , string password )
 		{
@@ -85,16 +77,15 @@ namespace BookShare.AppPage
 				password = password
 			};
 			string result = await RestAPI.SendJson ( acc , RestAPI.phpAddress , "Register" );
-			dynamic json = JObject.Parse ( result );
-			string status = json.status;
-			string message = json.message;
-			if ( status == "200" )
+			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
+				string data = JsonHelper.DecodeJson ( result );
+				newUser = JsonHelper.ConvertToUser ( data );
 				//save user token
-				UserData.token = message;
+				UserData.token = newUser.token;
 				UserData.settings.Add ( AppSettings.keyToken , UserData.token );
 				//save user id
-				UserData.id = json.id;
+				UserData.id = newUser.id;
 				if ( UserData.settings.Contain ( AppSettings.keyId ) )
 					UserData.settings.Update ( AppSettings.keyId , UserData.id );
 				else
@@ -109,16 +100,21 @@ namespace BookShare.AppPage
 			}
 			else
 			{
-				MessageDialog dialog = new MessageDialog ( message );
-				await dialog.ShowAsync ();
+				ShowNotification ( JsonHelper.GetJsonMessage ( result ) );
 			}
 		}
 
-		private bool IsPolicyChecked ()
+		private void ShowNotification ( string content )
 		{
-			if ( chkBoxPolicy.IsChecked == true )
-				return true;
-			else return false;
+			//notify user
+			textBlockContent.Text = content;
+			gridNotification.Visibility = Visibility.Visible;
+		}
+
+		private void NotificationDismiss ( object sender , RoutedEventArgs e )
+		{
+			textBlockContent.Text = "";
+			gridNotification.Visibility = Visibility.Collapsed;
 		}
 	}
 }

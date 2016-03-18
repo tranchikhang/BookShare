@@ -14,27 +14,33 @@
 		</ResourceDictionary>
 	</Page.Resources>
 	<Grid Background="{StaticResource BackgroundColor}">
-		<Grid x:ConnectionId='1' Name="gridNotification">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="100" />
-				<RowDefinition Height="70" />
-			</Grid.RowDefinitions>
-			<TextBlock x:ConnectionId='11' Name="textBlockTitle"
-					   Style="{StaticResource TextBlockTitle}"/>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Grid x:ConnectionId='1' Name="gridNotification"
+			  Visibility="Collapsed"
+			  Style="{StaticResource GridNotification}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="50" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Button x:ConnectionId='11' Style="{StaticResource ButtonDismiss}"
+					Content="&#xE711;"
+					                            />
 			<TextBlock x:ConnectionId='12' Name="textBlockContent"
-					   Grid.Row="1"
+					   Grid.Column="1"
 					   Style="{StaticResource TextBlockContent}" />
-			<Button x:ConnectionId='13' Grid.Row="2"
-					Style="{StaticResource ButtonDismiss}"
-					Content="OK"                            />
 		</Grid>
-		<ScrollViewer x:ConnectionId='2' Margin="10,0,10,0" Name="mainScrollViewer" Visibility="Collapsed">
+		<ScrollViewer x:ConnectionId='2' Margin="10,0,10,0"
+					  VerticalScrollBarVisibility="Hidden"
+					  Name="mainScrollViewer"
+					  Grid.Row="1">
 			<StackPanel Orientation="Vertical">
 				<Border>
 					<TextBlock Text="Tên sách" />
 				</Border>
-				<TextBox x:ConnectionId='3' Name="textBoxTitle"/>
+				<TextBox x:ConnectionId='3' Name="textBoxTitle" />
 				<Border>
 					<TextBlock Text="Tác giả" />
 				</Border>
@@ -74,8 +80,8 @@
 					<TextBlock Text="Bìa sách" />
 				</Border>
 				<Border>
-					<TextBlock Text="(nên chọn ảnh hình chữ nhật dọc, tỉ lệ khoảng 3/5)" 
-							   Height="Auto"/>
+					<TextBlock Text="(nên chọn ảnh hình chữ nhật dọc, tỉ lệ khoảng 3/5)"
+							   Height="Auto" />
 				</Border>
 				<Button x:ConnectionId='8' Content="chọn file"
 						Style="{StaticResource ButtonAddFile}"

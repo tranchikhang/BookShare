@@ -3,6 +3,7 @@ using BookShare.Model;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -31,44 +32,38 @@ namespace BookShare.AppPage
 			this.InitializeComponent ();
 			progressBar.Visibility = Visibility.Visible;
 			listBoxPostedBooks.Visibility = Visibility.Collapsed;
+			GetPostedBooks ();
 		}
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
-			GetPostedBooks ();
+
 		}
 
-		private List<object> postedBooks;
+		private ObservableCollection<Post> postedBooks;
 
 		private async void GetPostedBooks ()
 		{
 			string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetPostedBooks" );
-			dynamic json = JObject.Parse ( result );
-			string status = json.status;
-			if ( status == "200" )
+			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
-				postedBooks = new List<object> ();
-				for ( int i = 0 ; i < json.postedBooks.Count ; i++ )
-				{
-					postedBooks.Add ( new
+				string data = JsonHelper.DecodeJson ( result );
+				postedBooks = JsonHelper.ConvertToPosts ( data );
+				if ( postedBooks != null && postedBooks.Count > 0 )
+					foreach ( Post p in postedBooks )
 					{
-						postId = json.postedBooks[i].postId ,
-						isAvailable = ( json.postedBooks[i].available == 1 ) ? true : false ,
-						title = json.postedBooks[i].title ,
-						image = RestAPI.serverAddress + "cover/" + json.postedBooks[i].bookId + ".jpg" ,
-						author = json.postedBooks[i].author
-					} );
-				}
+						p.book.SetImageLink ();
+					}
 				listBoxPostedBooks.ItemsSource = postedBooks;
+				listBoxPostedBooks.Visibility = Visibility.Visible;
 			}
 			else
 			{
 				//no book in bookshelf
-				listBoxPostedBooks.Visibility = Visibility.Collapsed;
-				stackPanelAddNew.Visibility = Visibility.Visible;
+				ShowNotification ( "Không có sách, hãy thêm sách bằng cách tìm kiếm" );
 			}
-			progressBar.Visibility = Visibility.Collapsed;
-			listBoxPostedBooks.Visibility = Visibility.Visible;
+			if ( result != null )
+				progressBar.Visibility = Visibility.Collapsed;
 		}
 
 		private void ToggleLoaded ( object sender , RoutedEventArgs e )
@@ -79,23 +74,32 @@ namespace BookShare.AppPage
 
 		private async void ToggleSwitch_Toggled ( object sender , RoutedEventArgs e )
 		{
+			ControlMethods.SwitchVisibility ( true , progressBar );
 			string postId = ( ( ToggleSwitch ) sender ).Tag.ToString ();
 			( ( ToggleSwitch ) sender ).IsEnabled = false;
-			dynamic json = await SwitchAvailability ( postId );
-			string status = json.status;
-			string message = json.message;
-			if ( status != "200" )
+			string result = await RestAPI.SendJson ( postId , RestAPI.phpAddress , "SwitchAvailability" );
+			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
-				CustomNotification.ShowDialogMessage ( status , message );
+				//
 			}
-			( ( ToggleSwitch ) sender ).IsEnabled = true;
+			if ( result != null )
+			{
+				ControlMethods.SwitchVisibility ( false , progressBar );
+				( ( ToggleSwitch ) sender ).IsEnabled = true;
+			}
 		}
 
-		private async Task<dynamic> SwitchAvailability ( string postId )
+		private void ShowNotification ( string content )
 		{
-			string result = await RestAPI.SendJson ( postId , RestAPI.phpAddress , "SwitchAvailability" );
-			dynamic json = JObject.Parse ( result );
-			return json;
+			//notify user
+			textBlockContent.Text = content;
+			gridNotification.Visibility = Visibility.Visible;
+		}
+
+		private void NotificationDismiss ( object sender , RoutedEventArgs e )
+		{
+			textBlockContent.Text = "";
+			gridNotification.Visibility = Visibility.Collapsed;
 		}
 	}
 }

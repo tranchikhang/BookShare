@@ -22,5 +22,8 @@ namespace BookShare.Model
 
 		[JsonProperty ( PropertyName = "book" )]
 		public Book book { get; set; }
+
+		[JsonProperty ( PropertyName = "isAvailable" )]
+		public bool isAvailable { get; set; }
 	}
 }

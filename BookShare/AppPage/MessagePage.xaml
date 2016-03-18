@@ -8,62 +8,36 @@
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Resources/MessagePage.xaml" />
+				<ResourceDictionary Source="/Resources/PageResource/MessagePage.xaml" />
+				<ResourceDictionary Source="/Resources/Notification.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
 	<Grid Background="{StaticResource BackgroundColor}">
-		<ProgressBar IsIndeterminate="True"
-					 Height="30"
-					 VerticalAlignment="Top"
-					 Name="progressBar" />
-		<ListView Name="listViewConversation"
-				  ScrollViewer.VerticalScrollBarVisibility="Hidden">
-			<ListView.ItemContainerStyle>
-				<Style TargetType="ListViewItem">
-					<Setter Property="HorizontalContentAlignment"
-							Value="Stretch" />
-					<Setter Property="Padding"
-							Value="0" />
-				</Style>
-			</ListView.ItemContainerStyle>
-			<ListView.ItemTemplate>
-				<DataTemplate>
-					<Grid Tapped="CovnersationGridTapped"
-						  Background="Transparent"
-						  Tag="{Binding userId}"
-						  BorderBrush="Black"
-						  BorderThickness="1">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="60" />
-							<ColumnDefinition Width="*" />
-						</Grid.ColumnDefinitions>
-						<Image Grid.Column="0"
-							   Height="60"
-							   HorizontalAlignment="Left"
-							   Source="{Binding userAva, TargetNullValue={x:Null}}"
-							   Stretch="Fill" />
-						<StackPanel Orientation="Vertical"
-									Margin="5,0,0,0"
-									Grid.Column="1">
-							<TextBlock Style="{StaticResource User}"
-									   Text="{Binding userAccount}" />
-							<TextBlock Style="{StaticResource MessagePreview}"
-									   Text="{Binding lastMessage}"
-									   Foreground="{Binding isNewMessage,Converter={StaticResource NewMessageColorConverter}}" />
-						</StackPanel>
-					</Grid>
-				</DataTemplate>
-			</ListView.ItemTemplate>
-		</ListView>
-		<Grid Name="gridMessages"
-			  Visibility="Collapsed">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="*" />
-				<RowDefinition Height="54" />
-			</Grid.RowDefinitions>
-			<ListView Name="listViewMessage"
-					  Grid.Row="0"
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Grid Name="gridNotification"
+			  Visibility="Collapsed"
+			  Style="{StaticResource GridNotification}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="50" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Button Style="{StaticResource ButtonDismiss}"
+					Content="&#xE711;"
+					Click="NotificationDismiss" />
+			<TextBlock Name="textBlockContent"
+					   Grid.Column="1"
+					   Style="{StaticResource TextBlockContent}" />
+		</Grid>
+		<Grid Grid.Row="1">
+			<ProgressBar IsIndeterminate="True"
+						 Height="30"
+						 VerticalAlignment="Top"
+						 Name="progressBar" />
+			<ListView Name="listViewConversation"
 					  ScrollViewer.VerticalScrollBarVisibility="Hidden">
 				<ListView.ItemContainerStyle>
 					<Style TargetType="ListViewItem">
@@ -75,38 +49,83 @@
 				</ListView.ItemContainerStyle>
 				<ListView.ItemTemplate>
 					<DataTemplate>
-						<Grid Background="{Binding isSender,Converter={StaticResource ConvertMessageColor}}"
-							  Tag="{Binding userId}"
-							  Margin="0,2,0,2">
-							<StackPanel Orientation="Vertical">
-								<TextBlock Style="{StaticResource DateTime}"
-										   TextAlignment="{Binding isSender,Converter={StaticResource ConvertPosition}}"
-										   Padding="10,0"
-										   Text="{Binding datetime}" />
-								<TextBlock Style="{StaticResource MessageContent}"
-										   TextAlignment="{Binding isSender,Converter={StaticResource ConvertPosition}}"
-										   Text="{Binding content}" />
+						<Grid Tapped="CovnersationGridTapped"
+							  Background="Transparent"
+							  Tag="{Binding userId}">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="60" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<Image Grid.Column="0"
+								   Height="60"
+								   HorizontalAlignment="Left"
+								   Source="{Binding userAva, TargetNullValue={x:Null}}"
+								   Stretch="Fill" />
+							<StackPanel Orientation="Vertical"
+										Margin="5,0,0,0"
+										Grid.Column="1">
+								<TextBlock Style="{StaticResource User}"
+										   Text="{Binding userAccount}" />
+								<TextBlock Style="{StaticResource MessagePreview}"
+										   Text="{Binding lastMessage}"
+										   Foreground="{Binding isNewMessage,Converter={StaticResource NewMessageColorConverter}}" />
 							</StackPanel>
 						</Grid>
 					</DataTemplate>
 				</ListView.ItemTemplate>
 			</ListView>
-			<Grid Grid.Row="1"
-				  Margin="2,2,2,2"
-				  Name="gridSendBox"
-				  Visibility="{Binding ElementName=gridMessages, Path=Visibility}">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="40" />
-				</Grid.ColumnDefinitions>
-				<TextBox Grid.Column="0"
-						 Name="textBoxContent"
-						 Style="{StaticResource TextBoxMessage}" />
-				<Button Grid.Column="1"
-						Content="&#xE72A;"
-						Tapped="SendMessageTap"
-						Tag="{Binding userId}"
-						Style="{StaticResource Send}" />
+			<Grid Name="gridMessages"
+				  Visibility="Collapsed">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+					<RowDefinition Height="54" />
+				</Grid.RowDefinitions>
+				<ListView Name="listViewMessage"
+						  Grid.Row="0"
+						  ScrollViewer.VerticalScrollBarVisibility="Hidden">
+					<ListView.ItemContainerStyle>
+						<Style TargetType="ListViewItem">
+							<Setter Property="HorizontalContentAlignment"
+									Value="Stretch" />
+							<Setter Property="Padding"
+									Value="0" />
+						</Style>
+					</ListView.ItemContainerStyle>
+					<ListView.ItemTemplate>
+						<DataTemplate>
+							<Grid Background="{Binding isSender,Converter={StaticResource ConvertMessageColor}}"
+								  Tag="{Binding userId}"
+								  Margin="0,2,0,2">
+								<StackPanel Orientation="Vertical">
+									<TextBlock Style="{StaticResource DateTime}"
+											   TextAlignment="{Binding isSender,Converter={StaticResource ConvertPosition}}"
+											   Padding="10,0"
+											   Text="{Binding datetime}" />
+									<TextBlock Style="{StaticResource MessageContent}"
+											   TextAlignment="{Binding isSender,Converter={StaticResource ConvertPosition}}"
+											   Text="{Binding content}" />
+								</StackPanel>
+							</Grid>
+						</DataTemplate>
+					</ListView.ItemTemplate>
+				</ListView>
+				<Grid Grid.Row="1"
+					  Margin="2,2,2,2"
+					  Name="gridSendBox"
+					  Visibility="{Binding ElementName=gridMessages, Path=Visibility}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="40" />
+					</Grid.ColumnDefinitions>
+					<TextBox Grid.Column="0"
+							 Name="textBoxContent"
+							 Style="{StaticResource TextBoxMessage}" />
+					<Button Grid.Column="1"
+							Content="&#xE72A;"
+							Tapped="SendMessageTap"
+							Tag="{Binding userId}"
+							Style="{StaticResource Send}" />
+				</Grid>
 			</Grid>
 		</Grid>
 		<VisualStateManager.VisualStateGroups>

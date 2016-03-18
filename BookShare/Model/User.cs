@@ -46,6 +46,9 @@ namespace BookShare.Model
 		[JsonProperty ( PropertyName = "isAvaExist" )]
 		public bool isAvaExist { get; set; }
 
+		[JsonProperty ( PropertyName = "userToken" )]
+		public string token { get; set; }
+
 		public string ava { get; set; }
 
 		public User ()

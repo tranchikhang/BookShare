@@ -33,10 +33,17 @@ namespace BookShare.Helper
 				return RestAPI.ResponseStatus.Failed;
 			}
 		}
+
 		public static string DecodeJson ( string r )
 		{
 			Dictionary<string , string> dict = JsonConvert.DeserializeObject<Dictionary<string , string>> ( r );
 			return dict["data"];
+		}
+
+		public static string GetJsonMessage ( string r )
+		{
+			Dictionary<string , string> dict = JsonConvert.DeserializeObject<Dictionary<string , string>> ( r );
+			return dict["message"];
 		}
 
 		public static User ConvertToUser ( string r )

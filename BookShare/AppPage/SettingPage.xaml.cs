@@ -109,12 +109,10 @@ namespace BookShare.AppPage
 				string result = await RestAPI.SendJson ( newUser , RestAPI.phpAddress , "SetAccountInfo" );
 				//show new value
 				DisplayUserInfo ();
-				mainScrollViewer.ScrollToVerticalOffset ( 0 );
 				ShowNotification ( "Cập nhật thành công" );
 			}
 			else
 			{
-				mainScrollViewer.ScrollToVerticalOffset ( 0 );
 				ShowNotification ( r );
 			}
 		}
@@ -222,7 +220,7 @@ namespace BookShare.AppPage
 				return "Mật khẩu mới không được giống mật khẩu cũ";
 			//check new password length
 			if ( pwBoxNew.Password.Length > 16 || pwBoxNew.Password.Length < 5 )
-				return "Độ dài mật khẩu phải từ 5-16 kí tự";
+				return "Độ dài mật khẩu phải từ 5-16 ký tự";
 			//check new password recheck
 			if ( pwBoxNew.Password != pwBoxNewRe.Password )
 				return "Xác nhận lại mật khẩu mới";

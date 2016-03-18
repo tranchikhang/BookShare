@@ -345,6 +345,9 @@
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\ApplicationInsights.config">
       <PackagePath>ApplicationInsights.config</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Resources\Images\wallpaper.jpg">
+      <PackagePath>Resources\Images\wallpaper.jpg</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>

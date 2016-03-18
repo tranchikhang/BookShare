@@ -14,15 +14,15 @@ AppPage\StartPage.xbf
 AppPage\UserInfo.xbf
 MainPage.xbf
 Resources\BookInfo.xbf
-Resources\BookShelf.xbf
 Resources\ChangePassButton.xbf
 Resources\CustomRadioButton.xbf
 Resources\Greeting.xbf
 Resources\LightTheme.xbf
-Resources\MessagePage.xbf
 Resources\MyColors.xbf
 Resources\Notification.xbf
 Resources\PageResource\AddNewBook.xbf
+Resources\PageResource\BookShelf.xbf
+Resources\PageResource\MessagePage.xbf
 Resources\PageResource\SettingPage.xbf
 Resources\RequestList.xbf
 Resources\SearchPage.xbf

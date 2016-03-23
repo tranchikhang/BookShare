@@ -1,7 +1,6 @@
 ﻿using BookShare.Helper;
 using BookShare.Model;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,8 +10,6 @@ using Windows.Security.Cryptography.Core;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
-using Windows.UI.Notifications;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -30,16 +27,20 @@ namespace BookShare.AppPage
 		{
 			this.InitializeComponent ();
 			progressBar.Visibility = Visibility.Visible;
-			relativePanel.Visibility = Visibility.Collapsed;
-			gridChangePass.Visibility = Visibility.Collapsed;
-			gridNotification.Visibility = Visibility.Collapsed;
+			gridInfo.Visibility = Visibility.Collapsed;
+			NavigationMethod.SetBackButtonVisibility ( false );
 			GetUserInfo ();
 			progressBar.Visibility = Visibility.Collapsed;
-			relativePanel.Visibility = Visibility.Visible;
+			gridInfo.Visibility = Visibility.Visible;
 		}
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
+		}
+
+		protected override void OnNavigatedFrom ( NavigationEventArgs e )
+		{
+			SystemNavigationManager.GetForCurrentView ().BackRequested -= BackButtonClick;
 		}
 
 		private ObservableCollection<District> district;
@@ -161,24 +162,19 @@ namespace BookShare.AppPage
 
 		private void ChangePassClick ( object sender , RoutedEventArgs e )
 		{
-			relativePanel.Visibility = Visibility.Collapsed;
+			gridInfo.Visibility = Visibility.Collapsed;
 			gridChangePass.Visibility = Visibility.Visible;
-			HandleBackButton ();
-		}
-
-		private void HandleBackButton ()
-		{
 			//show back button
-			SystemNavigationManager.GetForCurrentView ().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+			NavigationMethod.SetBackButtonVisibility ( true );
 			//back button event
 			SystemNavigationManager.GetForCurrentView ().BackRequested += BackButtonClick;
 		}
 
 		private void BackButtonClick ( object sender , BackRequestedEventArgs e )
 		{
-			relativePanel.Visibility = Visibility.Visible;
+			gridInfo.Visibility = Visibility.Visible;
 			gridChangePass.Visibility = Visibility.Collapsed;
-			SystemNavigationManager.GetForCurrentView ().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+			NavigationMethod.SetBackButtonVisibility ( false );
 		}
 
 		private async void ChangePass ( object sender , RoutedEventArgs e )
@@ -198,7 +194,7 @@ namespace BookShare.AppPage
 					user.password = pwBoxNew.Password;
 					gridNotification.Visibility = Visibility.Collapsed;
 					gridChangePass.Visibility = Visibility.Collapsed;
-					relativePanel.Visibility = Visibility.Visible;
+					gridInfo.Visibility = Visibility.Visible;
 				}
 			}
 			else
@@ -242,11 +238,22 @@ namespace BookShare.AppPage
 			return res;
 		}
 
-		private void ShowNotification ( string content )
+		private void ShowNotification ( string content = "Có lỗi, thử lại sau" )
 		{
 			//notify user
 			textBlockContent.Text = content;
 			gridNotification.Visibility = Visibility.Visible;
+		}
+
+		private void LogoutClick ( object sender , RoutedEventArgs e )
+		{
+			//remove user token
+			UserData.settings.Remove ( AppSettings.keyToken );
+			//remove user id
+			UserData.settings.Remove ( AppSettings.keyId );
+			//remove opened status
+			UserData.settings.Remove ( AppSettings.keyFirstOpen );
+			NavigationMethod.GetTopFrame ().Navigate ( typeof ( StartPage ) );
 		}
 	}
 }

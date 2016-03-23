@@ -7,7 +7,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using System;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -24,6 +24,11 @@ namespace BookShare.AppPage
 			ControlMethods.SwitchVisibility ( true , progressBar );
 			ControlMethods.SwitchVisibility ( false , listViewConversation );
 			GetMessages ();
+		}
+
+		protected override void OnNavigatedTo ( NavigationEventArgs e )
+		{
+			NavigationMethod.SetBackButtonVisibility ( false );
 		}
 
 		private ObservableCollection<Conversation> conversations;
@@ -71,7 +76,7 @@ namespace BookShare.AppPage
 				RestAPI.ResponseStatus r = await MarkReadConversation ( fromUserId );
 				if ( r == RestAPI.ResponseStatus.Failed )
 				{
-					CustomNotification.ShowDialogMessage ();
+					ShowNotification ();
 				}
 				else
 				{
@@ -80,7 +85,7 @@ namespace BookShare.AppPage
 				}
 			}
 			//show back button
-			SystemNavigationManager.GetForCurrentView ().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+			NavigationMethod.SetBackButtonVisibility ( true );
 			//back button event
 			SystemNavigationManager.GetForCurrentView ().BackRequested += BackButtonClick;
 
@@ -117,7 +122,7 @@ namespace BookShare.AppPage
 			gridMessages.Visibility = Visibility.Collapsed;
 			ControlMethods.SwitchVisibility ( true , listViewConversation );
 
-			SystemNavigationManager.GetForCurrentView ().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+			NavigationMethod.SetBackButtonVisibility ( false );
 			//refresh conversation binding
 			listViewConversation.ItemsSource = null;
 			listViewConversation.ItemsSource = conversations;
@@ -145,7 +150,7 @@ namespace BookShare.AppPage
 				}
 				else
 				{
-					ShowNotification ( "Có lỗi, thử lại sau" );
+					ShowNotification ( );
 				}
 			}
 			else
@@ -161,7 +166,7 @@ namespace BookShare.AppPage
 			return "";
 		}
 
-		private void ShowNotification ( string content )
+		private void ShowNotification ( string content = "Có lỗi, thử lại sau" )
 		{
 			//notify user
 			textBlockContent.Text = content;

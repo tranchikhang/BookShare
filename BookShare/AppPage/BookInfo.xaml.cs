@@ -1,24 +1,12 @@
 ﻿using BookShare.Helper;
 using BookShare.Model;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using System.Threading.Tasks;
 using Windows.UI.Core;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -33,48 +21,25 @@ namespace BookShare.AppPage
 		public BookInfo ()
 		{
 			this.InitializeComponent ();
-			ControlMethods.SwitchVisibility ( true , progressBar );
-			relativePanelInfo.Visibility = Visibility.Collapsed;
-			ControlMethods.SwitchVisibility ( false , listViewLenders );
 
-			timer = new DispatcherTimer ();
-			timer.Interval = TimeSpan.FromSeconds ( 1 );
-			timer.Tick += new EventHandler<object> ( TimerTick );
-		}
+			NavigationMethod.SetBackButtonVisibility ( true );
+			SystemNavigationManager.GetForCurrentView ().BackRequested += BackButtonClick;
 
-		private void TimerTick ( object sender , object e )
-		{
-			timer.Stop ();
-			//hide progress bar
-			ControlMethods.SwitchVisibility ( false , progressBar );
 		}
 
 		private string bookId;
 		private Book selectedBook;
 		private ObservableCollection<Post> lenders;
-		DispatcherTimer timer;
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
 			bookId = e.Parameter as String;
 			LoadBookInfo ();
-			DisplayBackButton ();
-			timer.Start ();
 		}
 
-		private void DisplayBackButton ()
+		protected override void OnNavigatedFrom ( NavigationEventArgs e )
 		{
-			Frame rootFrame = ( ( App ) Application.Current ).MainFrame;
-			if ( rootFrame.CanGoBack )
-			{
-				SystemNavigationManager.GetForCurrentView ().AppViewBackButtonVisibility =
-					AppViewBackButtonVisibility.Visible;
-			}
-			else
-			{
-				SystemNavigationManager.GetForCurrentView ().AppViewBackButtonVisibility =
-					AppViewBackButtonVisibility.Collapsed;
-			}
+			SystemNavigationManager.GetForCurrentView ().BackRequested -= BackButtonClick;
 		}
 
 		private async void LoadBookInfo ()
@@ -101,17 +66,16 @@ namespace BookShare.AppPage
 				selectedBook = JsonHelper.ConvertToBook ( data );
 			}
 			selectedBook.SetImageLink ();
-			BookCover.Source = new BitmapImage ( new Uri ( @selectedBook.image ) );
 			//if book exist in user book list, change button content
 			if ( selectedBook.isBookAdded )
 			{
 				buttonAddBook.Content = "Xóa";
-				buttonAddBook.Tag = 0;
+				buttonAddBook.Tag = 1;
 			}
 			else
 			{
 				buttonAddBook.Content = "Thêm";
-				buttonAddBook.Tag = 1;
+				buttonAddBook.Tag = 0;
 			}
 			//deserialize json into lenders
 			if ( JsonHelper.IsRequestSucceed ( bookLenders ) == RestAPI.ResponseStatus.OK )
@@ -130,23 +94,23 @@ namespace BookShare.AppPage
 
 			//set binding source
 			listViewLenders.ItemsSource = lenders;
-			stackPanelInfo.DataContext = selectedBook;
+			relativePanelInfo.DataContext = selectedBook;
 
-			//if timer is still running, then do nothing
-			if ( !timer.IsEnabled )
-				ControlMethods.SwitchVisibility ( false , progressBar );
-			relativePanelInfo.Visibility = Visibility.Visible;
+			ControlMethods.SwitchVisibility ( false , progressBar );
+			mainScrollViewer.Visibility = Visibility.Visible;
 			ControlMethods.SwitchVisibility ( true , listViewLenders );
 		}
 
-		private void SendRequest ( object sender , RoutedEventArgs e )
+		private async void SendRequest ( object sender , RoutedEventArgs e )
 		{
 			string postId = ( ( Button ) sender ).Tag.ToString ();
-			SendRequestToPost ( postId , sender );
+			ControlMethods.SwitchVisibility ( true , progressBar );
+			await SendRequestToPost ( postId , sender );
+			ControlMethods.SwitchVisibility ( false , progressBar );
 		}
 
-		private async void SendRequestToPost ( string postId , object sender )
-		{
+		private async Task SendRequestToPost ( string postId , object sender )
+		{	
 			dynamic request = new
 			{
 				postId = postId ,
@@ -155,20 +119,19 @@ namespace BookShare.AppPage
 			string result = await RestAPI.SendJson ( request , RestAPI.phpAddress , "SendRequest" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
-				CustomNotification.ShowNotification ( "Đã gửi yêu cầu" );
+				//ShowNotification ( "Đã gửi yêu cầu" );
 				( ( Button ) sender ).IsEnabled = false;
 			}
 			else
 			{
-				CustomNotification.ShowDialogMessage ();
+				ShowNotification ();
 			}
 		}
 
 		private async void AddToYourBook ( object sender , RoutedEventArgs e )
 		{
-			timer.Start ();
 			ControlMethods.SwitchVisibility ( true , progressBar );
-			if ( ( ( Button ) sender ).Tag.ToString () == "1" )
+			if ( ( ( Button ) sender ).Tag.ToString () == "0" )
 			{
 				//add book
 				dynamic book = new
@@ -180,11 +143,11 @@ namespace BookShare.AppPage
 				if ( JsonHelper.IsRequestSucceed ( addResult ) == RestAPI.ResponseStatus.OK )
 				{
 					( ( Button ) sender ).Content = "Xóa";
-					( ( Button ) sender ).Tag = 0;
+					( ( Button ) sender ).Tag = 1;
 				}
 				else
 				{
-					CustomNotification.ShowDialogMessage ();
+					ShowNotification ();
 				}
 			}
 			else
@@ -199,22 +162,61 @@ namespace BookShare.AppPage
 				if ( JsonHelper.IsRequestSucceed ( addResult ) == RestAPI.ResponseStatus.OK )
 				{
 					( ( Button ) sender ).Content = "Thêm";
-					( ( Button ) sender ).Tag = 1;
+					( ( Button ) sender ).Tag = 0;
 				}
 				else
 				{
-					CustomNotification.ShowDialogMessage ();
+					ShowNotification ();
 				}
 			}
-			//if timer is still running, then do nothing
-			if ( !timer.IsEnabled )
-				ControlMethods.SwitchVisibility ( false , progressBar );
+			ControlMethods.SwitchVisibility ( false , progressBar );
 		}
 
 		private void UserAccountTapped ( object sender , TappedRoutedEventArgs e )
 		{
 			string userId = ( ( TextBlock ) sender ).Tag.ToString ();
 			Frame.Navigate ( typeof ( UserInfo ) , userId );
+		}
+
+		private void ShowNotification ( string content = "Có lỗi, thử lại sau" )
+		{
+			//notify user
+			textBlockContent.Text = content;
+			gridNotification.Visibility = Visibility.Visible;
+		}
+
+		private void NotificationDismiss ( object sender , RoutedEventArgs e )
+		{
+			textBlockContent.Text = "";
+			gridNotification.Visibility = Visibility.Collapsed;
+		}
+
+		private void ViewDescriptionClick ( object sender , RoutedEventArgs e )
+		{
+			mainScrollViewer.Visibility = Visibility.Collapsed;
+			scrollViewerDescription.Visibility = Visibility.Visible;
+			textBlockDes.Text = selectedBook.description;
+		}
+
+		private void BackButtonClick ( object sender , BackRequestedEventArgs e )
+		{
+			if ( scrollViewerDescription.Visibility == Visibility.Visible )
+			{
+				scrollViewerDescription.Visibility = Visibility.Collapsed;
+				mainScrollViewer.Visibility = Visibility.Visible;
+			}
+
+			else
+			{
+				Frame rootFrame = NavigationMethod.GetMainFrame ();
+
+				// Navigate back if possible, and if the event has not 
+				// already been handled .
+				if ( rootFrame.CanGoBack )
+				{
+					rootFrame.GoBack ();
+				}
+			}
 		}
 	}
 }

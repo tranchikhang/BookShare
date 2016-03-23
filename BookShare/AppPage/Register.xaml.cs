@@ -1,22 +1,10 @@
 ﻿using BookShare.Helper;
 using BookShare.Model;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Popups;
-using Windows.UI.ViewManagement;
+using System.Threading.Tasks;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,15 +18,24 @@ namespace BookShare.AppPage
 		public Register ()
 		{
 			this.InitializeComponent ();
-			gridNotification.Visibility = Visibility.Collapsed;
+			NavigationMethod.SetBackButtonVisibility ( true );
+			SystemNavigationManager.GetForCurrentView ().BackRequested += BackButtonClick;
 		}
 
-		private void RegisterClick ( object sender , RoutedEventArgs e )
+		private void BackButtonClick ( object sender , BackRequestedEventArgs e )
+		{
+			if ( Frame.CanGoBack )
+				Frame.GoBack ();
+		}
+
+		private async void RegisterClick ( object sender , RoutedEventArgs e )
 		{
 			string r = FieldValidation ();
 			if ( r == "" )
 			{
-				SendRegistrationData ( textBoxUser.Text , textBoxEmail.Text , textBoxFullName.Text , pwBox.Password );
+				ControlMethods.SwitchVisibility ( true , progressBar );
+				await SendRegistrationData ( textBoxUser.Text , textBoxEmail.Text , textBoxFullName.Text , pwBox.Password );
+				ControlMethods.SwitchVisibility ( false , progressBar );
 			}
 			else
 			{
@@ -67,7 +64,7 @@ namespace BookShare.AppPage
 
 		private User newUser;
 
-		private async void SendRegistrationData ( string user , string email , string fullname , string password )
+		private async Task SendRegistrationData ( string user , string email , string fullname , string password )
 		{
 			dynamic acc = new
 			{

@@ -8,96 +8,128 @@
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Resources/BookInfo.xaml" />
+				<ResourceDictionary Source="/Resources/PageResource/BookInfo.xaml" />
+				<ResourceDictionary Source="/Resources/Notification.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
-	<ScrollViewer>
-		<Grid>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="*" />
-			</Grid.RowDefinitions>
-			<ProgressBar IsIndeterminate="True"
-						 Height="30"
-						 Grid.Row="0"
-						 VerticalAlignment="Top"
-						 Name="progressBar" />
-			<RelativePanel Grid.Row="1"
-						   Name="relativePanelInfo">
-				<Image Height="405"
-					   Width="270"
-					   Name="BookCover"
-					   Stretch="Fill" />
-				<StackPanel Margin="10,0,0,0"
-							Height="Auto"
-							Width="Auto"
-							Name="stackPanelInfo"
-							Orientation="Vertical">
-					<TextBlock Style="{StaticResource Title}"
-							   Text="{Binding title}"
-							   Name="tblkTitle" />
-					<TextBlock Text="Tác giả"
-							   FontFamily="Segoe WP Light" />
-					<TextBlock Name="tblkAuthor"
-							   Text="{Binding author}"
-							   Style="{StaticResource Author}" />
-					<TextBlock Text="Năm" />
-					<TextBlock Name="tblkYear"
-							   Text="{Binding year}"
-							   FontSize="22" />
-					<Button Name="buttonAddBook"
-							Style="{StaticResource ButtonAddBook}"
-							Click="AddToYourBook" />
-					<ScrollViewer Name="scrollViewerDes"
-								  Height="300"
-								  Padding="0,0,10,0">
-						<TextBlock Name="tblkDes"
-								   Text="{Binding description}"
-								   FontSize="18" />
-					</ScrollViewer>
-				</StackPanel>
-			</RelativePanel>
-			<ListView Grid.Row="2"
-					  Margin="0,5,0,5"
-					  Name="listViewLenders">
-				<ListView.ItemContainerStyle>
-					<Style TargetType="ListViewItem">
-						<Setter Property="HorizontalContentAlignment"
-								Value="Stretch">
-						</Setter>
-					</Style>
-				</ListView.ItemContainerStyle>
-				<ListView.ItemTemplate>
-					<DataTemplate>
-						<Grid Margin="0,5,0,5">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="100" />
-								<ColumnDefinition Width="20" />
-								<ColumnDefinition Width="*" />
-							</Grid.ColumnDefinitions>
-							<Image Grid.Column="0"
-								   Height="100"
-								   Stretch="Fill"
-								   Source="{Binding user.ava}" />
-							<StackPanel Orientation="Vertical"
-										Grid.Column="2">
-								<TextBlock Text="{Binding user.account}"
-										   FontSize="24"
+	<Grid Background="{StaticResource BackgroundColor}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Grid Name="gridNotification"
+			  Visibility="Collapsed"
+			  Style="{StaticResource GridNotification}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="50" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Button Style="{StaticResource ButtonDismiss}"
+					Content="&#xE711;"
+					Click="NotificationDismiss" />
+			<TextBlock Name="textBlockContent"
+					   Grid.Column="1"
+					   Style="{StaticResource TextBlockContent}" />
+		</Grid>
+		<ProgressBar IsIndeterminate="True"
+					 Height="30"
+					 Grid.Row="0"
+					 Name="progressBar" />
+		<Grid Grid.Row="1">
+			<ScrollViewer Name="mainScrollViewer"
+						  Visibility="Collapsed"
+						  VerticalScrollBarVisibility="Hidden">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<RelativePanel Grid.Row="0"
+								   Name="relativePanelInfo">
+						<Image Height="405"
+							   Width="270"
+							   Name="BookCover"
+							   Source="{Binding image, TargetNullValue={x:Null}}"
+							   Stretch="Fill" />
+						<StackPanel Margin="10,0,0,0"
+									Height="Auto"
+									Width="Auto"
+									Name="stackPanelInfo"
+									Orientation="Vertical">
+							<TextBlock Style="{StaticResource Title}"
+									   Text="{Binding title}" />
+							<TextBlock Text="Tác giả"
+									   FontFamily="Segoe WP Light" />
+							<TextBlock Text="{Binding author}"
+									   Style="{StaticResource Author}" />
+							<TextBlock Text="Năm" />
+							<TextBlock Text="{Binding year}"
+									   FontSize="22" />
+							<Button Style="{StaticResource ButtonAddBook}"
+									Name="buttonAddBook"
+									Click="AddToYourBook" />
+							<Button Content="Xem thêm thông tin"
+									Style="{StaticResource ButtonViewMore}"
+									Click="ViewDescriptionClick" />
+						</StackPanel>
+					</RelativePanel>
+					<ListView Grid.Row="1"
+							  Margin="5,5,5,5"
+							  Visibility="Collapsed"
+							  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+							  Name="listViewLenders">
+						<ListView.ItemContainerStyle>
+							<Style TargetType="ListViewItem">
+								<Setter Property="HorizontalContentAlignment"
+										Value="Stretch" />
+								<Setter Property="Padding"
+										Value="0" />
+							</Style>
+						</ListView.ItemContainerStyle>
+						<ListView.ItemTemplate>
+							<DataTemplate>
+								<Grid Margin="0,5,0,5">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="100" />
+										<ColumnDefinition Width="20" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+									<Image Grid.Column="0"
+										   Height="100"
+										   Stretch="Fill"
 										   Tag="{Binding user.id}"
-										   Tapped="UserAccountTapped" />
-								<TextBlock Text="{Binding user.fullAddress}"
-										   FontSize="24" />
-								<Button Content="Mượn"
-										Click="SendRequest"
-										IsEnabled="{Binding isSendable}"
-										Tag="{Binding id}" />
-							</StackPanel>
-						</Grid>
-					</DataTemplate>
-				</ListView.ItemTemplate>
-			</ListView>
+										   Tapped="UserAccountTapped"
+										   Source="{Binding user.ava}" />
+									<StackPanel Orientation="Vertical"
+												Grid.Column="2">
+										<TextBlock Text="{Binding user.account}"
+												   FontSize="24"
+												   Tag="{Binding user.id}"
+												   Tapped="UserAccountTapped" />
+										<TextBlock Text="{Binding user.fullAddress}"
+												   FontSize="24" />
+										<Button Content="Mượn"
+												Click="SendRequest"
+												Style="{StaticResource ButtonRequest}"
+												IsEnabled="{Binding isSendable}"
+												Tag="{Binding id}" />
+									</StackPanel>
+								</Grid>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
+				</Grid>
+			</ScrollViewer>
+			<ScrollViewer Name="scrollViewerDescription" Visibility="Collapsed">
+					<StackPanel Orientation="Vertical">
+						<TextBlock Text="Thông tin sách:"
+								   Style="{StaticResource TextBlockDescriptionTitle}" />
+						<TextBlock Name="textBlockDes"
+								   TextWrapping="Wrap"
+								   Style="{StaticResource TextBlockDescription}" />
+					</StackPanel>
+				</ScrollViewer>
 		</Grid>
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
@@ -127,6 +159,5 @@
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
-	</ScrollViewer>
-
+	</Grid>
 </Page>

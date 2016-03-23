@@ -50,6 +50,7 @@
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<Grid Tapped="CovnersationGridTapped"
+							  Margin="0,5,0,5"
 							  Background="Transparent"
 							  Tag="{Binding userId}">
 							<Grid.ColumnDefinitions>
@@ -95,7 +96,9 @@
 						<DataTemplate>
 							<Grid Background="{Binding isSender,Converter={StaticResource ConvertMessageColor}}"
 								  Tag="{Binding userId}"
-								  Margin="0,2,0,2">
+								  Width="300"
+								  HorizontalAlignment="{Binding isSender,Converter={StaticResource BoolToHorizontalAlignmentConverter}}"
+								  Margin="0,5,0,5">
 								<StackPanel Orientation="Vertical">
 									<TextBlock Style="{StaticResource DateTime}"
 											   TextAlignment="{Binding isSender,Converter={StaticResource ConvertPosition}}"

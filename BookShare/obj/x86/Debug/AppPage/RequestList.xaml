@@ -9,6 +9,7 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/Resources/RequestList.xaml" />
+				<ResourceDictionary Source="/Resources/Notification.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
@@ -17,9 +18,23 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-		<ProgressBar x:ConnectionId='1' IsIndeterminate="True"
+		<Grid x:ConnectionId='1' Name="gridNotification"
+			  Visibility="Collapsed"
+			  Style="{StaticResource GridNotification}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="50" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Button x:ConnectionId='17' Style="{StaticResource ButtonDismiss}"
+					Content="&#xE711;"
+					                            />
+			<TextBlock x:ConnectionId='18' Name="textBlockContent"
+					   Grid.Column="1"
+					   Style="{StaticResource TextBlockContent}" />
+		</Grid>
+		<ProgressBar x:ConnectionId='2' IsIndeterminate="True"
 					 Height="30"
-					 VerticalAlignment="Top"
+					 Grid.Row="0"
 					 Name="progressBar" />
 		<Pivot Grid.Row="1">
 			<PivotItem>
@@ -38,17 +53,19 @@
 					</Grid>
 				</PivotItem.Header>
 				<Grid Width="Auto">
-					<ListView x:ConnectionId='9' Name="listViewPostedBook">
+					<ListView x:ConnectionId='11' Name="listViewPostedBook"
+							  ScrollViewer.VerticalScrollBarVisibility="Hidden">
 						<ListView.ItemContainerStyle>
 							<Style TargetType="ListViewItem">
 								<Setter Property="HorizontalContentAlignment"
-										Value="Stretch">
-								</Setter>
+										Value="Stretch" />
+								<Setter Property="Padding"
+										Value="0" />
 							</Style>
 						</ListView.ItemContainerStyle>
 						<ListView.ItemTemplate>
 							<DataTemplate>
-								<Grid x:ConnectionId='13' Margin="0,5,0,5"
+								<Grid x:ConnectionId='16' Margin="0,5,0,5"
 									  Tag="{Binding postId}"
 									                           >
 									<Grid.ColumnDefinitions>
@@ -72,13 +89,14 @@
 							</DataTemplate>
 						</ListView.ItemTemplate>
 					</ListView>
-					<ListView x:ConnectionId='10' ScrollViewer.VerticalScrollBarVisibility="Hidden"
+					<ListView x:ConnectionId='12' ScrollViewer.VerticalScrollBarVisibility="Hidden"
 							  Name="listViewReceivedRequest">
 						<ListView.ItemContainerStyle>
 							<Style TargetType="ListViewItem">
 								<Setter Property="HorizontalContentAlignment"
-										Value="Stretch">
-								</Setter>
+										Value="Stretch" />
+								<Setter Property="Padding"
+										Value="0" />
 							</Style>
 						</ListView.ItemContainerStyle>
 						<ListView.ItemTemplate>
@@ -93,17 +111,18 @@
 										   Height="60"
 										   Stretch="Fill"
 										   Source="{Binding user.ava}" />
-									<TextBlock Text="{Binding user.account}"
+									<TextBlock x:ConnectionId='13' Text="{Binding user.account}"
 											   Style="{StaticResource RequestUserAccount}"
 											   Tag="{Binding user.id}"
+											                               
 											   Grid.Column="1" />
 									<StackPanel Grid.Column="2"
 												Orientation="Horizontal">
-										<Button x:ConnectionId='11' Content="&#xE8FB;"
+										<Button x:ConnectionId='14' Content="&#xE8FB;"
 												Style="{StaticResource Accept}"
 												Tag="{Binding id}"
 												                      />
-										<Button x:ConnectionId='12' Content="&#xE894;"
+										<Button x:ConnectionId='15' Content="&#xE894;"
 												Style="{StaticResource Deny}"
 												Tag="{Binding id}"
 												                    />
@@ -129,17 +148,18 @@
 					</Grid>
 				</PivotItem.Header>
 				<Grid>
-					<ListView x:ConnectionId='5' Name="listViewRequestedBook">
+					<ListView x:ConnectionId='6' Name="listViewRequestedBook" ScrollViewer.VerticalScrollBarVisibility="Hidden">
 						<ListView.ItemContainerStyle>
 							<Style TargetType="ListViewItem">
 								<Setter Property="HorizontalContentAlignment"
-										Value="Stretch">
-								</Setter>
+										Value="Stretch" />
+								<Setter Property="Padding"
+										Value="0" />
 							</Style>
 						</ListView.ItemContainerStyle>
 						<ListView.ItemTemplate>
 							<DataTemplate>
-								<Grid x:ConnectionId='8' Margin="0,5,0,5"
+								<Grid x:ConnectionId='10' Margin="0,5,0,5"
 									  Tag="{Binding bookId}"
 									                              >
 									<Grid.ColumnDefinitions>
@@ -163,13 +183,14 @@
 							</DataTemplate>
 						</ListView.ItemTemplate>
 					</ListView>
-					<ListView x:ConnectionId='6' ScrollViewer.VerticalScrollBarVisibility="Hidden"
+					<ListView x:ConnectionId='7' ScrollViewer.VerticalScrollBarVisibility="Hidden"
 							  Name="listViewSentRequest">
 						<ListView.ItemContainerStyle>
 							<Style TargetType="ListViewItem">
 								<Setter Property="HorizontalContentAlignment"
-										Value="Stretch">
-								</Setter>
+										Value="Stretch" />
+								<Setter Property="Padding"
+										Value="0" />
 							</Style>
 						</ListView.ItemContainerStyle>
 						<ListView.ItemTemplate>
@@ -184,10 +205,12 @@
 										   Height="60"
 										   Stretch="Fill"
 										   Source="{Binding user.ava}" />
-									<TextBlock Text="{Binding user.account}"
+									<TextBlock x:ConnectionId='8' Text="{Binding user.account}"
 											   Style="{StaticResource RequestUserAccount}"
+											   Tag="{Binding user.id}"
+											                               
 											   Grid.Column="1" />
-									<Button x:ConnectionId='7' Content="&#xE74D;"
+									<Button x:ConnectionId='9' Content="&#xE74D;"
 											Grid.Column="2"
 											Style="{StaticResource Delete}"
 											Tag="{Binding id}"
@@ -213,12 +236,13 @@
 					</Grid>
 				</PivotItem.Header>
 				<Grid>
-					<ListView x:ConnectionId='2' Name="listViewNotification">
+					<ListView x:ConnectionId='3' Name="listViewNotification" ScrollViewer.VerticalScrollBarVisibility="Hidden">
 						<ListView.ItemContainerStyle>
 							<Style TargetType="ListViewItem">
 								<Setter Property="HorizontalContentAlignment"
-										Value="Stretch">
-								</Setter>
+										Value="Stretch" />
+								<Setter Property="Padding"
+										Value="0" />
 							</Style>
 						</ListView.ItemContainerStyle>
 						<ListView.ItemTemplate>
@@ -239,12 +263,12 @@
 												 FontFamily="Segoe WP Light" />
 										</TextBlock.Inlines>
 									</TextBlock>
-									<Button x:ConnectionId='3' Grid.Column="1"
+									<Button x:ConnectionId='4' Grid.Column="1"
 											Content="&#xE77B;"
 											Tag="{Binding userId}"
-											              
+											                        
 											Style="{StaticResource ToUser}" />
-									<Button x:ConnectionId='4' Grid.Column="2"
+									<Button x:ConnectionId='5' Grid.Column="2"
 											Content="&#xE74D;"
 											Style="{StaticResource Delete}"
 											                       

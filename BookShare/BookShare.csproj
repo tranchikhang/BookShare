@@ -140,15 +140,15 @@
     </Compile>
     <Compile Include="Helper\Converter\BoolToColorConverter.cs" />
     <Compile Include="Helper\Converter\BoolToFontWeightConverter.cs" />
+    <Compile Include="Helper\Converter\BoolToHorizontalAlignmentConverter.cs" />
     <Compile Include="Helper\Converter\BoolToPositionConverter.cs" />
     <Compile Include="Helper\ControlMethods.cs" />
     <Compile Include="Helper\Converter\NewMessageColorConverter.cs" />
-    <Compile Include="Helper\CustomNotification.cs" />
     <Compile Include="Helper\ImageUpload.cs" />
     <Compile Include="Helper\JsonHelper.cs" />
+    <Compile Include="Helper\NavigationMethod.cs" />
     <Compile Include="Helper\RegexUtilities.cs" />
     <Compile Include="Helper\RestAPI.cs" />
-    <Compile Include="Helper\WindowResize.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -244,17 +244,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\BookInfo.xaml">
+    <Page Include="Resources\PageResource\BookInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Resources\PageResource\BookShelf.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Resources\ChangePassButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -265,11 +260,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Resources\Greeting.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Resources\LightTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -309,7 +299,7 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="Resources\UserInfo.xaml">
+    <Page Include="Resources\PageResource\UserInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

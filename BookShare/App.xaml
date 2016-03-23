@@ -9,5 +9,6 @@
 		<converter:BoolToPositionConverter x:Key="ConvertPosition" />
 		<converter:BoolToColorConverter x:Key="ConvertMessageColor" />
 		<converter:NewMessageColorConverter x:Key="NewMessageColorConverter" />
+		<converter:BoolToHorizontalAlignmentConverter x:Key="BoolToHorizontalAlignmentConverter" />
 	</Application.Resources>
 </Application>

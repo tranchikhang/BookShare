@@ -1,23 +1,13 @@
 ﻿using BookShare.Helper;
 using BookShare.Model;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Core;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -41,7 +31,10 @@ namespace BookShare.AppPage
 			ControlMethods.SwitchVisibility ( false , listViewSentRequest );
 			//hide notification
 			ControlMethods.SwitchVisibility ( false , listViewNotification );
+			//show progress bar
+			ControlMethods.SwitchVisibility ( true , progressBar );
 			GetData ();
+
 		}
 
 		private ObservableCollection<PostedBook> postedBooks;
@@ -50,22 +43,27 @@ namespace BookShare.AppPage
 		private ObservableCollection<Post> requestedPost;
 		private ObservableCollection<RequestNotification> requestNotifications;
 
-		private void GetData ()
+		private async void GetData ()
 		{
-			//show progress bar
-			ControlMethods.SwitchVisibility ( true , progressBar );
-			//get books that user posted
-			GetPostedBooks ();
-			GetrequestedBooks ();
-			GetRequestNotifications ();
+			try
+			{
+				await Task.WhenAll ( GetPostedBooks () , GetrequestedBooks () , GetRequestNotifications () );
+			}
+			catch ( Exception e )
+			{
+				ShowNotification ();
+			}
+
 			//hide progress bar
-			progressBar.Visibility = Visibility.Collapsed;
+			ControlMethods.SwitchVisibility ( false , progressBar );
+			//show posted book and requested book
 			ControlMethods.SwitchVisibility ( true , listViewPostedBook );
 			ControlMethods.SwitchVisibility ( true , listViewRequestedBook );
+			//show notification
 			ControlMethods.SwitchVisibility ( true , listViewNotification );
 		}
 
-		private async void GetPostedBooks ()
+		private async Task GetPostedBooks ()
 		{
 			string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetRequestsForUser" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
@@ -85,9 +83,11 @@ namespace BookShare.AppPage
 					}
 				listViewPostedBook.ItemsSource = postedBooks;
 			}
+			else if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.Failed )
+				throw new Exception ();
 		}
 
-		private async void GetRequestNotifications ()
+		private async Task GetRequestNotifications ()
 		{
 			string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetRequestNotifications" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
@@ -101,9 +101,11 @@ namespace BookShare.AppPage
 					}
 				listViewNotification.ItemsSource = requestNotifications;
 			}
+			else if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.Failed )
+				throw new Exception ();
 		}
 
-		private async void GetrequestedBooks ()
+		private async Task GetrequestedBooks ()
 		{
 			string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetRequestsFromUser" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
@@ -123,6 +125,8 @@ namespace BookShare.AppPage
 					}
 				listViewRequestedBook.ItemsSource = requestedBooks;
 			}
+			else if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.Failed )
+				throw new Exception ();
 		}
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
@@ -182,11 +186,13 @@ namespace BookShare.AppPage
 			//user want to move back to requested books
 			ControlMethods.SwitchVisibility ( true , listViewRequestedBook );
 			ControlMethods.SwitchVisibility ( false , listViewSentRequest );
+
 			SystemNavigationManager.GetForCurrentView ().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
 		}
 
 		private async void AcceptRequest ( object sender , RoutedEventArgs e )
 		{
+			ControlMethods.SwitchVisibility ( true , progressBar );
 			string requestId = ( ( Button ) sender ).Tag.ToString ();
 			RestAPI.ResponseStatus status = await SendUserResponse ( true , requestId );
 			if ( status == RestAPI.ResponseStatus.OK )
@@ -198,12 +204,14 @@ namespace BookShare.AppPage
 			else
 			{
 				//send response failed
-				CustomNotification.ShowDialogMessage ();
+				ShowNotification ();
 			}
+			ControlMethods.SwitchVisibility ( false , progressBar );
 		}
 
 		private async void DenyRequest ( object sender , RoutedEventArgs e )
 		{
+			ControlMethods.SwitchVisibility ( true , progressBar );
 			string requestId = ( ( Button ) sender ).Tag.ToString ();
 			RestAPI.ResponseStatus status = await SendUserResponse ( false , requestId );
 			if ( status == RestAPI.ResponseStatus.OK )
@@ -215,8 +223,9 @@ namespace BookShare.AppPage
 			else
 			{
 				//send response failed
-				CustomNotification.ShowDialogMessage ();
+				ShowNotification ();
 			}
+			ControlMethods.SwitchVisibility ( false , progressBar );
 		}
 
 		private async Task<RestAPI.ResponseStatus> SendUserResponse ( bool isAccepted , string requestId )
@@ -236,6 +245,7 @@ namespace BookShare.AppPage
 
 		private async void DeleteRequest ( object sender , RoutedEventArgs e )
 		{
+			ControlMethods.SwitchVisibility ( true , progressBar );
 			string postId = ( ( Button ) sender ).Tag.ToString ();
 			dynamic data = new
 			{
@@ -255,18 +265,9 @@ namespace BookShare.AppPage
 			else
 			{
 				//send response failed
-				CustomNotification.ShowDialogMessage ();
+				ShowNotification ();
 			}
-		}
-
-		private void ToUser ( object sender , RoutedEventArgs e )
-		{
-			string userId = ( ( Button ) sender ).Tag.ToString ();
-			//show back button
-			SystemNavigationManager.GetForCurrentView ().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-			//back button event
-			SystemNavigationManager.GetForCurrentView ().BackRequested += BackButtonClickToRquestPage;
-			Frame.Navigate ( typeof ( UserInfo ) , userId );
+			ControlMethods.SwitchVisibility ( false , progressBar );
 		}
 
 		private void BackButtonClickToRquestPage ( object sender , BackRequestedEventArgs e )
@@ -278,6 +279,7 @@ namespace BookShare.AppPage
 
 		private async void DeactiveRequest ( object sender , RoutedEventArgs e )
 		{
+			ControlMethods.SwitchVisibility ( true , progressBar );
 			//deactive request
 			string requestId = ( ( Button ) sender ).Tag.ToString ();
 			string result = await RestAPI.SendJson ( requestId , RestAPI.phpAddress , "DeactiveRequest" );
@@ -290,8 +292,39 @@ namespace BookShare.AppPage
 			else
 			{
 				//send response failed
-				CustomNotification.ShowDialogMessage ();
+				ShowNotification ();
 			}
+			ControlMethods.SwitchVisibility ( false , progressBar );
+		}
+
+		private void ShowNotification ( string content = "Có lỗi, thử lại sau" )
+		{
+			//notify user
+			textBlockContent.Text = content;
+			gridNotification.Visibility = Visibility.Visible;
+		}
+
+		private void NotificationDismiss ( object sender , RoutedEventArgs e )
+		{
+			textBlockContent.Text = "";
+			gridNotification.Visibility = Visibility.Collapsed;
+		}
+
+		private void TextBlockUserTapped ( object sender , TappedRoutedEventArgs e )
+		{
+			string userId = ( ( TextBlock ) sender ).Tag.ToString ();
+			NavigateToUser ( userId );
+		}
+
+		private void NavigateToUser ( string userId )
+		{
+			Frame.Navigate ( typeof ( UserInfo ) , userId );
+		}
+
+		private void ButtonUserTapped ( object sender , RoutedEventArgs e )
+		{
+			string userId = ( ( Button ) sender ).Tag.ToString ();
+			NavigateToUser ( userId );
 		}
 	}
 }

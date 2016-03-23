@@ -1,5 +1,7 @@
-﻿using Windows.UI.Xaml;
+﻿using BookShare.Helper;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -12,17 +14,22 @@ namespace BookShare.AppPage
 	{
 		public StartPage ()
 		{
-			this.InitializeComponent ();
+			InitializeComponent ();
 		}
 
 		private void RegisterClick ( object sender , RoutedEventArgs e )
 		{
-			this.Frame.Navigate ( typeof ( Register ) );
+			Frame.Navigate ( typeof ( Register ) );
 		}
 
 		private void LoginClick ( object sender , RoutedEventArgs e )
 		{
-			this.Frame.Navigate ( typeof ( Login ) );
+			Frame.Navigate ( typeof ( Login ) );
+		}
+
+		protected override void OnNavigatedTo ( NavigationEventArgs e )
+		{
+			NavigationMethod.SetBackButtonVisibility ( false );
 		}
 	}
 }

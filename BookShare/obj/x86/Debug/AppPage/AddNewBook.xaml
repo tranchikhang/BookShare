@@ -44,6 +44,9 @@
 				<Border>
 					<TextBlock Text="Tác giả" />
 				</Border>
+				<Border Height="Auto">
+					<TextBlock Text="Thêm dấu ; sau tên nếu sách có nhiều tác giả" />
+				</Border>
 				<AutoSuggestBox x:ConnectionId='4' Name="suggestAuthor"
 								                                
 								TextMemberPath="authorName">

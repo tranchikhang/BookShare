@@ -15,8 +15,5 @@ namespace BookShare.Model
 
 		[JsonProperty ( PropertyName = "user" )]
 		public User user { get; set; }
-
-		[JsonProperty ( PropertyName = "requestMessage" )]
-		public string message { get; set; }
 	}
 }

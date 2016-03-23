@@ -1,20 +1,10 @@
 ﻿using BookShare.Helper;
 using BookShare.Model;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -29,34 +19,24 @@ namespace BookShare.AppPage
 		public UserInfo ()
 		{
 			this.InitializeComponent ();
-			ControlMethods.SwitchVisibility ( true , progressBar );
-			stackPanel.Visibility = Visibility.Collapsed;
-			gridSendMessage.Visibility = Visibility.Collapsed;
 
-			timer = new DispatcherTimer ();
-			timer.Interval = TimeSpan.FromSeconds ( 1 );
-			timer.Tick += new EventHandler<object> ( TimerTick );
-		}
+			NavigationMethod.SetBackButtonVisibility ( true );
+			SystemNavigationManager.GetForCurrentView ().BackRequested += BackButtonClick;
 
-		private void TimerTick ( object sender , object e )
-		{
-			timer.Stop ();
-			//hide progress bar
-			ControlMethods.SwitchVisibility ( false , progressBar );
-			if ( gridSendMessage.Visibility == Visibility.Visible )
-				gridSendMessage.Visibility = Visibility.Collapsed;
-			if ( stackPanel.Visibility == Visibility.Collapsed )
-				stackPanel.Visibility = Visibility.Visible;
 		}
 
 		private User selectedUser;
-		DispatcherTimer timer;
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
 			string userId = e.Parameter as String;
 			LoadData ( userId );
-			timer.Start ();
+			
+		}
+
+		protected override void OnNavigatedFrom ( NavigationEventArgs e )
+		{
+			SystemNavigationManager.GetForCurrentView ().BackRequested -= BackButtonClick;
 		}
 
 		private async void LoadData ( string userId )
@@ -69,34 +49,23 @@ namespace BookShare.AppPage
 				selectedUser = JsonHelper.ConvertToUser ( data );
 				selectedUser.SetAddress ();
 				selectedUser.SetAva ();
-				this.DataContext = selectedUser;
-				//if timer is still running, then do nothing
-				if ( !timer.IsEnabled )
-					ControlMethods.SwitchVisibility ( false , progressBar );
+				DataContext = selectedUser;
+				ControlMethods.SwitchVisibility ( false , progressBar );
+				scrollViewer.Visibility = Visibility.Visible;
 			}
 		}
 
 		private void SendTap ( object sender , TappedRoutedEventArgs e )
 		{
-			stackPanel.Visibility = Visibility.Collapsed;
+			scrollViewer.Visibility = Visibility.Collapsed;
 			gridSendMessage.Visibility = Visibility.Visible;
-		}
-
-		private void BackClick ( object sender , RoutedEventArgs e )
-		{
-			stackPanel.Visibility = Visibility.Visible;
-			gridSendMessage.Visibility = Visibility.Collapsed;
 		}
 
 		private async void SendMessageTap ( object sender , TappedRoutedEventArgs e )
 		{
-			//check length
-			if ( textBoxContent.Text.Length >= 300 )
-				CustomNotification.ShowDialogMessage ( content: "Tin nhắn không được quá 300 ký tự" );
-			else if ( textBoxContent.Text.Length > 0 )
+			string r = MessageValidation ();
+			if ( r == "" && textBoxContent.Text.Length > 0 )
 			{
-				//start the timer
-				timer.Start ();
 				//show progressbar
 				ControlMethods.SwitchVisibility ( true , progressBar );
 				//send the message
@@ -112,13 +81,57 @@ namespace BookShare.AppPage
 				{
 					//clear message
 					textBoxContent.Text = "";
-					//if timer is still running, then do nothing
-					if ( !timer.IsEnabled )
-						ControlMethods.SwitchVisibility ( false , progressBar );
 				}
 				else
 				{
-					CustomNotification.ShowDialogMessage ();
+					ShowNotification ();
+				}
+				ControlMethods.SwitchVisibility ( false , progressBar );
+				gridSendMessage.Visibility = Visibility.Collapsed;
+				scrollViewer.Visibility = Visibility.Visible;
+			}
+			else
+			{
+				ShowNotification ( r );
+			}
+		}
+
+		private string MessageValidation ()
+		{
+			if ( textBoxContent.Text.Length >= 300 )
+				return "Tin nhắn không được quá 300 ký tự";
+			return "";
+		}
+
+		private void ShowNotification ( string content = "Có lỗi, thử lại sau" )
+		{
+			//notify user
+			textBlockContent.Text = content;
+			gridNotification.Visibility = Visibility.Visible;
+		}
+
+		private void NotificationDismiss ( object sender , RoutedEventArgs e )
+		{
+			textBlockContent.Text = "";
+			gridNotification.Visibility = Visibility.Collapsed;
+		}
+
+		private void BackButtonClick ( object sender , BackRequestedEventArgs e )
+		{
+			if ( gridSendMessage.Visibility == Visibility.Visible )
+			{
+				gridSendMessage.Visibility = Visibility.Collapsed;
+				scrollViewer.Visibility = Visibility.Visible;
+			}
+			else
+			{
+				Frame rootFrame = NavigationMethod.GetMainFrame ();
+
+				// Navigate back if possible, and if the event has not 
+				// already been handled .
+				if ( rootFrame.CanGoBack )
+				{
+					rootFrame.GoBack ();
 				}
 			}
 		}

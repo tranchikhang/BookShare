@@ -9,6 +9,7 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/Resources/RequestList.xaml" />
+				<ResourceDictionary Source="/Resources/Notification.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
@@ -17,9 +18,23 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
+		<Grid Name="gridNotification"
+			  Visibility="Collapsed"
+			  Style="{StaticResource GridNotification}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="50" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Button Style="{StaticResource ButtonDismiss}"
+					Content="&#xE711;"
+					Click="NotificationDismiss" />
+			<TextBlock Name="textBlockContent"
+					   Grid.Column="1"
+					   Style="{StaticResource TextBlockContent}" />
+		</Grid>
 		<ProgressBar IsIndeterminate="True"
 					 Height="30"
-					 VerticalAlignment="Top"
+					 Grid.Row="0"
 					 Name="progressBar" />
 		<Pivot Grid.Row="1">
 			<PivotItem>
@@ -38,12 +53,14 @@
 					</Grid>
 				</PivotItem.Header>
 				<Grid Width="Auto">
-					<ListView Name="listViewPostedBook">
+					<ListView Name="listViewPostedBook"
+							  ScrollViewer.VerticalScrollBarVisibility="Hidden">
 						<ListView.ItemContainerStyle>
 							<Style TargetType="ListViewItem">
 								<Setter Property="HorizontalContentAlignment"
-										Value="Stretch">
-								</Setter>
+										Value="Stretch" />
+								<Setter Property="Padding"
+										Value="0" />
 							</Style>
 						</ListView.ItemContainerStyle>
 						<ListView.ItemTemplate>
@@ -77,8 +94,9 @@
 						<ListView.ItemContainerStyle>
 							<Style TargetType="ListViewItem">
 								<Setter Property="HorizontalContentAlignment"
-										Value="Stretch">
-								</Setter>
+										Value="Stretch" />
+								<Setter Property="Padding"
+										Value="0" />
 							</Style>
 						</ListView.ItemContainerStyle>
 						<ListView.ItemTemplate>
@@ -96,6 +114,7 @@
 									<TextBlock Text="{Binding user.account}"
 											   Style="{StaticResource RequestUserAccount}"
 											   Tag="{Binding user.id}"
+											   Tapped="TextBlockUserTapped"
 											   Grid.Column="1" />
 									<StackPanel Grid.Column="2"
 												Orientation="Horizontal">
@@ -129,12 +148,13 @@
 					</Grid>
 				</PivotItem.Header>
 				<Grid>
-					<ListView Name="listViewRequestedBook">
+					<ListView Name="listViewRequestedBook" ScrollViewer.VerticalScrollBarVisibility="Hidden">
 						<ListView.ItemContainerStyle>
 							<Style TargetType="ListViewItem">
 								<Setter Property="HorizontalContentAlignment"
-										Value="Stretch">
-								</Setter>
+										Value="Stretch" />
+								<Setter Property="Padding"
+										Value="0" />
 							</Style>
 						</ListView.ItemContainerStyle>
 						<ListView.ItemTemplate>
@@ -168,8 +188,9 @@
 						<ListView.ItemContainerStyle>
 							<Style TargetType="ListViewItem">
 								<Setter Property="HorizontalContentAlignment"
-										Value="Stretch">
-								</Setter>
+										Value="Stretch" />
+								<Setter Property="Padding"
+										Value="0" />
 							</Style>
 						</ListView.ItemContainerStyle>
 						<ListView.ItemTemplate>
@@ -186,6 +207,8 @@
 										   Source="{Binding user.ava}" />
 									<TextBlock Text="{Binding user.account}"
 											   Style="{StaticResource RequestUserAccount}"
+											   Tag="{Binding user.id}"
+											   Tapped="TextBlockUserTapped"
 											   Grid.Column="1" />
 									<Button Content="&#xE74D;"
 											Grid.Column="2"
@@ -213,12 +236,13 @@
 					</Grid>
 				</PivotItem.Header>
 				<Grid>
-					<ListView Name="listViewNotification">
+					<ListView Name="listViewNotification" ScrollViewer.VerticalScrollBarVisibility="Hidden">
 						<ListView.ItemContainerStyle>
 							<Style TargetType="ListViewItem">
 								<Setter Property="HorizontalContentAlignment"
-										Value="Stretch">
-								</Setter>
+										Value="Stretch" />
+								<Setter Property="Padding"
+										Value="0" />
 							</Style>
 						</ListView.ItemContainerStyle>
 						<ListView.ItemTemplate>
@@ -242,7 +266,7 @@
 									<Button Grid.Column="1"
 											Content="&#xE77B;"
 											Tag="{Binding userId}"
-											Click="ToUser"
+											Click="ButtonUserTapped"
 											Style="{StaticResource ToUser}" />
 									<Button Grid.Column="2"
 											Content="&#xE74D;"

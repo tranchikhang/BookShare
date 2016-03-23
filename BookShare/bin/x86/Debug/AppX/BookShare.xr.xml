@@ -13,13 +13,12 @@
     <RootPropertyPathName Name="fullAddress" />
     <RootPropertyPathName Name="account" />
     <RootPropertyPathName Name="ava" />
-    <RootPropertyPathName Name="description" />
     <RootPropertyPathName Name="year" />
     <RootPropertyPathName Name="author" />
     <RootPropertyPathName Name="title" />
+    <RootPropertyPathName Name="image" />
     <RootPropertyPathName Name="isAvailable" />
     <RootPropertyPathName Name="book" />
-    <RootPropertyPathName Name="image" />
     <RootPropertyPathName Name="numberShared" />
     <RootPropertyPathName Name="Visibility" />
     <RootPropertyPathName Name="userId" />
@@ -50,6 +49,7 @@
     <RootType FullName="BookShare.Helper.Converter.BoolToPositionConverter" />
     <RootType FullName="BookShare.Helper.Converter.BoolToColorConverter" />
     <RootType FullName="BookShare.Helper.Converter.NewMessageColorConverter" />
+    <RootType FullName="BookShare.Helper.Converter.BoolToHorizontalAlignmentConverter" />
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
       <RootProperty Name="Resources" />
       <RootProperty Name="Content" />
@@ -70,6 +70,7 @@
       <RootProperty Name="Tag" />
       <RootProperty Name="Width" />
       <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Height" />
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="BorderBrush" />
       <RootProperty Name="BorderThickness" />
@@ -88,8 +89,7 @@
       <RootProperty Name="Margin" />
       <RootProperty Name="VerticalScrollBarVisibility" />
       <RootProperty Name="Content" />
-      <RootProperty Name="Height" />
-      <RootProperty Name="Padding" />
+      <RootProperty Name="Visibility" />
       <RootMethod Name="GetVerticalScrollBarVisibility" />
       <RootMethod Name="SetVerticalScrollBarVisibility" />
     </RootType>
@@ -101,12 +101,14 @@
       <RootProperty Name="Height" />
       <RootProperty Name="Width" />
       <RootProperty Name="Background" />
+      <RootProperty Name="Visibility" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Border">
       <RootProperty Name="Child" />
-      <RootProperty Name="Background" />
+      <RootProperty Name="Height" />
       <RootProperty Name="BorderBrush" />
       <RootProperty Name="BorderThickness" />
+      <RootProperty Name="Background" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
       <RootProperty Name="Name" />
@@ -152,7 +154,6 @@
       <RootProperty Name="Background" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="Height" />
-      <RootProperty Name="FontFamily" />
       <RootEvent Name="Click" />
       <RootEvent Name="Tapped" />
     </RootType>
@@ -161,12 +162,12 @@
       <RootProperty Name="Text" />
       <RootProperty Name="Height" />
       <RootProperty Name="Style" />
+      <RootProperty Name="TextWrapping" />
       <RootProperty Name="FontSize" />
       <RootProperty Name="Tag" />
       <RootProperty Name="FontFamily" />
       <RootProperty Name="Foreground" />
       <RootProperty Name="TextAlignment" />
-      <RootProperty Name="TextWrapping" />
       <RootProperty Name="Padding" />
       <RootProperty Name="FontStyle" />
       <RootProperty Name="Width" />
@@ -189,14 +190,14 @@
     <RootType FullName="Windows.UI.Xaml.Controls.Control">
       <RootProperty Name="FontSize" />
       <RootProperty Name="HorizontalContentAlignment" />
+      <RootProperty Name="Padding" />
       <RootProperty Name="FontFamily" />
       <RootProperty Name="Foreground" />
-      <RootProperty Name="Padding" />
       <RootProperty Name="Background" />
-      <RootProperty Name="BorderBrush" />
-      <RootProperty Name="BorderThickness" />
       <RootProperty Name="VerticalContentAlignment" />
       <RootProperty Name="Template" />
+      <RootProperty Name="BorderBrush" />
+      <RootProperty Name="BorderThickness" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Setter">
       <RootProperty Name="Property" />
@@ -215,6 +216,7 @@
       <RootProperty Name="IsIndeterminate" />
       <RootProperty Name="Height" />
       <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="Visibility" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.RelativePanel">
       <RootProperty Name="Name" />
@@ -227,6 +229,7 @@
     <RootType FullName="Windows.UI.Xaml.Controls.ListView">
       <RootProperty Name="Name" />
       <RootProperty Name="Margin" />
+      <RootProperty Name="Visibility" />
       <RootProperty Name="ItemContainerStyle" />
       <RootProperty Name="ItemTemplate" />
     </RootType>
@@ -234,12 +237,15 @@
     <RootType FullName="Windows.UI.Xaml.Controls.Image">
       <RootProperty Name="Height" />
       <RootProperty Name="Stretch" />
+      <RootProperty Name="Tag" />
       <RootProperty Name="Source" />
       <RootProperty Name="Name" />
       <RootProperty Name="Width" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="Margin" />
+      <RootEvent Name="Tapped" />
     </RootType>
+    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.NullExtension" />
     <RootType FullName="Windows.UI.Xaml.VisualStateGroup">
       <RootProperty Name="States" />
     </RootType>
@@ -260,15 +266,14 @@
       <RootProperty Name="IsOn" />
       <RootEvent Name="Loaded" />
     </RootType>
-    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.NullExtension" />
     <RootType FullName="BookShare.AppPage.BookShelf" />
     <RootType FullName="BookShare.AppPage.GreetingPage" />
     <RootType FullName="Windows.UI.Xaml.FrameworkElement">
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Width" />
       <RootProperty Name="Height" />
-      <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="Margin" />
+      <RootProperty Name="HorizontalAlignment" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.PasswordBox">
       <RootProperty Name="Name" />
@@ -366,6 +371,5 @@
       <RootMethod Name="GetAccessibilityView" />
       <RootMethod Name="SetAccessibilityView" />
     </RootType>
-    <RootType FullName="System.Double" />
   </Roots.RootTypes>
 </Roots>

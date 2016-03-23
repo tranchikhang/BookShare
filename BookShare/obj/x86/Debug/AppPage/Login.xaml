@@ -5,7 +5,6 @@
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  mc:Ignorable="d">
-
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -41,22 +40,28 @@
 	</Page.Resources>
 	<Grid Background="{StaticResource BackgroundColor}">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-		<Grid x:ConnectionId='1' Name="gridNotification" Visibility="Collapsed"
+		<Grid x:ConnectionId='1' Name="gridNotification"
+			  Visibility="Collapsed"
 			  Style="{StaticResource GridNotification}">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="50" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
-			<Button x:ConnectionId='5' Style="{StaticResource ButtonDismiss}"
+			<Button x:ConnectionId='6' Style="{StaticResource ButtonDismiss}"
 					Content="&#xE711;"
 					                            />
-			<TextBlock x:ConnectionId='6' Name="textBlockContent"
+			<TextBlock x:ConnectionId='7' Name="textBlockContent"
 					   Grid.Column="1"
 					   Style="{StaticResource TextBlockContent}" />
 		</Grid>
+		<ProgressBar x:ConnectionId='2' IsIndeterminate="True"
+					 Visibility="Collapsed"
+					 Height="30"
+					 Grid.Row="0"
+					 Name="progressBar" />
 		<Grid Grid.Row="1">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="80" />
@@ -71,14 +76,14 @@
 					   FontSize="40" />
 			<TextBlock Text="Tên tài khoản"
 					   Grid.Row="1" />
-			<TextBox x:ConnectionId='2' Grid.Row="2"
+			<TextBox x:ConnectionId='3' Grid.Row="2"
 					 Name="textBoxUser" />
 			<TextBlock Text="Mật khẩu"
 					   Grid.Row="3" />
-			<PasswordBox x:ConnectionId='3' Name="pwBox"
+			<PasswordBox x:ConnectionId='4' Name="pwBox"
 						 Width="400"
 						 Grid.Row="4" />
-			<Button x:ConnectionId='4' Content="Đăng nhập"
+			<Button x:ConnectionId='5' Content="Đăng nhập"
 					Grid.Row="5"
 					Width="200"
 					FontSize="22"

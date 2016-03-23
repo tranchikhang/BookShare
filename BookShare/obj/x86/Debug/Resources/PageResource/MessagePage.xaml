@@ -77,14 +77,10 @@
 				Value="Segoe MDL2 Assets" />
 		<Setter Property="FontSize"
 				Value="20" />
-		<Setter Property="VerticalAlignment"
-				Value="Center" />
 		<Setter Property="Background"
 				Value="White" />
 		<Setter Property="Foreground"
 				Value="Green" />
-		<Setter Property="Margin"
-				Value="0,0,0,0" />
 		<Setter Property="HorizontalAlignment"
 				Value="Center" />
 	</Style>

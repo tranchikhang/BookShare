@@ -8,15 +8,14 @@
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Resources/LightTheme.xaml" />
 				<ResourceDictionary Source="/Resources/CustomRadioButton.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
-	<Grid Background="{StaticResource BackgroundColor}">
+	<Grid Background="White">
 		<SplitView DisplayMode="CompactInline"
 				   CompactPaneLength="50"
-				   OpenPaneLength="200"
+				   OpenPaneLength="150"
 				   IsPaneOpen="False"
 				   Name="MainSplitView">
 			<SplitView.Pane>
@@ -65,7 +64,6 @@
 								Value="True" />
 					</VisualState.Setters>
 				</VisualState>
-
 				<VisualState x:Name="NarrowState">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="0" />

@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -19,10 +20,12 @@ namespace BookShare.AppPage
 	{
 		public AddNewBook ()
 		{
-			this.InitializeComponent ();
+			InitializeComponent ();
 			AddGenre ();
 			AddYear ();
 		}
+
+		private StorageFile file;
 
 		private void AddYear ()
 		{
@@ -31,8 +34,6 @@ namespace BookShare.AppPage
 				comboYear.Items.Add ( i );
 			}
 		}
-
-		private StorageFile file;
 
 		private async void AddGenre ()
 		{
@@ -49,7 +50,6 @@ namespace BookShare.AppPage
 			}
 			comboBoxGenre.ItemsSource = l;
 		}
-
 
 
 		private async void AddFileClick ( object sender , RoutedEventArgs e )
@@ -74,7 +74,8 @@ namespace BookShare.AppPage
 
 		private async void AddBook ( object sender , RoutedEventArgs e )
 		{
-			if ( CheckField () )
+			string v = FieldValidation ();
+			if ( v == "" )
 			{
 				string imageString = await ImageUpload.StorageFileToBase64 ( file );
 				dynamic dataTosend = new
@@ -95,20 +96,22 @@ namespace BookShare.AppPage
 			}
 			else
 			{
-				ShowNotification ( "Kiểm tra thông tin nhập vào" );
+				ShowNotification ( v );
 			}
 		}
 
-		private bool CheckField ()
+		private string FieldValidation ()
 		{
 			//check empty
 			if ( textBlockFile.Text == "" || textBoxTitle.Text == "" || textBoxDes.Text == ""
 				|| suggestAuthor.Text == "" || comboYear.SelectedValue == null )
-				return false;
+				return "Điền thông tin các trường";
 			//check length
-			if ( textBoxTitle.Text.Length > 100 || textBoxDes.Text.Length > 5000 || suggestAuthor.Text.Length > 30 )
-				return false;
-			return true;
+			if ( textBoxTitle.Text.Length > 100 )
+				return "Tựa sách không quá 100 kí tự";
+			if ( textBoxDes.Text.Length > 5000 )
+				return "Miêu tả không quá 5000 ký tự";
+			return "";
 		}
 
 		private async void SuggestTextChanged ( AutoSuggestBox sender , AutoSuggestBoxTextChangedEventArgs args )
@@ -118,7 +121,7 @@ namespace BookShare.AppPage
 			var l = new ObservableCollection<object> ();
 			for ( int i = 0 ; i < json.Count ; i++ )
 			{
-				l.Add (new
+				l.Add ( new
 				{
 					authorName = json[i].authorName
 				} );

@@ -1,22 +1,9 @@
-﻿using BookShare.Helper;
-using BookShare.Model;
+﻿using BookShare.Model;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Core;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace BookShare
@@ -41,6 +28,7 @@ namespace BookShare
 
 		//my variable
 		public Frame MainFrame;
+		public Frame TopFrame;
 
 		/// <summary>
 		/// Invoked when the application is launched normally by the end user.  Other entry points
@@ -117,20 +105,20 @@ namespace BookShare
 			Window.Current.Activate ();
 		}
 
-		private void App_BackRequested ( object sender , BackRequestedEventArgs e )
-		{
-			Frame rootFrame = MainFrame;
-			if ( rootFrame == null )
-				return;
+		//private void App_BackRequested ( object sender , BackRequestedEventArgs e )
+		//{
+		//	Frame rootFrame = MainFrame;
+		//	if ( rootFrame == null )
+		//		return;
 
-			// Navigate back if possible, and if the event has not 
-			// already been handled .
-			if ( rootFrame.CanGoBack && e.Handled == false )
-			{
-				e.Handled = true;
-				rootFrame.GoBack ();
-			}
-		}
+		//	// Navigate back if possible, and if the event has not 
+		//	// already been handled .
+		//	if ( rootFrame.CanGoBack && e.Handled == false )
+		//	{
+		//		e.Handled = true;
+		//		rootFrame.GoBack ();
+		//	}
+		//}
 
 		/// <summary>
 		/// Invoked when Navigation to a certain page fails

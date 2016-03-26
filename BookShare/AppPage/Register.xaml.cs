@@ -39,7 +39,7 @@ namespace BookShare.AppPage
 			}
 			else
 			{
-				ShowNotification ( r );
+				gridNotification.Show ( true , r );
 			}
 		}
 
@@ -97,21 +97,8 @@ namespace BookShare.AppPage
 			}
 			else
 			{
-				ShowNotification ( JsonHelper.GetJsonMessage ( result ) );
+				gridNotification.Show ( true , JsonHelper.GetJsonMessage ( result ) );
 			}
-		}
-
-		private void ShowNotification ( string content )
-		{
-			//notify user
-			textBlockContent.Text = content;
-			gridNotification.Visibility = Visibility.Visible;
-		}
-
-		private void NotificationDismiss ( object sender , RoutedEventArgs e )
-		{
-			textBlockContent.Text = "";
-			gridNotification.Visibility = Visibility.Collapsed;
 		}
 	}
 }

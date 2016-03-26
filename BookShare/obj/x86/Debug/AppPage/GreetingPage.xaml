@@ -4,17 +4,19 @@
 	  xmlns:local="using:BookShare.AppPage"
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  xmlns:mycontrol="using:BookShare.Model.Control"
 	  mc:Ignorable="d">
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Resources/Greeting.xaml" />
+				<ResourceDictionary Source="/Resources/PageResource/Greeting.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
 	<Grid Background="{StaticResource BackgroundColor}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="51" />
+			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<Grid Grid.Row="0"
@@ -24,18 +26,20 @@
 				<ColumnDefinition Width="49" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
-			<TextBox x:ConnectionId='3' Name="SearchBox"
+			<TextBox x:ConnectionId='4' Name="SearchBox"
 					 Style="{StaticResource TextBoxSearch}"
 					 PlaceholderText="Nhập nội dung tìm kiếm"
 					 Grid.Column="0" />
-			<Button x:ConnectionId='4' Name="Search"
+			<Button x:ConnectionId='5' Name="Search"
 					Style="{StaticResource ButtonSearch}"
 					Grid.Column="1"
 					                   
 					Content="&#59166;" />
 		</Grid>
-		<ListView x:ConnectionId='1' Margin="0,5,0,0"
-				  Grid.Row="1"
+		<mycontrol:MyNotification x:ConnectionId='1' x:Name="gridNotification"
+								  Grid.Row="1"/>
+		<ListView x:ConnectionId='2' Margin="0,5,0,0"
+				  Grid.Row="2"
 				  Name="listViewBooks">
 			<ListView.ItemContainerStyle>
 				<Style TargetType="ListViewItem">
@@ -62,7 +66,7 @@
 							   Stretch="Fill" />
 						<StackPanel Grid.Column="2"
 									Orientation="Vertical">
-							<TextBlock x:ConnectionId='2' Text="{Binding title}"
+							<TextBlock x:ConnectionId='3' Text="{Binding title}"
 									   FontSize="26"
 									                       
 									   Tag="{Binding id}" />

@@ -4,12 +4,12 @@
 	  xmlns:local="using:BookShare.AppPage"
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  xmlns:mycontrol="using:BookShare.Model.Control"
 	  mc:Ignorable="d">
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Resources/RequestList.xaml" />
-				<ResourceDictionary Source="/Resources/Notification.xaml" />
+				<ResourceDictionary Source="/Resources/PageResource/RequestList.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
@@ -18,267 +18,258 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-		<Grid Name="gridNotification"
-			  Visibility="Collapsed"
-			  Style="{StaticResource GridNotification}">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="50" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<Button Style="{StaticResource ButtonDismiss}"
-					Content="&#xE711;"
-					Click="NotificationDismiss" />
-			<TextBlock Name="textBlockContent"
-					   Grid.Column="1"
-					   Style="{StaticResource TextBlockContent}" />
+		<mycontrol:MyNotification x:Name="gridNotification" />
+		<Grid Grid.Row="1">
+			<ProgressBar IsIndeterminate="True"
+						 Height="30"
+						 Grid.Row="0"
+						 Name="progressBar" />
+			<Pivot Grid.Row="1">
+				<PivotItem>
+					<PivotItem.Header>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30" />
+								<ColumnDefinition Width="110" />
+							</Grid.ColumnDefinitions>
+							<TextBlock Text="&#xE898;"
+									   Width="100"
+									   FontFamily="Segoe MDL2 Assets" />
+							<TextBlock Text="Đã nhận"
+									   Grid.Column="1"
+									   Style="{StaticResource PivotTextBlock}" />
+						</Grid>
+					</PivotItem.Header>
+					<Grid Width="Auto">
+						<ListView Name="listViewPostedBook"
+								  ScrollViewer.VerticalScrollBarVisibility="Hidden">
+							<ListView.ItemContainerStyle>
+								<Style TargetType="ListViewItem">
+									<Setter Property="HorizontalContentAlignment"
+											Value="Stretch" />
+									<Setter Property="Padding"
+											Value="0" />
+								</Style>
+							</ListView.ItemContainerStyle>
+							<ListView.ItemTemplate>
+								<DataTemplate>
+									<Grid Margin="0,5,0,5"
+										  Tag="{Binding postId}"
+										  Tapped="PostedBookTapped">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="60" />
+											<ColumnDefinition Width="10" />
+											<ColumnDefinition Width="*" />
+										</Grid.ColumnDefinitions>
+										<Image Grid.Column="0"
+											   Height="90"
+											   HorizontalAlignment="Left"
+											   Source="{Binding image, TargetNullValue={x:Null}}"
+											   Stretch="Fill" />
+										<StackPanel Grid.Column="2"
+													Orientation="Vertical">
+											<TextBlock Text="{Binding title}"
+													   Style="{StaticResource Title}" />
+											<TextBlock Text="{Binding author}"
+													   Style="{StaticResource Author}" />
+										</StackPanel>
+									</Grid>
+								</DataTemplate>
+							</ListView.ItemTemplate>
+						</ListView>
+						<ListView ScrollViewer.VerticalScrollBarVisibility="Hidden"
+								  Name="listViewReceivedRequest">
+							<ListView.ItemContainerStyle>
+								<Style TargetType="ListViewItem">
+									<Setter Property="HorizontalContentAlignment"
+											Value="Stretch" />
+									<Setter Property="Padding"
+											Value="0" />
+								</Style>
+							</ListView.ItemContainerStyle>
+							<ListView.ItemTemplate>
+								<DataTemplate>
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="60" />
+											<ColumnDefinition Width="*" />
+											<ColumnDefinition Width="200" />
+										</Grid.ColumnDefinitions>
+										<Image Grid.Column="0"
+											   Height="60"
+											   Stretch="Fill"
+											   Source="{Binding user.ava}" />
+										<TextBlock Text="{Binding user.account}"
+												   Style="{StaticResource RequestUserAccount}"
+												   Tag="{Binding user.id}"
+												   Tapped="TextBlockUserTapped"
+												   Grid.Column="1" />
+										<StackPanel Grid.Column="2"
+													Orientation="Horizontal">
+											<Button Content="&#xE8FB;"
+													Style="{StaticResource Accept}"
+													Tag="{Binding id}"
+													Click="AcceptRequest" />
+											<Button Content="&#xE894;"
+													Style="{StaticResource Deny}"
+													Tag="{Binding id}"
+													Click="DenyRequest" />
+										</StackPanel>
+									</Grid>
+								</DataTemplate>
+							</ListView.ItemTemplate>
+						</ListView>
+					</Grid>
+				</PivotItem>
+				<PivotItem>
+					<PivotItem.Header>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30" />
+								<ColumnDefinition Width="110" />
+							</Grid.ColumnDefinitions>
+							<TextBlock Text="&#xE896;"
+									   FontFamily="Segoe MDL2 Assets" />
+							<TextBlock Text="Đã gửi"
+									   Grid.Column="1"
+									   Style="{StaticResource PivotTextBlock}" />
+						</Grid>
+					</PivotItem.Header>
+					<Grid>
+						<ListView Name="listViewRequestedBook"
+								  ScrollViewer.VerticalScrollBarVisibility="Hidden">
+							<ListView.ItemContainerStyle>
+								<Style TargetType="ListViewItem">
+									<Setter Property="HorizontalContentAlignment"
+											Value="Stretch" />
+									<Setter Property="Padding"
+											Value="0" />
+								</Style>
+							</ListView.ItemContainerStyle>
+							<ListView.ItemTemplate>
+								<DataTemplate>
+									<Grid Margin="0,5,0,5"
+										  Tag="{Binding bookId}"
+										  Tapped="RequestedBookTapped">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="60" />
+											<ColumnDefinition Width="10" />
+											<ColumnDefinition Width="*" />
+										</Grid.ColumnDefinitions>
+										<Image Grid.Column="0"
+											   Height="90"
+											   HorizontalAlignment="Left"
+											   Source="{Binding image, TargetNullValue={x:Null}}"
+											   Stretch="Fill" />
+										<StackPanel Grid.Column="2"
+													Orientation="Vertical">
+											<TextBlock Text="{Binding title}"
+													   Style="{StaticResource Title}" />
+											<TextBlock Text="{Binding author}"
+													   Style="{StaticResource Author}" />
+										</StackPanel>
+									</Grid>
+								</DataTemplate>
+							</ListView.ItemTemplate>
+						</ListView>
+						<ListView ScrollViewer.VerticalScrollBarVisibility="Hidden"
+								  Name="listViewSentRequest">
+							<ListView.ItemContainerStyle>
+								<Style TargetType="ListViewItem">
+									<Setter Property="HorizontalContentAlignment"
+											Value="Stretch" />
+									<Setter Property="Padding"
+											Value="0" />
+								</Style>
+							</ListView.ItemContainerStyle>
+							<ListView.ItemTemplate>
+								<DataTemplate>
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="60" />
+											<ColumnDefinition Width="*" />
+											<ColumnDefinition Width="100" />
+										</Grid.ColumnDefinitions>
+										<Image Grid.Column="0"
+											   Height="60"
+											   Stretch="Fill"
+											   Source="{Binding user.ava}" />
+										<TextBlock Text="{Binding user.account}"
+												   Style="{StaticResource RequestUserAccount}"
+												   Tag="{Binding user.id}"
+												   Tapped="TextBlockUserTapped"
+												   Grid.Column="1" />
+										<Button Content="&#xE74D;"
+												Grid.Column="2"
+												Style="{StaticResource Delete}"
+												Tag="{Binding id}"
+												Click="DeleteRequest" />
+									</Grid>
+								</DataTemplate>
+							</ListView.ItemTemplate>
+						</ListView>
+					</Grid>
+				</PivotItem>
+				<PivotItem>
+					<PivotItem.Header>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30" />
+								<ColumnDefinition Width="110" />
+							</Grid.ColumnDefinitions>
+							<TextBlock Text="&#xE896;"
+									   FontFamily="Segoe MDL2 Assets" />
+							<TextBlock Text="Thông báo"
+									   Grid.Column="1"
+									   Style="{StaticResource PivotTextBlock}" />
+						</Grid>
+					</PivotItem.Header>
+					<Grid>
+						<ListView Name="listViewNotification"
+								  ScrollViewer.VerticalScrollBarVisibility="Hidden">
+							<ListView.ItemContainerStyle>
+								<Style TargetType="ListViewItem">
+									<Setter Property="HorizontalContentAlignment"
+											Value="Stretch" />
+									<Setter Property="Padding"
+											Value="0" />
+								</Style>
+							</ListView.ItemContainerStyle>
+							<ListView.ItemTemplate>
+								<DataTemplate>
+									<Grid Margin="0,5,0,5">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="*" />
+											<ColumnDefinition Width="100" />
+											<ColumnDefinition Width="100" />
+										</Grid.ColumnDefinitions>
+										<TextBlock TextWrapping="Wrap"
+												   FontSize="24">
+											<TextBlock.Inlines>
+												<Run FontFamily="Segoe WP Light"
+													 Foreground="#F44336"
+													 Text="{Binding userAccount}" />
+												<Run Text="{Binding content}"
+													 FontFamily="Segoe WP Light" />
+											</TextBlock.Inlines>
+										</TextBlock>
+										<Button Grid.Column="1"
+												Content="&#xE77B;"
+												Tag="{Binding userId}"
+												Click="ButtonUserTapped"
+												Style="{StaticResource ToUser}" />
+										<Button Grid.Column="2"
+												Content="&#xE74D;"
+												Style="{StaticResource Delete}"
+												Click="DeactiveRequest"
+												Tag="{Binding requestId}" />
+									</Grid>
+								</DataTemplate>
+							</ListView.ItemTemplate>
+						</ListView>
+					</Grid>
+				</PivotItem>
+			</Pivot>
 		</Grid>
-		<ProgressBar IsIndeterminate="True"
-					 Height="30"
-					 Grid.Row="0"
-					 Name="progressBar" />
-		<Pivot Grid.Row="1">
-			<PivotItem>
-				<PivotItem.Header>
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="30" />
-							<ColumnDefinition Width="110" />
-						</Grid.ColumnDefinitions>
-						<TextBlock Text="&#xE898;"
-								   Width="100"
-								   FontFamily="Segoe MDL2 Assets" />
-						<TextBlock Text="Đã nhận"
-								   Grid.Column="1"
-								   Style="{StaticResource PivotTextBlock}" />
-					</Grid>
-				</PivotItem.Header>
-				<Grid Width="Auto">
-					<ListView Name="listViewPostedBook"
-							  ScrollViewer.VerticalScrollBarVisibility="Hidden">
-						<ListView.ItemContainerStyle>
-							<Style TargetType="ListViewItem">
-								<Setter Property="HorizontalContentAlignment"
-										Value="Stretch" />
-								<Setter Property="Padding"
-										Value="0" />
-							</Style>
-						</ListView.ItemContainerStyle>
-						<ListView.ItemTemplate>
-							<DataTemplate>
-								<Grid Margin="0,5,0,5"
-									  Tag="{Binding postId}"
-									  Tapped="PostedBookTapped">
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="60" />
-										<ColumnDefinition Width="10" />
-										<ColumnDefinition Width="*" />
-									</Grid.ColumnDefinitions>
-									<Image Grid.Column="0"
-										   Height="90"
-										   HorizontalAlignment="Left"
-										   Source="{Binding image, TargetNullValue={x:Null}}"
-										   Stretch="Fill" />
-									<StackPanel Grid.Column="2"
-												Orientation="Vertical">
-										<TextBlock Text="{Binding title}"
-												   Style="{StaticResource Title}" />
-										<TextBlock Text="{Binding author}"
-												   Style="{StaticResource Author}" />
-									</StackPanel>
-								</Grid>
-							</DataTemplate>
-						</ListView.ItemTemplate>
-					</ListView>
-					<ListView ScrollViewer.VerticalScrollBarVisibility="Hidden"
-							  Name="listViewReceivedRequest">
-						<ListView.ItemContainerStyle>
-							<Style TargetType="ListViewItem">
-								<Setter Property="HorizontalContentAlignment"
-										Value="Stretch" />
-								<Setter Property="Padding"
-										Value="0" />
-							</Style>
-						</ListView.ItemContainerStyle>
-						<ListView.ItemTemplate>
-							<DataTemplate>
-								<Grid>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="60" />
-										<ColumnDefinition Width="*" />
-										<ColumnDefinition Width="200" />
-									</Grid.ColumnDefinitions>
-									<Image Grid.Column="0"
-										   Height="60"
-										   Stretch="Fill"
-										   Source="{Binding user.ava}" />
-									<TextBlock Text="{Binding user.account}"
-											   Style="{StaticResource RequestUserAccount}"
-											   Tag="{Binding user.id}"
-											   Tapped="TextBlockUserTapped"
-											   Grid.Column="1" />
-									<StackPanel Grid.Column="2"
-												Orientation="Horizontal">
-										<Button Content="&#xE8FB;"
-												Style="{StaticResource Accept}"
-												Tag="{Binding id}"
-												Click="AcceptRequest" />
-										<Button Content="&#xE894;"
-												Style="{StaticResource Deny}"
-												Tag="{Binding id}"
-												Click="DenyRequest" />
-									</StackPanel>
-								</Grid>
-							</DataTemplate>
-						</ListView.ItemTemplate>
-					</ListView>
-				</Grid>
-			</PivotItem>
-			<PivotItem>
-				<PivotItem.Header>
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="30" />
-							<ColumnDefinition Width="110" />
-						</Grid.ColumnDefinitions>
-						<TextBlock Text="&#xE896;"
-								   FontFamily="Segoe MDL2 Assets" />
-						<TextBlock Text="Đã gửi"
-								   Grid.Column="1"
-								   Style="{StaticResource PivotTextBlock}" />
-					</Grid>
-				</PivotItem.Header>
-				<Grid>
-					<ListView Name="listViewRequestedBook" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-						<ListView.ItemContainerStyle>
-							<Style TargetType="ListViewItem">
-								<Setter Property="HorizontalContentAlignment"
-										Value="Stretch" />
-								<Setter Property="Padding"
-										Value="0" />
-							</Style>
-						</ListView.ItemContainerStyle>
-						<ListView.ItemTemplate>
-							<DataTemplate>
-								<Grid Margin="0,5,0,5"
-									  Tag="{Binding bookId}"
-									  Tapped="RequestedBookTapped">
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="60" />
-										<ColumnDefinition Width="10" />
-										<ColumnDefinition Width="*" />
-									</Grid.ColumnDefinitions>
-									<Image Grid.Column="0"
-										   Height="90"
-										   HorizontalAlignment="Left"
-										   Source="{Binding image, TargetNullValue={x:Null}}"
-										   Stretch="Fill" />
-									<StackPanel Grid.Column="2"
-												Orientation="Vertical">
-										<TextBlock Text="{Binding title}"
-												   Style="{StaticResource Title}" />
-										<TextBlock Text="{Binding author}"
-												   Style="{StaticResource Author}" />
-									</StackPanel>
-								</Grid>
-							</DataTemplate>
-						</ListView.ItemTemplate>
-					</ListView>
-					<ListView ScrollViewer.VerticalScrollBarVisibility="Hidden"
-							  Name="listViewSentRequest">
-						<ListView.ItemContainerStyle>
-							<Style TargetType="ListViewItem">
-								<Setter Property="HorizontalContentAlignment"
-										Value="Stretch" />
-								<Setter Property="Padding"
-										Value="0" />
-							</Style>
-						</ListView.ItemContainerStyle>
-						<ListView.ItemTemplate>
-							<DataTemplate>
-								<Grid>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="60" />
-										<ColumnDefinition Width="*" />
-										<ColumnDefinition Width="100" />
-									</Grid.ColumnDefinitions>
-									<Image Grid.Column="0"
-										   Height="60"
-										   Stretch="Fill"
-										   Source="{Binding user.ava}" />
-									<TextBlock Text="{Binding user.account}"
-											   Style="{StaticResource RequestUserAccount}"
-											   Tag="{Binding user.id}"
-											   Tapped="TextBlockUserTapped"
-											   Grid.Column="1" />
-									<Button Content="&#xE74D;"
-											Grid.Column="2"
-											Style="{StaticResource Delete}"
-											Tag="{Binding id}"
-											Click="DeleteRequest" />
-								</Grid>
-							</DataTemplate>
-						</ListView.ItemTemplate>
-					</ListView>
-				</Grid>
-			</PivotItem>
-			<PivotItem>
-				<PivotItem.Header>
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="30" />
-							<ColumnDefinition Width="110" />
-						</Grid.ColumnDefinitions>
-						<TextBlock Text="&#xE896;"
-								   FontFamily="Segoe MDL2 Assets" />
-						<TextBlock Text="Thông báo"
-								   Grid.Column="1"
-								   Style="{StaticResource PivotTextBlock}" />
-					</Grid>
-				</PivotItem.Header>
-				<Grid>
-					<ListView Name="listViewNotification" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-						<ListView.ItemContainerStyle>
-							<Style TargetType="ListViewItem">
-								<Setter Property="HorizontalContentAlignment"
-										Value="Stretch" />
-								<Setter Property="Padding"
-										Value="0" />
-							</Style>
-						</ListView.ItemContainerStyle>
-						<ListView.ItemTemplate>
-							<DataTemplate>
-								<Grid Margin="0,5,0,5">
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="*" />
-										<ColumnDefinition Width="100" />
-										<ColumnDefinition Width="100" />
-									</Grid.ColumnDefinitions>
-									<TextBlock TextWrapping="Wrap"
-											   FontSize="24">
-										<TextBlock.Inlines>
-											<Run FontFamily="Segoe WP Light"
-												 Foreground="#F44336"
-												 Text="{Binding userAccount}" />
-											<Run Text="{Binding content}"
-												 FontFamily="Segoe WP Light" />
-										</TextBlock.Inlines>
-									</TextBlock>
-									<Button Grid.Column="1"
-											Content="&#xE77B;"
-											Tag="{Binding userId}"
-											Click="ButtonUserTapped"
-											Style="{StaticResource ToUser}" />
-									<Button Grid.Column="2"
-											Content="&#xE74D;"
-											Style="{StaticResource Delete}"
-											Click="DeactiveRequest"
-											Tag="{Binding requestId}" />
-								</Grid>
-							</DataTemplate>
-						</ListView.ItemTemplate>
-					</ListView>
-				</Grid>
-			</PivotItem>
-		</Pivot>
 	</Grid>
 </Page>

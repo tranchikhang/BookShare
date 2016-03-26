@@ -124,7 +124,7 @@ namespace BookShare.AppPage
 			}
 			else
 			{
-				ShowNotification ();
+				gridNotification.Show ( true );
 			}
 		}
 
@@ -147,7 +147,7 @@ namespace BookShare.AppPage
 				}
 				else
 				{
-					ShowNotification ();
+					gridNotification.Show ( true );
 				}
 			}
 			else
@@ -166,7 +166,7 @@ namespace BookShare.AppPage
 				}
 				else
 				{
-					ShowNotification ();
+					gridNotification.Show ( true );
 				}
 			}
 			ControlMethods.SwitchVisibility ( false , progressBar );
@@ -176,19 +176,6 @@ namespace BookShare.AppPage
 		{
 			string userId = ( ( TextBlock ) sender ).Tag.ToString ();
 			Frame.Navigate ( typeof ( UserInfo ) , userId );
-		}
-
-		private void ShowNotification ( string content = "Có lỗi, thử lại sau" )
-		{
-			//notify user
-			textBlockContent.Text = content;
-			gridNotification.Visibility = Visibility.Visible;
-		}
-
-		private void NotificationDismiss ( object sender , RoutedEventArgs e )
-		{
-			textBlockContent.Text = "";
-			gridNotification.Visibility = Visibility.Collapsed;
 		}
 
 		private void ViewDescriptionClick ( object sender , RoutedEventArgs e )

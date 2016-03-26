@@ -51,7 +51,7 @@ namespace BookShare.AppPage
 			}
 			catch ( Exception e )
 			{
-				ShowNotification ();
+				gridNotification.Show ( true );
 			}
 
 			//hide progress bar
@@ -204,7 +204,7 @@ namespace BookShare.AppPage
 			else
 			{
 				//send response failed
-				ShowNotification ();
+				gridNotification.Show ( true );
 			}
 			ControlMethods.SwitchVisibility ( false , progressBar );
 		}
@@ -223,7 +223,7 @@ namespace BookShare.AppPage
 			else
 			{
 				//send response failed
-				ShowNotification ();
+				gridNotification.Show ( true );
 			}
 			ControlMethods.SwitchVisibility ( false , progressBar );
 		}
@@ -265,7 +265,7 @@ namespace BookShare.AppPage
 			else
 			{
 				//send response failed
-				ShowNotification ();
+				gridNotification.Show ( true );
 			}
 			ControlMethods.SwitchVisibility ( false , progressBar );
 		}
@@ -292,22 +292,9 @@ namespace BookShare.AppPage
 			else
 			{
 				//send response failed
-				ShowNotification ();
+				gridNotification.Show ( true );
 			}
 			ControlMethods.SwitchVisibility ( false , progressBar );
-		}
-
-		private void ShowNotification ( string content = "Có lỗi, thử lại sau" )
-		{
-			//notify user
-			textBlockContent.Text = content;
-			gridNotification.Visibility = Visibility.Visible;
-		}
-
-		private void NotificationDismiss ( object sender , RoutedEventArgs e )
-		{
-			textBlockContent.Text = "";
-			gridNotification.Visibility = Visibility.Collapsed;
 		}
 
 		private void TextBlockUserTapped ( object sender , TappedRoutedEventArgs e )

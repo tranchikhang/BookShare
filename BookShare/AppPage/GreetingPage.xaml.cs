@@ -46,6 +46,8 @@ namespace BookShare.AppPage
 				}
 				listViewBooks.ItemsSource = randomBooks;
 			}
+			else
+				gridNotification.Show ( true );
 		}
 
 		private void TitleTapped ( object sender , TappedRoutedEventArgs e )

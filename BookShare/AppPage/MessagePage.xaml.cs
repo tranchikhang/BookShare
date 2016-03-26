@@ -55,7 +55,7 @@ namespace BookShare.AppPage
 			}
 			else
 			{
-				ShowNotification ( "Bạn không có tin nhắn nào" );
+				gridNotification.Show ( false , "Bạn không có tin nhắn nào" );
 			}
 			if ( result != null )
 				ControlMethods.SwitchVisibility ( false , progressBar );
@@ -76,7 +76,7 @@ namespace BookShare.AppPage
 				RestAPI.ResponseStatus r = await MarkReadConversation ( fromUserId );
 				if ( r == RestAPI.ResponseStatus.Failed )
 				{
-					ShowNotification ();
+					gridNotification.Show ( true );
 				}
 				else
 				{
@@ -131,7 +131,8 @@ namespace BookShare.AppPage
 		private async void SendMessageTap ( object sender , TappedRoutedEventArgs e )
 		{
 			//check length
-			if ( CheckMessageLength () == "" )
+			string r = CheckMessageLength ();
+			if ( r == "" )
 			{
 				string toUserId = ( ( Button ) sender ).Tag.ToString ();
 				dynamic dataToSend = new
@@ -150,11 +151,11 @@ namespace BookShare.AppPage
 				}
 				else
 				{
-					ShowNotification ( );
+					gridNotification.Show ( true );
 				}
 			}
 			else
-				ShowNotification ( CheckMessageLength () );
+				gridNotification.Show ( true , r );
 		}
 
 		private string CheckMessageLength ()
@@ -164,19 +165,6 @@ namespace BookShare.AppPage
 			if ( textBoxContent.Text.Length == 0 )
 				return "Nhập nội dung tin nhắn";
 			return "";
-		}
-
-		private void ShowNotification ( string content = "Có lỗi, thử lại sau" )
-		{
-			//notify user
-			textBlockContent.Text = content;
-			gridNotification.Visibility = Visibility.Visible;
-		}
-
-		private void NotificationDismiss ( object sender , RoutedEventArgs e )
-		{
-			textBlockContent.Text = "";
-			gridNotification.Visibility = Visibility.Collapsed;
 		}
 	}
 }

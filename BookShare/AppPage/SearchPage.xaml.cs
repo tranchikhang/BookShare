@@ -1,10 +1,4 @@
 ﻿using BookShare.Helper;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Xml;
-using Windows.UI.Notifications;
-using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -12,7 +6,6 @@ using Windows.UI.Xaml;
 using System.Collections.ObjectModel;
 using BookShare.Model;
 using System.Threading.Tasks;
-using Windows.Storage;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -33,7 +26,7 @@ namespace BookShare.AppPage
 			query = ( string ) e.Parameter;
 			ControlMethods.SwitchVisibility ( true , progressBar );
 			SearchBox.Text = query;
-			 await SendSearchQuery ( query );
+			await SendSearchQuery ( query );
 			ControlMethods.SwitchVisibility ( false , progressBar );
 		}
 
@@ -68,6 +61,8 @@ namespace BookShare.AppPage
 				stackPanelAddNew.Visibility = Visibility.Collapsed;
 				ControlMethods.SwitchVisibility ( true , listViewResults );
 			}
+			else
+				gridNotification.Show ( true );
 		}
 
 		private void TitleTapped ( object sender , TappedRoutedEventArgs e )

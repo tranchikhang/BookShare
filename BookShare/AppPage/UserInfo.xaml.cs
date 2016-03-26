@@ -31,7 +31,7 @@ namespace BookShare.AppPage
 		{
 			string userId = e.Parameter as String;
 			LoadData ( userId );
-			
+
 		}
 
 		protected override void OnNavigatedFrom ( NavigationEventArgs e )
@@ -84,7 +84,7 @@ namespace BookShare.AppPage
 				}
 				else
 				{
-					ShowNotification ();
+					gridNotification.Show ( true );
 				}
 				ControlMethods.SwitchVisibility ( false , progressBar );
 				gridSendMessage.Visibility = Visibility.Collapsed;
@@ -92,7 +92,7 @@ namespace BookShare.AppPage
 			}
 			else
 			{
-				ShowNotification ( r );
+				gridNotification.Show ( true , r );
 			}
 		}
 
@@ -101,19 +101,6 @@ namespace BookShare.AppPage
 			if ( textBoxContent.Text.Length >= 300 )
 				return "Tin nhắn không được quá 300 ký tự";
 			return "";
-		}
-
-		private void ShowNotification ( string content = "Có lỗi, thử lại sau" )
-		{
-			//notify user
-			textBlockContent.Text = content;
-			gridNotification.Visibility = Visibility.Visible;
-		}
-
-		private void NotificationDismiss ( object sender , RoutedEventArgs e )
-		{
-			textBlockContent.Text = "";
-			gridNotification.Visibility = Visibility.Collapsed;
 		}
 
 		private void BackButtonClick ( object sender , BackRequestedEventArgs e )

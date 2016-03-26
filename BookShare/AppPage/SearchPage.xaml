@@ -4,12 +4,12 @@
 	  xmlns:local="using:BookShare.AppPage"
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  xmlns:mycontrol="using:BookShare.Model.Control"
 	  mc:Ignorable="d">
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Resources/SearchPage.xaml" />
-				<ResourceDictionary Source="/Resources/Notification.xaml" />
+				<ResourceDictionary Source="/Resources/PageResource/SearchPage.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
@@ -24,6 +24,7 @@
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="300" />
 				<ColumnDefinition Width="49" />
+				<ColumnDefinition Width="100" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 			<TextBox Name="SearchBox"
@@ -36,6 +37,7 @@
 					Click="SearchClick"
 					Content="&#59166;" />
 		</Grid>
+		<mycontrol:MyNotification x:Name="gridNotification" Grid.Row="1"/>
 		<ProgressBar IsIndeterminate="True"
 					 Height="30"
 					 Grid.Row="1"

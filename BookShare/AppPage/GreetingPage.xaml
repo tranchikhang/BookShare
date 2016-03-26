@@ -4,17 +4,19 @@
 	  xmlns:local="using:BookShare.AppPage"
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  xmlns:mycontrol="using:BookShare.Model.Control"
 	  mc:Ignorable="d">
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Resources/Greeting.xaml" />
+				<ResourceDictionary Source="/Resources/PageResource/Greeting.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
 	<Grid Background="{StaticResource BackgroundColor}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="51" />
+			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<Grid Grid.Row="0"
@@ -34,8 +36,10 @@
 					Click="SearchClick"
 					Content="&#59166;" />
 		</Grid>
+		<mycontrol:MyNotification x:Name="gridNotification"
+								  Grid.Row="1"/>
 		<ListView Margin="0,5,0,0"
-				  Grid.Row="1"
+				  Grid.Row="2"
 				  Name="listViewBooks">
 			<ListView.ItemContainerStyle>
 				<Style TargetType="ListViewItem">

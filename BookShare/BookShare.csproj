@@ -156,6 +156,9 @@
     <Compile Include="Model\Author.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\City.cs" />
+    <Compile Include="Model\Control\MyNotification.xaml.cs">
+      <DependentUpon>MyNotification.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Conversation.cs" />
     <Compile Include="Model\District.cs" />
     <Compile Include="Model\Message.cs" />
@@ -244,6 +247,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Model\Control\MyNotification.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\PageResource\BookInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -259,7 +266,7 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="Resources\Greeting.xaml">
+    <Page Include="Resources\PageResource\Greeting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -289,12 +296,12 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="Resources\RequestList.xaml">
+    <Page Include="Resources\PageResource\RequestList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="Resources\SearchPage.xaml">
+    <Page Include="Resources\PageResource\SearchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

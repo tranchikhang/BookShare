@@ -91,12 +91,12 @@ namespace BookShare.AppPage
 				string result = await RestAPI.SendJson ( dataTosend , RestAPI.phpAddress , "AddNewBook" );
 				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 				{
-					ShowNotification ( "Đã thêm sách mới" );
+					gridNotification.Show ( true , "Đã thêm sách mới" );
 				}
 			}
 			else
 			{
-				ShowNotification ( v );
+				gridNotification.Show ( false , v );
 			}
 		}
 
@@ -127,19 +127,6 @@ namespace BookShare.AppPage
 				} );
 			}
 			suggestAuthor.ItemsSource = l;
-		}
-
-		private void ShowNotification ( string content )
-		{
-			//notify user
-			textBlockContent.Text = content;
-			gridNotification.Visibility = Visibility.Visible;
-		}
-
-		private void NotificationDismiss ( object sender , RoutedEventArgs e )
-		{
-			textBlockContent.Text = "";
-			gridNotification.Visibility = Visibility.Collapsed;
 		}
 	}
 }

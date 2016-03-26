@@ -110,11 +110,11 @@ namespace BookShare.AppPage
 				string result = await RestAPI.SendJson ( newUser , RestAPI.phpAddress , "SetAccountInfo" );
 				//show new value
 				DisplayUserInfo ();
-				ShowNotification ( "Cập nhật thành công" );
+				gridNotification.Show (false, "Cập nhật thành công" );
 			}
 			else
 			{
-				ShowNotification ( r );
+				gridNotification.Show ( true , r );
 			}
 		}
 
@@ -196,10 +196,12 @@ namespace BookShare.AppPage
 					gridChangePass.Visibility = Visibility.Collapsed;
 					gridInfo.Visibility = Visibility.Visible;
 				}
+				else
+					gridNotification.Show ( true );
 			}
 			else
 			{
-				ShowNotification ( r );
+				gridNotification.Show ( true , r );
 			}
 
 		}
@@ -223,12 +225,6 @@ namespace BookShare.AppPage
 			return "";
 		}
 
-		private void NotificationDismiss ( object sender , RoutedEventArgs e )
-		{
-			textBlockContent.Text = "";
-			gridNotification.Visibility = Visibility.Collapsed;
-		}
-
 		public string ComputeMD5 ( string str )
 		{
 			var alg = HashAlgorithmProvider.OpenAlgorithm ( HashAlgorithmNames.Md5 );
@@ -236,13 +232,6 @@ namespace BookShare.AppPage
 			var hashed = alg.HashData ( buff );
 			var res = CryptographicBuffer.EncodeToHexString ( hashed );
 			return res;
-		}
-
-		private void ShowNotification ( string content = "Có lỗi, thử lại sau" )
-		{
-			//notify user
-			textBlockContent.Text = content;
-			gridNotification.Visibility = Visibility.Visible;
 		}
 
 		private void LogoutClick ( object sender , RoutedEventArgs e )

@@ -1,21 +1,9 @@
 ﻿using BookShare.Helper;
 using BookShare.Model;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -60,10 +48,9 @@ namespace BookShare.AppPage
 			else
 			{
 				//no book in bookshelf
-				ShowNotification ( "Không có sách, hãy thêm sách bằng cách tìm kiếm" );
+				gridNotification.Show ( false , "Không có sách, hãy thêm sách bằng cách tìm kiếm" );
 			}
-			if ( result != null )
-				progressBar.Visibility = Visibility.Collapsed;
+			progressBar.Visibility = Visibility.Collapsed;
 		}
 
 		private void ToggleLoaded ( object sender , RoutedEventArgs e )
@@ -89,17 +76,25 @@ namespace BookShare.AppPage
 			}
 		}
 
-		private void ShowNotification ( string content )
+		private async void RemoveBook ( object sender , RoutedEventArgs e )
 		{
-			//notify user
-			textBlockContent.Text = content;
-			gridNotification.Visibility = Visibility.Visible;
-		}
-
-		private void NotificationDismiss ( object sender , RoutedEventArgs e )
-		{
-			textBlockContent.Text = "";
-			gridNotification.Visibility = Visibility.Collapsed;
+			ControlMethods.SwitchVisibility ( true , progressBar );
+			string bookId = ( ( Button ) sender ).Tag.ToString ();
+			dynamic book = new
+			{
+				bookId = bookId ,
+				userId = UserData.id
+			};
+			string addResult = await RestAPI.SendJson ( book , RestAPI.phpAddress , "RemoveFromYourBook" );
+			if ( JsonHelper.IsRequestSucceed ( addResult ) == RestAPI.ResponseStatus.OK )
+			{
+				postedBooks.Remove ( postedBooks.First ( p => p.book.id == bookId ) );
+			}
+			else
+			{
+				gridNotification.Show ( true );
+			}
+			ControlMethods.SwitchVisibility ( false , progressBar );
 		}
 	}
 }

@@ -4,12 +4,12 @@
 	  xmlns:local="using:BookShare.AppPage"
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  xmlns:mycontrol="using:BookShare.Model.Control"
 	  mc:Ignorable="d">
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/Resources/PageResource/UserInfo.xaml" />
-				<ResourceDictionary Source="/Resources/Notification.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
@@ -18,20 +18,7 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-		<Grid x:ConnectionId='1' Name="gridNotification"
-			  Visibility="Collapsed"
-			  Style="{StaticResource GridNotification}">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="50" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<Button x:ConnectionId='8' Style="{StaticResource ButtonDismiss}"
-					Content="&#xE711;"
-					                            />
-			<TextBlock x:ConnectionId='9' Name="textBlockContent"
-					   Grid.Column="1"
-					   Style="{StaticResource TextBlockContent}" />
-		</Grid>
+		<mycontrol:MyNotification x:ConnectionId='1' x:Name="gridNotification" />
 		<ProgressBar x:ConnectionId='2' IsIndeterminate="True"
 					 Height="30"
 					 Grid.Row="0"

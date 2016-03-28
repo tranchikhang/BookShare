@@ -21,7 +21,7 @@
 		<mycontrol:MyNotification x:ConnectionId='1' x:Name="gridNotification" />
 		<ProgressBar x:ConnectionId='2' IsIndeterminate="True"
 					 Height="30"
-					 Grid.Row="0"
+					 Grid.Row="1"
 					 VerticalAlignment="Top"
 					 Name="progressBar" />
 		<ScrollViewer x:ConnectionId='3' Grid.Row="1"
@@ -29,7 +29,7 @@
 					  Name="scrollViewer">
 			<Grid>
 				<Grid.RowDefinitions>
-					<RowDefinition Height="250" />
+					<RowDefinition Height="270" />
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
@@ -37,6 +37,7 @@
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 				<Image Grid.Row="0"
+					   Margin="0,20,0,0"
 					   Height="250"
 					   Width="250"
 					   Stretch="Fill"
@@ -53,13 +54,16 @@
 				<TextBlock Style="{StaticResource Address}"
 						   Grid.Row="4"
 						   Text="{Binding fullAddress}" />
-				<Grid Grid.Row="5" Background="{StaticResource MyGreen}"
+				<Grid Grid.Row="5"
+					  Background="{StaticResource MyGreen}"
 					  Width="300"
+					  Margin="0,10,0,0"
 					  Height="60">
 					<TextBlock x:ConnectionId='7' Text="&#xE8BD;"
 							   FontFamily="Segoe MDL2 Assets"
 							   HorizontalAlignment="Center"
 							   VerticalAlignment="Center"
+							   Margin="0,10,0,0"
 							   Foreground="White"
 							                   
 							   FontSize="40" />

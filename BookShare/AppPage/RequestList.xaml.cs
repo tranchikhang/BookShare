@@ -65,7 +65,9 @@ namespace BookShare.AppPage
 
 		private async Task GetPostedBooks ()
 		{
-			string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetRequestsForUser" );
+			//string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetRequestsForUser" );
+			string result =
+				await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "request/received/" + UserData.id );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
 				string data = JsonHelper.DecodeJson ( result );
@@ -89,7 +91,9 @@ namespace BookShare.AppPage
 
 		private async Task GetRequestNotifications ()
 		{
-			string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetRequestNotifications" );
+			//string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetRequestNotifications" );
+			string result =
+				await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "request/notification/" + UserData.id );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
 				string data = JsonHelper.DecodeJson ( result );
@@ -107,7 +111,9 @@ namespace BookShare.AppPage
 
 		private async Task GetrequestedBooks ()
 		{
-			string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetRequestsFromUser" );
+			//string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetRequestsFromUser" );
+			string result =
+				await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "request/sent/" + UserData.id );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
 				string data = JsonHelper.DecodeJson ( result );
@@ -235,7 +241,8 @@ namespace BookShare.AppPage
 				requestId = requestId ,
 				isAccepted = isAccepted
 			};
-			string result = await RestAPI.SendJson ( data , RestAPI.phpAddress , "RespondToRequest" );
+			//string result = await RestAPI.SendJson ( data , RestAPI.phpAddress , "RespondToRequest" );
+			string result = await RestAPI.SendPostRequest ( data , RestAPI.publicApiAddress + "request/respond/" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
 				return RestAPI.ResponseStatus.OK;
@@ -252,7 +259,8 @@ namespace BookShare.AppPage
 				postId = postId ,
 				userId = UserData.id
 			};
-			string result = await RestAPI.SendJson ( data , RestAPI.phpAddress , "DeleteRequestToPost" );
+			//string result = await RestAPI.SendJson ( data , RestAPI.phpAddress , "DeleteRequestToPost" );
+			string result = await RestAPI.SendPostRequest ( data , RestAPI.publicApiAddress + "request/delete/" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
 				//send response succeed
@@ -270,19 +278,13 @@ namespace BookShare.AppPage
 			ControlMethods.SwitchVisibility ( false , progressBar );
 		}
 
-		private void BackButtonClickToRquestPage ( object sender , BackRequestedEventArgs e )
-		{
-			if ( Frame.CanGoBack )
-				Frame.GoBack ();
-			SystemNavigationManager.GetForCurrentView ().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
-		}
-
 		private async void DeactiveRequest ( object sender , RoutedEventArgs e )
 		{
 			ControlMethods.SwitchVisibility ( true , progressBar );
 			//deactive request
 			string requestId = ( ( Button ) sender ).Tag.ToString ();
-			string result = await RestAPI.SendJson ( requestId , RestAPI.phpAddress , "DeactiveRequest" );
+			//string result = await RestAPI.SendJson ( requestId , RestAPI.phpAddress , "DeactiveRequest" );
+			string result = await RestAPI.SendPostRequest ( requestId , RestAPI.publicApiAddress + "request/deactivate/" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
 				//send response succeed

@@ -4,7 +4,7 @@
     <RootInterface FullName="Windows.UI.Xaml.Data.IValueConverter" />
   </Roots.Interfaces>
   <Roots.PropertyPathNames>
-    <RootPropertyPathName Name="authorName" />
+    <RootPropertyPathName Name="author" />
     <RootPropertyPathName Name="gid" />
     <RootPropertyPathName Name="gname" />
     <RootPropertyPathName Name="isSendable" />
@@ -14,7 +14,6 @@
     <RootPropertyPathName Name="account" />
     <RootPropertyPathName Name="ava" />
     <RootPropertyPathName Name="year" />
-    <RootPropertyPathName Name="author" />
     <RootPropertyPathName Name="title" />
     <RootPropertyPathName Name="image" />
     <RootPropertyPathName Name="book" />
@@ -238,9 +237,9 @@
       <RootProperty Name="Stretch" />
       <RootProperty Name="Tag" />
       <RootProperty Name="Source" />
-      <RootProperty Name="Name" />
       <RootProperty Name="Width" />
       <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Name" />
       <RootProperty Name="Margin" />
       <RootEvent Name="Tapped" />
     </RootType>

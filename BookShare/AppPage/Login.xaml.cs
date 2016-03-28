@@ -49,8 +49,12 @@ namespace BookShare.AppPage
 		{
 			if ( textBoxUser.Text == "" )
 				return "Bạn chưa nhập tên người dùng";
+			if ( textBoxUser.Text.Length<5 )
+				return "Tên người dùng tối thiểu 5 kí tự";
 			if ( pwBox.Password == "" )
 				return "Bạn chưa nhập mật khẩu";
+			if ( pwBox.Password.Length < 5 )
+				return "Mật khẩu tối thiểu 5 kí tự";
 			return "";
 		}
 
@@ -63,7 +67,8 @@ namespace BookShare.AppPage
 				user = user ,
 				password = password
 			};
-			string result = await RestAPI.SendJson ( login , RestAPI.phpAddress , "Login" );
+			//string result = await RestAPI.SendJson ( login , RestAPI.phpAddress , "Login" );
+			string result = await RestAPI.SendPostRequest ( login , RestAPI.publicApiAddress + "login/" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
 				string data = JsonHelper.DecodeJson ( result );

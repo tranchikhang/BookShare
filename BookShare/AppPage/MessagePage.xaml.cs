@@ -36,7 +36,9 @@ namespace BookShare.AppPage
 
 		private async void GetMessages ()
 		{
-			string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetMessages" );
+			//string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetMessages" );
+			string result =
+				await RestAPI.SendPostRequest ( UserData.id , RestAPI.publicApiAddress + "message/" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
 				string data = JsonHelper.DecodeJson ( result );
@@ -113,7 +115,9 @@ namespace BookShare.AppPage
 				toUserId = UserData.id ,
 				fromUserId = fromUserId ,
 			};
-			string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "MarkReadConversation" );
+			//string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "MarkReadConversation" );
+			string result =
+				await RestAPI.SendPostRequest ( dataToSend , RestAPI.publicApiAddress + "message/conversation/" );
 			return JsonHelper.IsRequestSucceed ( result );
 		}
 
@@ -131,7 +135,7 @@ namespace BookShare.AppPage
 		private async void SendMessageTap ( object sender , TappedRoutedEventArgs e )
 		{
 			//check length
-			string r = CheckMessageLength ();
+			string r = CheckMessage ();
 			if ( r == "" )
 			{
 				string toUserId = ( ( Button ) sender ).Tag.ToString ();
@@ -141,7 +145,9 @@ namespace BookShare.AppPage
 					fromUserId = UserData.id ,
 					message = textBoxContent.Text
 				};
-				string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "SendMessage" );
+				//string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "SendMessage" );
+				string result =
+					await RestAPI.SendPostRequest ( dataToSend , RestAPI.publicApiAddress + "message/send/" );
 				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 				{
 					string dateTime = JsonHelper.DecodeJson ( result );
@@ -158,7 +164,7 @@ namespace BookShare.AppPage
 				gridNotification.Show ( true , r );
 		}
 
-		private string CheckMessageLength ()
+		private string CheckMessage ()
 		{
 			if ( textBoxContent.Text.Length >= 300 )
 				return "Tin nhắn không được quá 300 ký tự";

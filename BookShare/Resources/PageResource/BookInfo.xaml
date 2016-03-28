@@ -24,6 +24,8 @@
 				Value="Wrap" />
 		<Setter Property="Foreground"
 				Value="{StaticResource TextColor}" />
+		<Setter Property="Margin"
+				Value="0,10,0,10" />
 	</Style>
 	<Style TargetType="TextBlock"
 		   x:Key="Author">
@@ -35,6 +37,21 @@
 				Value="Wrap" />
 		<Setter Property="Foreground"
 				Value="{StaticResource TextColor}" />
+		<Setter Property="Margin"
+				Value="0,10,0,10" />
+	</Style>
+	<Style TargetType="TextBlock"
+		   x:Key="Year">
+		<Setter Property="FontFamily"
+				Value="Segoe WP Light" />
+		<Setter Property="FontSize"
+				Value="26" />
+		<Setter Property="TextWrapping"
+				Value="Wrap" />
+		<Setter Property="Foreground"
+				Value="{StaticResource TextColor}" />
+		<Setter Property="Margin"
+				Value="0,10,0,10" />
 	</Style>
 	<Style TargetType="Button"
 		   x:Key="ButtonRequest">
@@ -58,11 +75,13 @@
 		<Setter Property="Foreground"
 				Value="White" />
 		<Setter Property="Background"
-				Value="{StaticResource MyBlue}" />
+				Value="{StaticResource MyGreen}" />
 		<Setter Property="Width"
 				Value="90" />
 		<Setter Property="Height"
 				Value="45" />
+		<Setter Property="Margin"
+				Value="0,10,0,20" />
 	</Style>
 	<Style TargetType="Button"
 		   x:Key="ButtonViewMore">

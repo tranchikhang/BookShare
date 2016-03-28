@@ -21,9 +21,10 @@
 		<mycontrol:MyNotification x:ConnectionId='1' x:Name="gridNotification" />
 		<ProgressBar x:ConnectionId='2' IsIndeterminate="True"
 					 Height="30"
-					 Grid.Row="0"
+					 Grid.Row="1"
 					 Name="progressBar" />
-		<Grid Grid.Row="1">
+		<Grid Grid.Row="1"
+			  Margin="10,10,10,10">
 			<ScrollViewer x:ConnectionId='3' Name="mainScrollViewer"
 						  Visibility="Collapsed"
 						  VerticalScrollBarVisibility="Hidden">
@@ -34,11 +35,13 @@
 					</Grid.RowDefinitions>
 					<RelativePanel x:ConnectionId='6' Grid.Row="0"
 								   Name="relativePanelInfo">
-						<Image x:ConnectionId='11' Height="405"
-							   Width="270"
-							   Name="BookCover"
-							   Source="{Binding image, TargetNullValue={x:Null}}"
-							   Stretch="Fill" />
+						<Grid x:ConnectionId='11' Name="BookCover">
+							<Image Height="405"
+								   Width="270"
+								   HorizontalAlignment="Center"
+								   Source="{Binding image, TargetNullValue={x:Null}}"
+								   Stretch="Fill" />
+						</Grid>
 						<StackPanel x:ConnectionId='12' Margin="10,0,0,0"
 									Height="Auto"
 									Width="Auto"
@@ -47,12 +50,15 @@
 							<TextBlock Style="{StaticResource Title}"
 									   Text="{Binding title}" />
 							<TextBlock Text="Tác giả"
+									   FontSize="20"
 									   FontFamily="Segoe WP Light" />
 							<TextBlock Text="{Binding author}"
 									   Style="{StaticResource Author}" />
-							<TextBlock Text="Năm" />
+							<TextBlock Text="Năm"
+									   FontSize="20"
+									   FontFamily="Segoe WP Light" />
 							<TextBlock Text="{Binding year}"
-									   FontSize="22" />
+									   Style="{StaticResource Year}" />
 							<Button x:ConnectionId='13' Style="{StaticResource ButtonAddBook}"
 									Name="buttonAddBook"
 									                      />
@@ -62,7 +68,7 @@
 						</StackPanel>
 					</RelativePanel>
 					<ListView x:ConnectionId='7' Grid.Row="1"
-							  Margin="5,5,5,5"
+							  Margin="10,10,20,10"
 							  Visibility="Collapsed"
 							  ScrollViewer.VerticalScrollBarVisibility="Hidden"
 							  Name="listViewLenders">
@@ -76,7 +82,7 @@
 						</ListView.ItemContainerStyle>
 						<ListView.ItemTemplate>
 							<DataTemplate>
-								<Grid Margin="0,5,0,5">
+								<Grid Margin="0,10,0,10">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="100" />
 										<ColumnDefinition Width="20" />
@@ -108,15 +114,16 @@
 					</ListView>
 				</Grid>
 			</ScrollViewer>
-			<ScrollViewer x:ConnectionId='4' Name="scrollViewerDescription" Visibility="Collapsed">
-					<StackPanel Orientation="Vertical">
-						<TextBlock Text="Thông tin sách:"
-								   Style="{StaticResource TextBlockDescriptionTitle}" />
-						<TextBlock x:ConnectionId='5' Name="textBlockDes"
-								   TextWrapping="Wrap"
-								   Style="{StaticResource TextBlockDescription}" />
-					</StackPanel>
-				</ScrollViewer>
+			<ScrollViewer x:ConnectionId='4' Name="scrollViewerDescription"
+						  Visibility="Collapsed">
+				<StackPanel Orientation="Vertical">
+					<TextBlock Text="Thông tin sách:"
+							   Style="{StaticResource TextBlockDescriptionTitle}" />
+					<TextBlock x:ConnectionId='5' Name="textBlockDes"
+							   TextWrapping="Wrap"
+							   Style="{StaticResource TextBlockDescription}" />
+				</StackPanel>
+			</ScrollViewer>
 		</Grid>
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>

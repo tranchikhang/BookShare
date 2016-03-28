@@ -36,10 +36,10 @@
 				</Border>
 				<AutoSuggestBox x:ConnectionId='4' Name="suggestAuthor"
 								                                
-								TextMemberPath="authorName">
+								TextMemberPath="author">
 					<AutoSuggestBox.ItemTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding authorName}" />
+							<TextBlock Text="{Binding author}" />
 						</DataTemplate>
 					</AutoSuggestBox.ItemTemplate>
 					<AutoSuggestBox.TextBoxStyle>

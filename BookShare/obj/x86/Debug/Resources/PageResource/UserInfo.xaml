@@ -19,7 +19,7 @@
 		<Setter Property="TextAlignment"
 				Value="Center" />
 		<Setter Property="Margin"
-				Value="0,0,0,15" />
+				Value="0,10,0,0" />
 	</Style>
 	<Style TargetType="TextBlock"
 		   x:Key="Name">
@@ -36,7 +36,7 @@
 		<Setter Property="TextAlignment"
 				Value="Center" />
 		<Setter Property="Margin"
-				Value="0,0,0,15" />
+				Value="0,10,0,0" />
 	</Style>
 	<Style TargetType="TextBlock"
 		   x:Key="Address">
@@ -53,7 +53,7 @@
 		<Setter Property="TextAlignment"
 				Value="Center" />
 		<Setter Property="Margin"
-				Value="0,0,0,15" />
+				Value="0,10,0,0" />
 	</Style>
 	<Style TargetType="TextBlock"
 		   x:Key="Email">
@@ -70,7 +70,7 @@
 		<Setter Property="TextAlignment"
 				Value="Center" />
 		<Setter Property="Margin"
-				Value="0,0,0,15" />
+				Value="0,10,0,0" />
 	</Style>
 	<Style TargetType="TextBox"
 		   x:Key="TextBoxField">

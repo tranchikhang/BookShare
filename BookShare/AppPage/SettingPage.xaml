@@ -19,16 +19,15 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<mycontrol:MyNotification x:Name="gridNotification" />
-		<ProgressBar IsIndeterminate="True"
-					 Height="30"
-					 VerticalAlignment="Top"
-					 Name="progressBar" />
 		<Grid Grid.Row="1"
-			  Name="gridInfo"
 			  Margin="10,0,10,0">
-			<ScrollViewer VerticalScrollBarVisibility="Hidden">
-				<RelativePanel Name="relativePanel"
-							   Grid.Row="1">
+			<ProgressBar IsIndeterminate="True"
+						 Height="30"
+						 VerticalAlignment="Top"
+						 Name="progressBar" />
+			<ScrollViewer VerticalScrollBarVisibility="Hidden"
+						  Name="mainScrollViewer">
+				<RelativePanel Grid.Row="1">
 					<TextBlock Text="Thông tin tài khoản"
 							   Style="{StaticResource TextBlockMainTitle}"
 							   Name="textBlockTitle" />
@@ -88,6 +87,7 @@
 							  Margin="0,10,0,10" />
 					<TextBox Name="textBoxAddress"
 							 Width="300"
+							 PlaceholderText="nhập địa chỉ"
 							 Text="{Binding address}"
 							 Style="{StaticResource TextBoxField}" />
 					<Button Content="Đổi mật khẩu"

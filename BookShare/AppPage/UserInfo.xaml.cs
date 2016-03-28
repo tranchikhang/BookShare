@@ -42,7 +42,8 @@ namespace BookShare.AppPage
 		private async void LoadData ( string userId )
 		{
 			//get user info
-			string result = await RestAPI.SendJson ( userId , RestAPI.phpAddress , "GetUserInfo" );
+			//string result = await RestAPI.SendJson ( userId , RestAPI.phpAddress , "GetUserInfo" );
+			string result = await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "users/" + userId );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
 				string data = JsonHelper.DecodeJson ( result );
@@ -50,9 +51,10 @@ namespace BookShare.AppPage
 				selectedUser.SetAddress ();
 				selectedUser.SetAva ();
 				DataContext = selectedUser;
-				ControlMethods.SwitchVisibility ( false , progressBar );
 				scrollViewer.Visibility = Visibility.Visible;
 			}
+			else gridNotification.Show ( true );
+			ControlMethods.SwitchVisibility ( false , progressBar );
 		}
 
 		private void SendTap ( object sender , TappedRoutedEventArgs e )
@@ -76,7 +78,9 @@ namespace BookShare.AppPage
 					fromUserId = UserData.id ,
 					message = textBoxContent.Text
 				};
-				string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "SendMessage" );
+				//string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "SendMessage" );
+				string result =
+					await RestAPI.SendPostRequest ( dataToSend , RestAPI.publicApiAddress + "message/send/" );
 				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 				{
 					//clear message

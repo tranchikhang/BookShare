@@ -40,7 +40,8 @@ namespace BookShare.AppPage
 
 		private async Task SendSearchQuery ( string query )
 		{
-			string result = await RestAPI.SendJson ( query , RestAPI.phpAddress , "GetSearchResult" );
+			//string result = await RestAPI.SendJson ( query , RestAPI.phpAddress , "GetSearchResult" );
+			string result = await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "book/search/" + System.Net.WebUtility.UrlEncode ( query ) );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.Empty )
 			{
 				//no book to display

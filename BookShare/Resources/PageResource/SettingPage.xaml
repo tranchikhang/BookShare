@@ -75,7 +75,7 @@
 		<Setter Property="BorderThickness"
 				Value="2" />
 		<Setter Property="Margin"
-				Value="0,2" />
+				Value="0,10,0,10" />
 		<Setter Property="Height"
 				Value="50" />
 		<Setter Property="Width"
@@ -94,7 +94,7 @@
 		<Setter Property="Background"
 				Value="{StaticResource MyRed}" />
 		<Setter Property="Margin"
-				Value="0,2" />
+				Value="0,10,0,10" />
 		<Setter Property="Height"
 				Value="50" />
 		<Setter Property="Width"
@@ -125,7 +125,7 @@
 		<Setter Property="Width"
 				Value="150" />
 		<Setter Property="Margin"
-				Value="0,0,0,10" />
+				Value="0,10,0,20" />
 		<Setter Property="Background"
 				Value="{StaticResource MyGreen}" />
 		<Setter Property="Width"

@@ -3,10 +3,12 @@ using BookShare.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -45,19 +47,21 @@ namespace BookShare.AppPage
 		private async void LoadBookInfo ()
 		{
 			//send request with book id and user id
-			dynamic bookToSend = new
+			dynamic d = new
 			{
-				bookId = bookId ,
+				//bookId = bookId ,
 				userId = UserData.id
 			};
-			string bookInfo = await RestAPI.SendJson ( bookToSend , RestAPI.phpAddress , "GetBookById" );
-
-			dynamic getLenders = new
-			{
-				bookId = bookId ,
-				userId = UserData.id
-			};
-			string bookLenders = await RestAPI.SendJson ( getLenders , RestAPI.phpAddress , "GetLenderForBook" );
+			//string bookInfo = await RestAPI.SendJson ( bookToSend , RestAPI.phpAddress , "GetBookById" );
+			string bookInfo = await RestAPI.SendPostRequest ( UserData.id , RestAPI.publicApiAddress + "book/" + bookId );
+			//dynamic getLenders = new
+			//{
+			//	bookId = bookId ,
+			//	userId = UserData.id
+			//};
+			//string bookLenders = await RestAPI.SendJson ( getLenders , RestAPI.phpAddress , "GetLenderForBook" );
+			string bookLenders =
+				await RestAPI.SendPostRequest ( d , RestAPI.publicApiAddress + "book/" + bookId + "/lenders/" );
 
 			//deserialize json into book
 			if ( JsonHelper.IsRequestSucceed ( bookInfo ) == RestAPI.ResponseStatus.OK )
@@ -71,11 +75,15 @@ namespace BookShare.AppPage
 			{
 				buttonAddBook.Content = "Xóa";
 				buttonAddBook.Tag = 1;
+				//#F44336
+				buttonAddBook.Background = new SolidColorBrush ( Color.FromArgb ( 255 , 244 , 67 , 54 ) );
 			}
 			else
 			{
 				buttonAddBook.Content = "Thêm";
 				buttonAddBook.Tag = 0;
+				//#4CAF50
+				buttonAddBook.Background = new SolidColorBrush ( Color.FromArgb ( 255 , 76 , 175 , 80 ) );
 			}
 			//deserialize json into lenders
 			if ( JsonHelper.IsRequestSucceed ( bookLenders ) == RestAPI.ResponseStatus.OK )
@@ -110,13 +118,15 @@ namespace BookShare.AppPage
 		}
 
 		private async Task SendRequestToPost ( string postId , object sender )
-		{	
+		{
 			dynamic request = new
 			{
 				postId = postId ,
 				userId = UserData.id
 			};
-			string result = await RestAPI.SendJson ( request , RestAPI.phpAddress , "SendRequest" );
+			//string result = await RestAPI.SendJson ( request , RestAPI.phpAddress , "SendRequest" );
+			string result =
+				await RestAPI.SendPostRequest ( request , RestAPI.publicApiAddress + "request/new/" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
 				//ShowNotification ( "Đã gửi yêu cầu" );
@@ -139,11 +149,15 @@ namespace BookShare.AppPage
 					bookId = bookId ,
 					userId = UserData.id
 				};
-				string addResult = await RestAPI.SendJson ( book , RestAPI.phpAddress , "AddToYourBook" );
+				//string addResult = await RestAPI.SendJson ( book , RestAPI.phpAddress , "AddToYourBook" );
+				string addResult =
+					await RestAPI.SendPutRequest ( book , RestAPI.publicApiAddress + "booklist/add/" );
 				if ( JsonHelper.IsRequestSucceed ( addResult ) == RestAPI.ResponseStatus.OK )
 				{
 					( ( Button ) sender ).Content = "Xóa";
 					( ( Button ) sender ).Tag = 1;
+					//#F44336
+					( ( Button ) sender ).Background = new SolidColorBrush ( Color.FromArgb ( 255 , 244 , 67 , 54 ) );
 				}
 				else
 				{
@@ -158,11 +172,15 @@ namespace BookShare.AppPage
 					bookId = bookId ,
 					userId = UserData.id
 				};
-				string addResult = await RestAPI.SendJson ( book , RestAPI.phpAddress , "RemoveFromYourBook" );
+				//string addResult = await RestAPI.SendJson ( book , RestAPI.phpAddress , "RemoveFromYourBook" );
+				string addResult =
+					await RestAPI.SendPostRequest ( book , RestAPI.publicApiAddress + "booklist/remove/" );
 				if ( JsonHelper.IsRequestSucceed ( addResult ) == RestAPI.ResponseStatus.OK )
 				{
 					( ( Button ) sender ).Content = "Thêm";
 					( ( Button ) sender ).Tag = 0;
+					//#4CAF50
+					( ( Button ) sender ).Background = new SolidColorBrush ( Color.FromArgb ( 255 , 76 , 175 , 80 ) );
 				}
 				else
 				{

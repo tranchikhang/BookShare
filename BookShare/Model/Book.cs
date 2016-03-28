@@ -44,7 +44,8 @@ namespace BookShare.Model
 
 		public void SetImageLink ()
 		{
-			this.image = RestAPI.serverAddress + "cover/" + id + ".jpg";
+			//this.image = RestAPI.serverAddress + "cover/" + id + ".jpg";
+			image = RestAPI.publicApiAddress + "cover/" + id + ".jpg";
 		}
 	}
 }

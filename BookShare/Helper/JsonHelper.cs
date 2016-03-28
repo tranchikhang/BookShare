@@ -59,6 +59,13 @@ namespace BookShare.Helper
 			return users;
 		}
 
+		public static ObservableCollection<Author> ConvertToAuthors ( string r )
+		{
+			ObservableCollection<Author> authors = new ObservableCollection<Author> ();
+			authors = JsonConvert.DeserializeObject<ObservableCollection<Author>> ( r );
+			return authors;
+		}
+
 		public static ObservableCollection<Post> ConvertToPosts ( string r )
 		{
 			ObservableCollection<Post> posts = new ObservableCollection<Post> ();

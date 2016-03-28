@@ -37,7 +37,8 @@ namespace BookShare.AppPage
 
 		private async void AddGenre ()
 		{
-			string result = await RestAPI.SendJson ( "" , RestAPI.phpAddress , "GetAllGenre" );
+			//string result = await RestAPI.SendJson ( "" , RestAPI.phpAddress , "GetAllGenre" );
+			string result = await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "book/genre/" );
 			dynamic json = JArray.Parse ( result );
 			var l = new List<object> ();
 			for ( int i = 0 ; i < json.Count ; i++ )
@@ -88,15 +89,16 @@ namespace BookShare.AppPage
 					image = imageString ,
 					userId = UserData.id
 				};
-				string result = await RestAPI.SendJson ( dataTosend , RestAPI.phpAddress , "AddNewBook" );
+				//string result = await RestAPI.SendJson ( dataTosend , RestAPI.phpAddress , "AddNewBook" );
+				string result = await RestAPI.SendPutRequest ( dataTosend , RestAPI.publicApiAddress + "book/new/" );
 				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 				{
-					gridNotification.Show ( true , "Đã thêm sách mới" );
+					gridNotification.Show ( false , "Đã thêm sách mới" );
 				}
 			}
 			else
 			{
-				gridNotification.Show ( false , v );
+				gridNotification.Show ( true , v );
 			}
 		}
 
@@ -116,17 +118,14 @@ namespace BookShare.AppPage
 
 		private async void SuggestTextChanged ( AutoSuggestBox sender , AutoSuggestBoxTextChangedEventArgs args )
 		{
-			string result = await RestAPI.SendJson ( suggestAuthor.Text , RestAPI.phpAddress , "GetAuthor" );
-			dynamic json = JArray.Parse ( result );
-			var l = new ObservableCollection<object> ();
-			for ( int i = 0 ; i < json.Count ; i++ )
+			//string result = await RestAPI.SendJson ( suggestAuthor.Text , RestAPI.phpAddress , "GetAuthor" );
+			string result =
+				await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "book/author/" + System.Net.WebUtility.UrlEncode ( suggestAuthor.Text ) );
+			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
-				l.Add ( new
-				{
-					authorName = json[i].authorName
-				} );
+				string data = JsonHelper.DecodeJson ( result );
+				suggestAuthor.ItemsSource = JsonHelper.ConvertToAuthors ( data );
 			}
-			suggestAuthor.ItemsSource = l;
 		}
 	}
 }

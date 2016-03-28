@@ -27,11 +27,11 @@ namespace BookShare.AppPage
 		{
 			this.InitializeComponent ();
 			progressBar.Visibility = Visibility.Visible;
-			gridInfo.Visibility = Visibility.Collapsed;
+			mainScrollViewer.Visibility = Visibility.Collapsed;
 			NavigationMethod.SetBackButtonVisibility ( false );
 			GetUserInfo ();
 			progressBar.Visibility = Visibility.Collapsed;
-			gridInfo.Visibility = Visibility.Visible;
+			mainScrollViewer.Visibility = Visibility.Visible;
 		}
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
@@ -70,9 +70,9 @@ namespace BookShare.AppPage
 
 		private async void GetUserInfo ()
 		{
-			string sendResult = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetAccountInfo" );
-
-			string data = JsonHelper.DecodeJson ( sendResult );
+			//string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetAccountInfo" );
+			string result = await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "account/" + UserData.id );
+			string data = JsonHelper.DecodeJson ( result );
 			Dictionary<string , object> d = JsonConvert.DeserializeObject<Dictionary<string , object>> ( data );
 			user = JsonHelper.ConvertToUser ( d["user"].ToString () );
 			user.id = UserData.id;
@@ -107,10 +107,15 @@ namespace BookShare.AppPage
 					districtId = comboDistrict.SelectedValue ,
 					ava = imageString
 				};
-				string result = await RestAPI.SendJson ( newUser , RestAPI.phpAddress , "SetAccountInfo" );
-				//show new value
-				DisplayUserInfo ();
-				gridNotification.Show (false, "Cập nhật thành công" );
+				//string result = await RestAPI.SendJson ( newUser , RestAPI.phpAddress , "SetAccountInfo" );
+				string result = await RestAPI.SendPostRequest ( newUser , RestAPI.publicApiAddress + "account/update/" );
+				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
+				{
+					gridNotification.Show ( false , "Cập nhật thành công" );
+					//show new value
+					DisplayUserInfo ();
+				}
+				else gridNotification.Show ( true );
 			}
 			else
 			{
@@ -162,8 +167,11 @@ namespace BookShare.AppPage
 
 		private void ChangePassClick ( object sender , RoutedEventArgs e )
 		{
-			gridInfo.Visibility = Visibility.Collapsed;
+			mainScrollViewer.Visibility = Visibility.Collapsed;
 			gridChangePass.Visibility = Visibility.Visible;
+			pwBoxCurrent.Password = "";
+			pwBoxNew.Password = "";
+			pwBoxNewRe.Password = "";
 			//show back button
 			NavigationMethod.SetBackButtonVisibility ( true );
 			//back button event
@@ -172,7 +180,7 @@ namespace BookShare.AppPage
 
 		private void BackButtonClick ( object sender , BackRequestedEventArgs e )
 		{
-			gridInfo.Visibility = Visibility.Visible;
+			mainScrollViewer.Visibility = Visibility.Visible;
 			gridChangePass.Visibility = Visibility.Collapsed;
 			NavigationMethod.SetBackButtonVisibility ( false );
 		}
@@ -188,13 +196,14 @@ namespace BookShare.AppPage
 					userNewPass = pwBoxNew.Password ,
 					userId = UserData.id
 				};
-				string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "ChangePass" );
+				//string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "ChangePass" );
+				string result = await RestAPI.SendPostRequest ( dataToSend , RestAPI.publicApiAddress + "account/password/" );
 				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 				{
-					user.password = pwBoxNew.Password;
-					gridNotification.Visibility = Visibility.Collapsed;
+					user.password = ComputeMD5 ( pwBoxNew.Password );
 					gridChangePass.Visibility = Visibility.Collapsed;
-					gridInfo.Visibility = Visibility.Visible;
+					mainScrollViewer.Visibility = Visibility.Visible;
+					NavigationMethod.SetBackButtonVisibility ( false );
 				}
 				else
 					gridNotification.Show ( true );

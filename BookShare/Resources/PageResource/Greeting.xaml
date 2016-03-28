@@ -29,10 +29,6 @@
 				Value="49" />
 		<Setter Property="Height"
 				Value="49" />
-		<Setter Property="VerticalAlignment"
-				Value="Center" />
-		<Setter Property="HorizontalContentAlignment"
-				Value="Center" />
 		<Setter Property="Foreground"
 				Value="{StaticResource ForegroundColor}" />
 		<Setter Property="Background"

@@ -6,6 +6,7 @@ using Windows.UI.Xaml;
 using System.Collections.ObjectModel;
 using BookShare.Model;
 using System.Threading.Tasks;
+using System;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -23,11 +24,42 @@ namespace BookShare.AppPage
 
 		protected override async void OnNavigatedTo ( NavigationEventArgs e )
 		{
-			query = ( string ) e.Parameter;
 			ControlMethods.SwitchVisibility ( true , progressBar );
-			SearchBox.Text = query;
-			await SendSearchQuery ( query );
+			if ( e.Parameter != null )
+			{
+				query = ( string ) e.Parameter;
+				SearchBox.Text = query;
+				await SendSearchQuery ( query );
+			}
+			await GetLocation ();
 			ControlMethods.SwitchVisibility ( false , progressBar );
+		}
+
+		private ObservableCollection<City> cities;
+
+		public async Task GetLocation ()
+		{
+			string result = await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "location/" );
+			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
+			{
+				string data = JsonHelper.DecodeJson ( result );
+				//deserialize all location into list
+				cities = JsonHelper.ConvertToCities ( data );
+				foreach ( City c in cities )
+				{
+					c.districts.Insert ( 0 , new District
+					{
+						id = "" ,
+						name = ""
+					} );
+				}
+				cities.Insert ( 0 , new City
+				{
+					id = "" ,
+					name = ""
+				} );
+				comboCity.ItemsSource = cities;
+			}
 		}
 
 		protected override void OnNavigatedFrom ( NavigationEventArgs e )
@@ -40,8 +72,17 @@ namespace BookShare.AppPage
 
 		private async Task SendSearchQuery ( string query )
 		{
+			string queryString = "q=" + System.Net.WebUtility.UrlEncode ( query );
+			if ( comboCity.SelectedValue != null )
+			{
+				queryString += "&city=" + comboCity.SelectedValue;
+			}
+			if ( comboDistrict.SelectedValue != null )
+			{
+				queryString += "&district=" + comboDistrict.SelectedValue;
+			}
 			//string result = await RestAPI.SendJson ( query , RestAPI.phpAddress , "GetSearchResult" );
-			string result = await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "book/search/" + System.Net.WebUtility.UrlEncode ( query ) );
+			string result = await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "book/search/?" + queryString );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.Empty )
 			{
 				//no book to display
@@ -83,6 +124,14 @@ namespace BookShare.AppPage
 			ControlMethods.SwitchVisibility ( true , progressBar );
 			await SendSearchQuery ( SearchBox.Text );
 			ControlMethods.SwitchVisibility ( false , progressBar );
+		}
+
+		private void comboCity_SelectionChanged ( object sender , SelectionChangedEventArgs e )
+		{
+			if ( comboCity.SelectedValue != null )
+			{
+				comboDistrict.ItemsSource = ( ( City ) comboCity.SelectedItem ).districts;
+			}
 		}
 	}
 }

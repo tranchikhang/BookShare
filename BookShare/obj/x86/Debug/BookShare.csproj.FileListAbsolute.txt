@@ -301,3 +301,11 @@ D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\qualifiers.txt
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\qualifiers.txt.intermediate
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\MultipleQualifiersPerDimensionFound.txt
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\ProjectArchitectures.txt
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\Admin.g.i.cs
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\Admin.g.cs
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\Admin.xaml
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\PageResource\Admin.xaml
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\Admin.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\PageResource\Admin.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\AppPage\Admin.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\PageResource\Admin.xbf

@@ -15,29 +15,40 @@
 	</Page.Resources>
 	<Grid Background="{StaticResource BackgroundColor}">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="51" />
+			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<Grid Grid.Row="0"
-			  Margin="10,0,10,0">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="300" />
-				<ColumnDefinition Width="49" />
-				<ColumnDefinition Width="100" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<TextBox Name="SearchBox"
-					 Style="{StaticResource TextBoxSearch}"
-					 PlaceholderText="Nhập nội dung tìm kiếm"
-					 Grid.Column="0" />
-			<Button Name="Search"
-					Style="{StaticResource ButtonSearch}"
-					Grid.Column="1"
-					Click="SearchClick"
-					Content="&#59166;" />
+			  Margin="5,0,5,0">
+			<RelativePanel>
+				<TextBox Name="SearchBox"
+						 Style="{StaticResource TextBoxSearch}"
+						 PlaceholderText="Nhập nội dung tìm kiếm"
+						 Grid.Column="0" />
+				<Button Name="Search"
+						Style="{StaticResource ButtonSearch}"
+						Grid.Column="1"
+						Click="SearchClick"
+						Content="&#59166;" />
+				<ComboBox Name="comboCity"
+						  Width="190"
+						  PlaceholderText="thành phố"
+						  DisplayMemberPath="name"
+						  SelectionChanged="comboCity_SelectionChanged"
+						  SelectedValuePath="id"
+						  Margin="0,10,0,10"
+						  SelectedValue="{Binding cityId}" />
+				<ComboBox Name="comboDistrict"
+						  Width="150"
+						  PlaceholderText="quận"
+						  DisplayMemberPath="name"
+						  SelectedValuePath="id"
+						  Margin="0,10,0,10" />
+			</RelativePanel>
 		</Grid>
-		<mycontrol:MyNotification x:Name="gridNotification" Grid.Row="1"/>
+		<mycontrol:MyNotification x:Name="gridNotification"
+								  Grid.Row="1" />
 		<ProgressBar IsIndeterminate="True"
 					 Height="30"
 					 Grid.Row="1"
@@ -49,7 +60,7 @@
 					Grid.Row="1"
 					Name="stackPanelAddNew">
 			<TextBlock Text="Không có sách mà bạn muốn tìm, bạn có muốn thêm sách mới?"
-					   Margin="0,0,0,5"/>
+					   Margin="0,0,0,5" />
 			<Button Content="Thêm mới"
 					Style="{StaticResource ButtonAddNew}"
 					Click="AddNewBook" />
@@ -98,5 +109,37 @@
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup>
+				<VisualState x:Name="WideState">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="800" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="Search.(RelativePanel.RightOf)"
+								Value="SearchBox" />
+						<Setter Target="comboCity.(RelativePanel.RightOf)"
+								Value="Search" />
+						<Setter Target="comboDistrict.(RelativePanel.RightOf)"
+								Value="comboCity" />
+					</VisualState.Setters>
+				</VisualState>
+				<VisualState x:Name="NarrowState">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="0" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="Search.(RelativePanel.RightOf)"
+								Value="SearchBox" />
+						<Setter Target="comboCity.(RelativePanel.Below)"
+								Value="Search" />
+						<Setter Target="comboDistrict.(RelativePanel.RightOf)"
+								Value="comboCity" />
+						<Setter Target="comboDistrict.(RelativePanel.AlignTopWith)"
+								Value="comboCity" />
+					</VisualState.Setters>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
 	</Grid>
 </Page>

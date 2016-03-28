@@ -102,6 +102,9 @@
     <Compile Include="AppPage\AddNewBook.xaml.cs">
       <DependentUpon>AddNewBook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppPage\Admin.xaml.cs">
+      <DependentUpon>Admin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AppPage\BookInfo.xaml.cs">
       <DependentUpon>BookInfo.xaml</DependentUpon>
     </Compile>
@@ -195,6 +198,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AppPage\Admin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AppPage\BookInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -250,6 +257,11 @@
     <Page Include="Model\Control\MyNotification.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\PageResource\Admin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Resources\PageResource\BookInfo.xaml">
       <SubType>Designer</SubType>

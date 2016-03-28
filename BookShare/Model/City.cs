@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace BookShare.Model
 {
 	class City
 	{
-		public string cityId { get; set; }
-		public string cityName { get; set; }
+		[JsonProperty ( PropertyName = "cityId" )]
+		public string id { get; set; }
+		[JsonProperty ( PropertyName = "cityName" )]
+		public string name { get; set; }
+		[JsonProperty ( PropertyName = "districts" )]
+		public ObservableCollection<District> districts { get; set; }
 	}
 }

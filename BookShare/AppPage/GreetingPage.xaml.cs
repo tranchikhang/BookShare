@@ -62,5 +62,10 @@ namespace BookShare.AppPage
 			string query = SearchBox.Text;
 			Frame.Navigate ( typeof ( SearchPage ) , query );
 		}
+
+		private void AdvancedSearchClick ( object sender , RoutedEventArgs e )
+		{
+			Frame.Navigate ( typeof ( SearchPage ) );
+		}
 	}
 }

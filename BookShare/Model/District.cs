@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,10 @@ namespace BookShare.Model
 {
 	class District
 	{
-		public string districtId { get; set; }
-		public string districtName { get; set; }
+		[JsonProperty ( PropertyName = "districtId" )]
+		public string id { get; set; }
+		[JsonProperty ( PropertyName = "districtName" )]
+		public string name { get; set; }
 		public string cityId { get; set; }
 	}
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage;
@@ -29,9 +30,22 @@ namespace BookShare.AppPage
 			progressBar.Visibility = Visibility.Visible;
 			mainScrollViewer.Visibility = Visibility.Collapsed;
 			NavigationMethod.SetBackButtonVisibility ( false );
-			GetUserInfo ();
+			GetData ();
 			progressBar.Visibility = Visibility.Collapsed;
 			mainScrollViewer.Visibility = Visibility.Visible;
+		}
+
+		private async void GetData ()
+		{
+			try
+			{
+				await GetLocation ();
+				await GetUserInfo ();
+			}
+			catch ( Exception e )
+			{
+				gridNotification.Show ( true );
+			}
 		}
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
@@ -43,7 +57,6 @@ namespace BookShare.AppPage
 			SystemNavigationManager.GetForCurrentView ().BackRequested -= BackButtonClick;
 		}
 
-		private ObservableCollection<District> district;
 		private ObservableCollection<City> city;
 		private User user;
 
@@ -55,36 +68,43 @@ namespace BookShare.AppPage
 			if ( user.cityId != null )
 			{
 				//find user city object
-				object c = city.First ( o => o.cityId == user.cityId );
+				object c = city.First ( o => o.id == user.cityId );
 				comboCity.SelectedItem = c;
 			}
 
 			//check if user district is null
 			if ( user.districtId != null )
 			{
-				//find user district object
-				object d = district.First ( o => o.districtId == user.districtId );
-				comboDistrict.SelectedItem = d;
+				comboDistrict.ItemsSource = ( ( City ) comboCity.SelectedItem ).districts;
+				comboDistrict.SelectedItem =
+					( ( City ) comboCity.SelectedItem ).districts.First ( o => o.id == user.districtId );
 			}
 		}
 
-		private async void GetUserInfo ()
+		public async Task GetLocation ()
+		{
+			string result = await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "location/" );
+			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
+			{
+				string data = JsonHelper.DecodeJson ( result );
+				//deserialize all location into list
+				city = JsonHelper.ConvertToCities ( data );
+
+				comboCity.ItemsSource = city;
+			}
+		}
+		private async Task GetUserInfo ()
 		{
 			//string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetAccountInfo" );
 			string result = await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "account/" + UserData.id );
-			string data = JsonHelper.DecodeJson ( result );
-			Dictionary<string , object> d = JsonConvert.DeserializeObject<Dictionary<string , object>> ( data );
-			user = JsonHelper.ConvertToUser ( d["user"].ToString () );
-			user.id = UserData.id;
-			user.SetAva ();
-
-			//deserialize all location into list
-			district = JsonHelper.ConvertToDistricts ( d["allDistrict"].ToString () );
-			city = JsonHelper.ConvertToCities ( d["allCity"].ToString () );
-
-			comboCity.ItemsSource = city;
-			comboDistrict.ItemsSource = district;
-			DisplayUserInfo ();
+			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
+			{
+				string data = JsonHelper.DecodeJson ( result );
+				user = JsonHelper.ConvertToUser ( data );
+				user.id = UserData.id;
+				user.SetAva ();
+				DisplayUserInfo ();
+			}
 		}
 
 		private async void SaveClick ( object sender , RoutedEventArgs e )
@@ -147,8 +167,7 @@ namespace BookShare.AppPage
 		{
 			if ( comboCity.SelectedValue != null )
 			{
-				comboDistrict.ItemsSource =
-				district.Where ( o => o.cityId == comboCity.SelectedValue.ToString () );
+				comboDistrict.ItemsSource = ( ( City ) comboCity.SelectedItem ).districts;
 			}
 		}
 

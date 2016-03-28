@@ -24,6 +24,7 @@
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="300" />
 				<ColumnDefinition Width="49" />
+				<ColumnDefinition Width="49" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 			<TextBox x:ConnectionId='4' Name="SearchBox"
@@ -35,6 +36,10 @@
 					Grid.Column="1"
 					                   
 					Content="&#59166;" />
+			<Button x:ConnectionId='6' Style="{StaticResource ButtonSearch}"
+					Grid.Column="2"
+					                           
+					Content="&#xE712;" />
 		</Grid>
 		<mycontrol:MyNotification x:ConnectionId='1' x:Name="gridNotification"
 								  Grid.Row="1"/>

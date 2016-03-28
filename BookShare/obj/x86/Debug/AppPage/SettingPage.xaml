@@ -74,16 +74,16 @@
 							   Style="{StaticResource TextBlockField}"
 							   Width="150" />
 					<ComboBox x:ConnectionId='20' Name="comboCity"
-							  Width="200"
-							  DisplayMemberPath="cityName"
+							  Width="190"
+							  DisplayMemberPath="name"
 							                                               
-							  SelectedValuePath="cityId"
+							  SelectedValuePath="id"
 							  Margin="0,10,0,10"
-							  SelectedValue="{Binding cityId}" />
+							  SelectedValue="{Binding id}" />
 					<ComboBox x:ConnectionId='21' Name="comboDistrict"
 							  Width="150"
-							  DisplayMemberPath="districtName"
-							  SelectedValuePath="districtId"
+							  DisplayMemberPath="name"
+							  SelectedValuePath="id"
 							  Margin="0,10,0,10" />
 					<TextBox x:ConnectionId='22' Name="textBoxAddress"
 							 Width="300"

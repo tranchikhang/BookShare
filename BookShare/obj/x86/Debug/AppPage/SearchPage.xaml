@@ -79,7 +79,9 @@
 			</ListView.ItemContainerStyle>
 			<ListView.ItemTemplate>
 				<DataTemplate>
-					<Grid Margin="5,10,5,10"
+					<Grid x:ConnectionId='5' Margin="5,10,5,10"
+						                      
+						  Tag="{Binding id}"
 						  Background="{StaticResource BackgroundColor}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="100"
@@ -94,10 +96,8 @@
 							   Stretch="Fill" />
 						<StackPanel Grid.Column="2"
 									Orientation="Vertical">
-							<TextBlock x:ConnectionId='5' Text="{Binding title}"
+							<TextBlock Text="{Binding title}"
 									   FontSize="26"
-									                       
-									   Tag="{Binding id}"
 									   Foreground="{StaticResource TextColor}"
 									   Height="70" />
 							<TextBlock Text="{Binding author}"

@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using BookShare.Model;
 using System.Threading.Tasks;
 using System;
+using Windows.Storage;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,6 +29,13 @@ namespace BookShare.AppPage
 			if ( e.Parameter != null )
 			{
 				query = ( string ) e.Parameter;
+				SearchBox.Text = query;
+				await SendSearchQuery ( query );
+			}
+			else if (ApplicationData.Current.LocalSettings.Values["q"]!=null)
+			{
+				query =( string ) ApplicationData.Current.LocalSettings.Values["q"];
+				ApplicationData.Current.LocalSettings.Values.Remove ( "q" );
 				SearchBox.Text = query;
 				await SendSearchQuery ( query );
 			}
@@ -64,7 +72,11 @@ namespace BookShare.AppPage
 
 		protected override void OnNavigatedFrom ( NavigationEventArgs e )
 		{
-			//
+			if (SearchBox.Text !="")
+			{
+				//save query
+				ApplicationData.Current.LocalSettings.Values["q"] = SearchBox.Text;
+			}
 		}
 
 		public string query;
@@ -109,7 +121,7 @@ namespace BookShare.AppPage
 
 		private void TitleTapped ( object sender , TappedRoutedEventArgs e )
 		{
-			string value = ( ( TextBlock ) sender ).Tag.ToString ();
+			string value = ( ( Grid ) sender ).Tag.ToString ();
 			Frame.Navigate ( typeof ( BookInfo ) , value );
 		}
 

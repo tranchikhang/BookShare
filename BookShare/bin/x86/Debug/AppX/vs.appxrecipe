@@ -22,13 +22,13 @@
     <AppXManifest Include="D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-03-29T02:34:15.190</Modified>
+      <Modified>2016-03-31T06:34:47.660</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\BookShare.exe">
       <PackagePath>entrypoint\BookShare.exe</PackagePath>
-      <Modified>2016-03-29T02:34:14.323</Modified>
+      <Modified>2016-03-31T06:34:46.968</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\tranc\.nuget\packages\Microsoft.ApplicationInsights\1.0.0\lib\portable-win81+wpa81\Microsoft.ApplicationInsights.dll">
       <PackagePath>Microsoft.ApplicationInsights.dll</PackagePath>
@@ -462,13 +462,29 @@
       <PackagePath>ApplicationInsights.config</PackagePath>
       <Modified>2016-01-21T13:51:32.468</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Resources\Images\Icon\book.jpg">
+      <PackagePath>Resources\Images\Icon\book.jpg</PackagePath>
+      <Modified>2016-03-31T02:32:11.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Resources\Images\Icon\message.jpg">
+      <PackagePath>Resources\Images\Icon\message.jpg</PackagePath>
+      <Modified>2016-03-31T02:37:53.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Resources\Images\Icon\request.jpg">
+      <PackagePath>Resources\Images\Icon\request.jpg</PackagePath>
+      <Modified>2016-03-31T02:23:51.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Resources\Images\logo.jpg">
+      <PackagePath>Resources\Images\logo.jpg</PackagePath>
+      <Modified>2016-03-31T01:51:36.000</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Resources\Images\wallpaper.jpg">
       <PackagePath>Resources\Images\wallpaper.jpg</PackagePath>
       <Modified>2016-03-23T02:27:32.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Properties\Default.rd.xml">
-      <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2016-01-21T13:51:23.498</Modified>
+    <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Resources\Images\Icon\people.png">
+      <PackagePath>Resources\Images\Icon\people.png</PackagePath>
+      <Modified>2016-03-31T02:23:51.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
@@ -504,9 +520,13 @@
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2015-10-10T14:09:42.000</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Properties\Default.rd.xml">
+      <PackagePath>Properties\Default.rd.xml</PackagePath>
+      <Modified>2016-01-21T13:51:23.498</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\BookShare.xr.xml">
       <PackagePath>BookShare.xr.xml</PackagePath>
-      <Modified>2016-03-28T17:06:13.928</Modified>
+      <Modified>2016-03-31T06:34:46.564</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -514,11 +534,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2016-03-29T02:34:14.986</Modified>
+      <Modified>2016-03-31T06:34:47.481</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Core\BookShare.exe">
       <PackagePath>BookShare.exe</PackagePath>
-      <Modified>2016-03-29T02:34:15.188</Modified>
+      <Modified>2016-03-31T06:34:47.646</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

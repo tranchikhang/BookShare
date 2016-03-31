@@ -32,7 +32,6 @@ namespace BookShare.AppPage
 
 		private async void GetPostedBooks ()
 		{
-			//string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetPostedBooks" );
 			string result =
 				await RestAPI.SendPostRequest ( UserData.id , RestAPI.publicApiAddress + "booklist/" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
@@ -66,7 +65,6 @@ namespace BookShare.AppPage
 			ControlMethods.SwitchVisibility ( true , progressBar );
 			string postId = ( ( ToggleSwitch ) sender ).Tag.ToString ();
 			( ( ToggleSwitch ) sender ).IsEnabled = false;
-			//string result = await RestAPI.SendJson ( postId , RestAPI.phpAddress , "SwitchAvailability" );
 			string result =
 				await RestAPI.SendPostRequest ( postId , RestAPI.publicApiAddress + "booklist/available/" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
@@ -89,7 +87,6 @@ namespace BookShare.AppPage
 				bookId = bookId ,
 				userId = UserData.id
 			};
-			//string addResult = await RestAPI.SendJson ( book , RestAPI.phpAddress , "RemoveFromYourBook" );
 			string addResult =
 					await RestAPI.SendPostRequest ( book , RestAPI.publicApiAddress + "booklist/remove/" );
 			if ( JsonHelper.IsRequestSucceed ( addResult ) == RestAPI.ResponseStatus.OK )

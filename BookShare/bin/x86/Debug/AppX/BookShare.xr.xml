@@ -4,6 +4,10 @@
     <RootInterface FullName="Windows.UI.Xaml.Data.IValueConverter" />
   </Roots.Interfaces>
   <Roots.PropertyPathNames>
+    <RootPropertyPathName Name="requestInfo" />
+    <RootPropertyPathName Name="messageInfo" />
+    <RootPropertyPathName Name="userInfo" />
+    <RootPropertyPathName Name="bookInfo" />
     <RootPropertyPathName Name="author" />
     <RootPropertyPathName Name="gid" />
     <RootPropertyPathName Name="gname" />
@@ -13,9 +17,10 @@
     <RootPropertyPathName Name="fullAddress" />
     <RootPropertyPathName Name="account" />
     <RootPropertyPathName Name="ava" />
-    <RootPropertyPathName Name="year" />
     <RootPropertyPathName Name="title" />
     <RootPropertyPathName Name="image" />
+    <RootPropertyPathName Name="description" />
+    <RootPropertyPathName Name="year" />
     <RootPropertyPathName Name="book" />
     <RootPropertyPathName Name="isAvailable" />
     <RootPropertyPathName Name="numberShared" />
@@ -24,10 +29,10 @@
     <RootPropertyPathName Name="isSender" />
     <RootPropertyPathName Name="content" />
     <RootPropertyPathName Name="datetime" />
-    <RootPropertyPathName Name="lastMessage" />
-    <RootPropertyPathName Name="isNewMessage" />
     <RootPropertyPathName Name="userAccount" />
     <RootPropertyPathName Name="userAva" />
+    <RootPropertyPathName Name="lastMessage" />
+    <RootPropertyPathName Name="isNewMessage" />
     <RootPropertyPathName Name="requestId" />
     <RootPropertyPathName Name="bookId" />
     <RootPropertyPathName Name="postId" />
@@ -55,17 +60,31 @@
       <RootProperty Name="MergedDictionaries" />
       <RootProperty Name="Source" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ScrollViewer">
+      <RootProperty Name="VerticalScrollBarVisibility" />
+      <RootProperty Name="Content" />
+      <RootProperty Name="Name" />
+      <RootProperty Name="Margin" />
+      <RootMethod Name="GetVerticalScrollBarVisibility" />
+      <RootMethod Name="SetVerticalScrollBarVisibility" />
+      <RootMethod Name="GetHorizontalScrollBarVisibility" />
+      <RootMethod Name="SetHorizontalScrollBarVisibility" />
+      <RootMethod Name="GetHorizontalScrollMode" />
+      <RootMethod Name="SetHorizontalScrollMode" />
+      <RootMethod Name="GetVerticalScrollMode" />
+      <RootMethod Name="SetVerticalScrollMode" />
+    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Grid">
       <RootProperty Name="Background" />
       <RootProperty Name="RowDefinitions" />
       <RootProperty Name="Children" />
+      <RootProperty Name="Name" />
+      <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="Margin" />
       <RootProperty Name="ColumnDefinitions" />
-      <RootProperty Name="Name" />
+      <RootProperty Name="Width" />
       <RootProperty Name="Visibility" />
       <RootProperty Name="Tag" />
-      <RootProperty Name="Width" />
-      <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="Height" />
       <RootProperty Name="Style" />
       <RootProperty Name="VerticalAlignment" />
@@ -75,20 +94,61 @@
       <RootMethod Name="GetColumn" />
       <RootMethod Name="SetColumn" />
     </RootType>
-    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.StaticResourceExtension" />
     <RootType FullName="Windows.UI.Xaml.Controls.RowDefinition">
       <RootProperty Name="Height" />
     </RootType>
-    <RootType FullName="BookShare.Model.Control.MyNotification" />
-    <RootType FullName="Windows.UI.Xaml.Controls.ScrollViewer">
-      <RootProperty Name="Name" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Border">
+      <RootProperty Name="Child" />
       <RootProperty Name="Margin" />
-      <RootProperty Name="VerticalScrollBarVisibility" />
-      <RootProperty Name="Content" />
-      <RootProperty Name="Visibility" />
-      <RootMethod Name="GetVerticalScrollBarVisibility" />
-      <RootMethod Name="SetVerticalScrollBarVisibility" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="BorderBrush" />
+      <RootProperty Name="BorderThickness" />
+      <RootProperty Name="Background" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Image">
+      <RootProperty Name="Source" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="Stretch" />
+      <RootProperty Name="Tag" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Name" />
+      <RootEvent Name="Tapped" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">
+      <RootProperty Name="Text" />
+      <RootProperty Name="FontFamily" />
+      <RootProperty Name="Foreground" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="FontSize" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Name" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Style" />
+      <RootProperty Name="Tag" />
+      <RootProperty Name="TextWrapping" />
+      <RootProperty Name="TextAlignment" />
+      <RootProperty Name="Padding" />
+      <RootProperty Name="FontStyle" />
+      <RootProperty Name="Inlines" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="FontWeight" />
+      <RootEvent Name="Tapped" />
+    </RootType>
+    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.StaticResourceExtension" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ColumnDefinition">
+      <RootProperty Name="Width" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Data.Binding">
+      <RootProperty Name="TargetNullValue" />
+      <RootProperty Name="ElementName" />
+      <RootProperty Name="Path" />
+      <RootProperty Name="Converter" />
+    </RootType>
+    <RootType FullName="BookShare.AppPage.About" />
+    <RootType FullName="BookShare.Model.Control.MyNotification" />
     <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
       <RootProperty Name="Orientation" />
       <RootProperty Name="Children" />
@@ -97,14 +157,8 @@
       <RootProperty Name="Height" />
       <RootProperty Name="Width" />
       <RootProperty Name="Background" />
+      <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Visibility" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.Border">
-      <RootProperty Name="Child" />
-      <RootProperty Name="Height" />
-      <RootProperty Name="BorderBrush" />
-      <RootProperty Name="BorderThickness" />
-      <RootProperty Name="Background" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
       <RootProperty Name="Name" />
@@ -154,35 +208,8 @@
       <RootEvent Name="Click" />
       <RootEvent Name="Tapped" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">
-      <RootProperty Name="Name" />
-      <RootProperty Name="Text" />
-      <RootProperty Name="Height" />
-      <RootProperty Name="Style" />
-      <RootProperty Name="TextWrapping" />
-      <RootProperty Name="FontSize" />
-      <RootProperty Name="Tag" />
-      <RootProperty Name="FontFamily" />
-      <RootProperty Name="Foreground" />
-      <RootProperty Name="TextAlignment" />
-      <RootProperty Name="Padding" />
-      <RootProperty Name="FontStyle" />
-      <RootProperty Name="Width" />
-      <RootProperty Name="HorizontalAlignment" />
-      <RootProperty Name="Inlines" />
-      <RootProperty Name="Margin" />
-      <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="FontWeight" />
-      <RootEvent Name="Tapped" />
-    </RootType>
     <RootType FullName="Windows.UI.Xaml.DataTemplate">
       <RootProperty Name="Template" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Data.Binding">
-      <RootProperty Name="TargetNullValue" />
-      <RootProperty Name="ElementName" />
-      <RootProperty Name="Path" />
-      <RootProperty Name="Converter" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Control">
       <RootProperty Name="FontSize" />
@@ -213,6 +240,22 @@
     <RootType FullName="Windows.UI.Xaml.VisualStateManager">
       <RootMethod Name="GetVisualStateGroups" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Pivot">
+      <RootProperty Name="Items" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.PivotItem">
+      <RootProperty Name="Header" />
+      <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ListView">
+      <RootProperty Name="Name" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="ItemContainerStyle" />
+      <RootProperty Name="ItemTemplate" />
+      <RootProperty Name="ItemsPanel" />
+      <RootProperty Name="Visibility" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ListViewItem" />
     <RootType FullName="Windows.UI.Xaml.Controls.RelativePanel">
       <RootProperty Name="Name" />
       <RootProperty Name="Children" />
@@ -221,27 +264,8 @@
       <RootMethod Name="GetAlignLeftWith" />
       <RootMethod Name="SetAlignLeftWith" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.ListView">
-      <RootProperty Name="Name" />
-      <RootProperty Name="Margin" />
-      <RootProperty Name="Visibility" />
-      <RootProperty Name="ItemContainerStyle" />
-      <RootProperty Name="ItemTemplate" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.ListViewItem" />
-    <RootType FullName="Windows.UI.Xaml.Controls.ColumnDefinition">
-      <RootProperty Name="Width" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.Image">
-      <RootProperty Name="Height" />
-      <RootProperty Name="Stretch" />
-      <RootProperty Name="Tag" />
-      <RootProperty Name="Source" />
-      <RootProperty Name="Width" />
-      <RootProperty Name="HorizontalAlignment" />
-      <RootProperty Name="Name" />
-      <RootProperty Name="Margin" />
-      <RootEvent Name="Tapped" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ItemsPanelTemplate">
+      <RootProperty Name="Template" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.NullExtension" />
     <RootType FullName="Windows.UI.Xaml.VisualStateGroup">
@@ -311,13 +335,6 @@
       <RootProperty Name="Margin" />
     </RootType>
     <RootType FullName="BookShare.AppPage.Register" />
-    <RootType FullName="Windows.UI.Xaml.Controls.Pivot">
-      <RootProperty Name="Items" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.PivotItem">
-      <RootProperty Name="Header" />
-      <RootProperty Name="Content" />
-    </RootType>
     <RootType FullName="Windows.UI.Xaml.Documents.Run">
       <RootProperty Name="FontFamily" />
       <RootProperty Name="Foreground" />

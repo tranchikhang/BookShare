@@ -47,6 +47,10 @@
 								 Tag="&#xE713;"
 								 Checked="SettingClick"
 								 Content="Cài đặt" />
+					<RadioButton Style="{StaticResource NavRadioButtonStyle}"
+								 Tag="&#xE910;"
+								 Checked="InfoClick"
+								 Content="Thông tin" />
 				</StackPanel>
 			</SplitView.Pane>
 			<SplitView.Content>

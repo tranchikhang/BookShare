@@ -25,7 +25,7 @@
 		<Setter Property="Foreground"
 				Value="{StaticResource TextColor}" />
 		<Setter Property="Margin"
-				Value="0,10,0,10" />
+				Value="0,20,0,10" />
 	</Style>
 	<Style TargetType="TextBlock"
 		   x:Key="Author">
@@ -83,21 +83,6 @@
 		<Setter Property="Margin"
 				Value="0,10,0,20" />
 	</Style>
-	<Style TargetType="Button"
-		   x:Key="ButtonViewMore">
-		<Setter Property="FontFamily"
-				Value="Segoe UI" />
-		<Setter Property="FontSize"
-				Value="18" />
-		<Setter Property="Width"
-				Value="200" />
-		<Setter Property="Foreground"
-				Value="White" />
-		<Setter Property="Background"
-				Value="{StaticResource MyBlue}" />
-		<Setter Property="Height"
-				Value="45" />
-	</Style>
 	<Style TargetType="TextBlock"
 		   x:Key="TextBlockDescriptionTitle">
 		<Setter Property="FontFamily"
@@ -123,6 +108,13 @@
 				Value="{StaticResource TextColor}" />
 		<Setter Property="Margin"
 				Value="10,10,10,0" />
+	</Style>
+	<Style TargetType="TextBlock"
+		   x:Key="PivotTextBlock">
+		<Setter Property="FontFamily"
+				Value="Segoe UI" />
+		<Setter Property="FontSize"
+				Value="22" />
 	</Style>
 </ResourceDictionary>
 

@@ -20,9 +20,10 @@ namespace BookShare.Model
 
 		[JsonProperty ( PropertyName = "userId" )]
 		public string userId { get; set; }
-		[JsonProperty ( PropertyName = "isAvaExist" )]
 
+		[JsonProperty ( PropertyName = "isAvaExist" )]
 		public bool isAvaExist { get; set; }
+
 		public string userAva { get; set; }
 
 		public bool isNewMessage { get; set; }
@@ -59,10 +60,10 @@ namespace BookShare.Model
 		{
 			if ( isAvaExist )
 			{
-				userAva = RestAPI.serverAddress + "resources/images/users/" + userId + ".jpg";
+				userAva = RestAPI.publicApiAddress + "resources/images/users/" + userId + ".jpg";
 			}
 			else
-				userAva = RestAPI.serverAddress + "resources/images/defaultAva.png";
+				userAva = RestAPI.publicApiAddress + "resources/images/defaultAva.png";
 		}
 	}
 }

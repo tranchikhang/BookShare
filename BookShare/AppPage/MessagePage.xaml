@@ -18,7 +18,7 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-		<mycontrol:MyNotification x:Name="gridNotification"/>
+		<mycontrol:MyNotification x:Name="gridNotification" />
 		<Grid Grid.Row="1">
 			<ProgressBar IsIndeterminate="True"
 						 Height="30"
@@ -65,11 +65,20 @@
 			<Grid Name="gridMessages"
 				  Visibility="Collapsed">
 				<Grid.RowDefinitions>
+					<RowDefinition Height="70" />
 					<RowDefinition Height="*" />
-					<RowDefinition Height="54" />
+					<RowDefinition Height="49" />
 				</Grid.RowDefinitions>
+				<StackPanel Orientation="Horizontal" Name="stackPanel" VerticalAlignment="Center">
+					<Image Height="60"
+						   Source="{Binding userAva, TargetNullValue={x:Null}}"
+						   Margin="20,0,20,0"
+						   Stretch="Fill" />
+					<TextBlock Style="{StaticResource User}"
+							   Text="{Binding userAccount}" />
+				</StackPanel>
 				<ListView Name="listViewMessage"
-						  Grid.Row="0"
+						  Grid.Row="1"
 						  ScrollViewer.VerticalScrollBarVisibility="Hidden">
 					<ListView.ItemContainerStyle>
 						<Style TargetType="ListViewItem">
@@ -99,7 +108,7 @@
 						</DataTemplate>
 					</ListView.ItemTemplate>
 				</ListView>
-				<Grid Grid.Row="1"
+				<Grid Grid.Row="2"
 					  Margin="2,2,2,2"
 					  Name="gridSendBox"
 					  Visibility="{Binding ElementName=gridMessages, Path=Visibility}">

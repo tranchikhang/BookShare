@@ -35,7 +35,28 @@ namespace BookShare.Model
 
 		public void SetImageLink ()
 		{
-			this.image = RestAPI.serverAddress + "cover/" + bookId + ".jpg";
+			//set book cover link
+			image = RestAPI.publicApiAddress + "cover/" + bookId + ".jpg";
+			//set user ava link
+			SetUserAva ();
+		}
+
+		private void SetUserAva ()
+		{
+			if ( requests != null )
+			{
+				foreach ( Request r in requests )
+				{
+					r.user.SetAva ();
+				}
+			}
+			if ( posts != null )
+			{
+				foreach ( Post p in posts )
+				{
+					p.user.SetAva ();
+				}
+			}
 		}
 	}
 }

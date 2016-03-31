@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,11 +30,17 @@ namespace BookShare.Model
 		[JsonProperty ( PropertyName = "author" )]
 		public string author { get; set; }
 
+		[JsonProperty ( PropertyName = "genreId" )]
+		public string genreId { get; set; }
+
 		[JsonProperty ( PropertyName = "numberShared" )]
 		public string numberShared { get; set; }
 
 		[JsonProperty ( PropertyName = "isBookAdded" )]
 		public bool isBookAdded { get; set; }
+
+		[JsonProperty ( PropertyName = "relatedBooks" )]
+		public ObservableCollection<Book> relatedBooks;
 
 		public string image { get; set; }
 
@@ -46,6 +53,13 @@ namespace BookShare.Model
 		{
 			//this.image = RestAPI.serverAddress + "cover/" + id + ".jpg";
 			image = RestAPI.publicApiAddress + "cover/" + id + ".jpg";
+			if (relatedBooks != null)
+			{
+				foreach ( Book b in relatedBooks )
+				{
+					b.SetImageLink ();
+				}
+			}
 		}
 	}
 }

@@ -46,22 +46,9 @@ namespace BookShare.AppPage
 
 		private async void LoadBookInfo ()
 		{
-			//send request with book id and user id
-			dynamic d = new
-			{
-				//bookId = bookId ,
-				userId = UserData.id
-			};
-			//string bookInfo = await RestAPI.SendJson ( bookToSend , RestAPI.phpAddress , "GetBookById" );
 			string bookInfo = await RestAPI.SendPostRequest ( UserData.id , RestAPI.publicApiAddress + "book/" + bookId );
-			//dynamic getLenders = new
-			//{
-			//	bookId = bookId ,
-			//	userId = UserData.id
-			//};
-			//string bookLenders = await RestAPI.SendJson ( getLenders , RestAPI.phpAddress , "GetLenderForBook" );
 			string bookLenders =
-				await RestAPI.SendPostRequest ( d , RestAPI.publicApiAddress + "book/" + bookId + "/lenders/" );
+				await RestAPI.SendPostRequest ( UserData.id , RestAPI.publicApiAddress + "book/" + bookId + "/lenders/" );
 
 			//deserialize json into book
 			if ( JsonHelper.IsRequestSucceed ( bookInfo ) == RestAPI.ResponseStatus.OK )
@@ -70,6 +57,7 @@ namespace BookShare.AppPage
 				selectedBook = JsonHelper.ConvertToBook ( data );
 			}
 			selectedBook.SetImageLink ();
+			listViewRelatedBooks.ItemsSource = selectedBook.relatedBooks;
 			//if book exist in user book list, change button content
 			if ( selectedBook.isBookAdded )
 			{
@@ -124,12 +112,11 @@ namespace BookShare.AppPage
 				postId = postId ,
 				userId = UserData.id
 			};
-			//string result = await RestAPI.SendJson ( request , RestAPI.phpAddress , "SendRequest" );
 			string result =
 				await RestAPI.SendPostRequest ( request , RestAPI.publicApiAddress + "request/new/" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
-				//ShowNotification ( "Đã gửi yêu cầu" );
+				gridNotification.Show ( false , "Đã gửi yêu cầu" );
 				( ( Button ) sender ).IsEnabled = false;
 			}
 			else
@@ -149,10 +136,9 @@ namespace BookShare.AppPage
 					bookId = bookId ,
 					userId = UserData.id
 				};
-				//string addResult = await RestAPI.SendJson ( book , RestAPI.phpAddress , "AddToYourBook" );
-				string addResult =
+				string result =
 					await RestAPI.SendPutRequest ( book , RestAPI.publicApiAddress + "booklist/add/" );
-				if ( JsonHelper.IsRequestSucceed ( addResult ) == RestAPI.ResponseStatus.OK )
+				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 				{
 					( ( Button ) sender ).Content = "Xóa";
 					( ( Button ) sender ).Tag = 1;
@@ -172,10 +158,9 @@ namespace BookShare.AppPage
 					bookId = bookId ,
 					userId = UserData.id
 				};
-				//string addResult = await RestAPI.SendJson ( book , RestAPI.phpAddress , "RemoveFromYourBook" );
-				string addResult =
+				string result =
 					await RestAPI.SendPostRequest ( book , RestAPI.publicApiAddress + "booklist/remove/" );
-				if ( JsonHelper.IsRequestSucceed ( addResult ) == RestAPI.ResponseStatus.OK )
+				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 				{
 					( ( Button ) sender ).Content = "Thêm";
 					( ( Button ) sender ).Tag = 0;
@@ -196,31 +181,15 @@ namespace BookShare.AppPage
 			Frame.Navigate ( typeof ( UserInfo ) , userId );
 		}
 
-		private void ViewDescriptionClick ( object sender , RoutedEventArgs e )
-		{
-			mainScrollViewer.Visibility = Visibility.Collapsed;
-			scrollViewerDescription.Visibility = Visibility.Visible;
-			textBlockDes.Text = selectedBook.description;
-		}
-
 		private void BackButtonClick ( object sender , BackRequestedEventArgs e )
 		{
-			if ( scrollViewerDescription.Visibility == Visibility.Visible )
-			{
-				scrollViewerDescription.Visibility = Visibility.Collapsed;
-				mainScrollViewer.Visibility = Visibility.Visible;
-			}
+			Frame rootFrame = NavigationMethod.GetMainFrame ();
 
-			else
+			// Navigate back if possible, and if the event has not 
+			// already been handled .
+			if ( rootFrame.CanGoBack )
 			{
-				Frame rootFrame = NavigationMethod.GetMainFrame ();
-
-				// Navigate back if possible, and if the event has not 
-				// already been handled .
-				if ( rootFrame.CanGoBack )
-				{
-					rootFrame.GoBack ();
-				}
+				rootFrame.GoBack ();
 			}
 		}
 	}

@@ -65,7 +65,6 @@ namespace BookShare.AppPage
 
 		private async Task GetPostedBooks ()
 		{
-			//string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetRequestsForUser" );
 			string result =
 				await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "request/received/" + UserData.id );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
@@ -76,12 +75,6 @@ namespace BookShare.AppPage
 					foreach ( PostedBook pt in postedBooks )
 					{
 						pt.SetImageLink ();
-						if ( pt.requests != null && pt.requests.Count > 0 )
-							foreach ( Request r in pt.requests )
-							{
-								r.user.SetAddress ();
-								r.user.SetAva ();
-							}
 					}
 				listViewPostedBook.ItemsSource = postedBooks;
 			}
@@ -91,7 +84,6 @@ namespace BookShare.AppPage
 
 		private async Task GetRequestNotifications ()
 		{
-			//string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetRequestNotifications" );
 			string result =
 				await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "request/notification/" + UserData.id );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
@@ -111,7 +103,6 @@ namespace BookShare.AppPage
 
 		private async Task GetrequestedBooks ()
 		{
-			//string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetRequestsFromUser" );
 			string result =
 				await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "request/sent/" + UserData.id );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
@@ -122,12 +113,6 @@ namespace BookShare.AppPage
 					foreach ( PostedBook pt in requestedBooks )
 					{
 						pt.SetImageLink ();
-						if ( pt.posts != null && pt.posts.Count > 0 )
-							foreach ( Post p in pt.posts )
-							{
-								p.user.SetAddress ();
-								p.user.SetAva ();
-							}
 					}
 				listViewRequestedBook.ItemsSource = requestedBooks;
 			}
@@ -241,7 +226,6 @@ namespace BookShare.AppPage
 				requestId = requestId ,
 				isAccepted = isAccepted
 			};
-			//string result = await RestAPI.SendJson ( data , RestAPI.phpAddress , "RespondToRequest" );
 			string result = await RestAPI.SendPostRequest ( data , RestAPI.publicApiAddress + "request/respond/" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
@@ -259,7 +243,6 @@ namespace BookShare.AppPage
 				postId = postId ,
 				userId = UserData.id
 			};
-			//string result = await RestAPI.SendJson ( data , RestAPI.phpAddress , "DeleteRequestToPost" );
 			string result = await RestAPI.SendPostRequest ( data , RestAPI.publicApiAddress + "request/delete/" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
@@ -283,7 +266,6 @@ namespace BookShare.AppPage
 			ControlMethods.SwitchVisibility ( true , progressBar );
 			//deactive request
 			string requestId = ( ( Button ) sender ).Tag.ToString ();
-			//string result = await RestAPI.SendJson ( requestId , RestAPI.phpAddress , "DeactiveRequest" );
 			string result = await RestAPI.SendPostRequest ( requestId , RestAPI.publicApiAddress + "request/deactivate/" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{

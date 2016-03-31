@@ -93,7 +93,6 @@ namespace BookShare.AppPage
 			{
 				queryString += "&district=" + comboDistrict.SelectedValue;
 			}
-			//string result = await RestAPI.SendJson ( query , RestAPI.phpAddress , "GetSearchResult" );
 			string result = await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "book/search/?" + queryString );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.Empty )
 			{

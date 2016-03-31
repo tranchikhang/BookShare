@@ -309,3 +309,8 @@ D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\Admin.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\Resources\PageResource\Admin.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\AppPage\Admin.xbf
 D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\Resources\PageResource\Admin.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\AppPage\About.xbf
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\About.g.i.cs
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\About.g.cs
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\About.xaml
+D:\Dropbox\GitHub\BookShare\BookShare\obj\x86\Debug\AppPage\About.xbf

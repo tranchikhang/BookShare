@@ -67,5 +67,12 @@ namespace BookShare.AppPage
 			if ( MainSplitView.Content != null )
 				mainFrame.Navigate ( typeof ( MessagePage ) );
 		}
+
+		private void InfoClick ( object sender , RoutedEventArgs e )
+		{
+			MainSplitView.IsPaneOpen = false;
+			if ( MainSplitView.Content != null )
+				mainFrame.Navigate ( typeof ( About ) );
+		}
 	}
 }

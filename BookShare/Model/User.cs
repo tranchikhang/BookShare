@@ -60,11 +60,9 @@ namespace BookShare.Model
 		{
 			if ( isAvaExist )
 			{
-				//ava = RestAPI.serverAddress + "resources/images/users/" + id + ".jpg";
 				ava = RestAPI.publicApiAddress + "resources/images/users/" + id + ".jpg";
 			}
 			else
-				//ava = RestAPI.serverAddress + "resources/images/defaultAva.png";
 				ava = RestAPI.publicApiAddress + "resources/images/defaultAva.png";
 		}
 

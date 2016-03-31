@@ -19,57 +19,128 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<mycontrol:MyNotification x:Name="gridNotification" />
-		<ProgressBar IsIndeterminate="True"
-					 Height="30"
-					 Grid.Row="1"
-					 Name="progressBar" />
-		<Grid Grid.Row="1"
-			  Margin="10,10,10,10">
-			<ScrollViewer Name="mainScrollViewer"
-						  Visibility="Collapsed"
-						  VerticalScrollBarVisibility="Hidden">
-				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-					</Grid.RowDefinitions>
-					<RelativePanel Grid.Row="0"
-								   Name="relativePanelInfo">
-						<Grid Name="BookCover">
-							<Image Height="405"
-								   Width="270"
-								   HorizontalAlignment="Center"
-								   Source="{Binding image, TargetNullValue={x:Null}}"
-								   Stretch="Fill" />
+		<Grid Grid.Row="1">
+			<ProgressBar IsIndeterminate="True"
+						 Height="30"
+						 Name="progressBar" />
+			<Pivot Grid.Row="1">
+				<PivotItem>
+					<PivotItem.Header>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30" />
+								<ColumnDefinition Width="110" />
+							</Grid.ColumnDefinitions>
+							<TextBlock Text="&#xE8F1;"
+									   Width="100"
+									   FontFamily="Segoe MDL2 Assets" />
+							<TextBlock Text="Thông tin"
+									   Style="{StaticResource PivotTextBlock}"
+									   Grid.Column="1" />
 						</Grid>
-						<StackPanel Margin="10,0,0,0"
-									Height="Auto"
-									Width="Auto"
-									Name="stackPanelInfo"
-									Orientation="Vertical">
-							<TextBlock Style="{StaticResource Title}"
-									   Text="{Binding title}" />
-							<TextBlock Text="Tác giả"
-									   FontSize="20"
-									   FontFamily="Segoe WP Light" />
-							<TextBlock Text="{Binding author}"
-									   Style="{StaticResource Author}" />
-							<TextBlock Text="Năm"
-									   FontSize="20"
-									   FontFamily="Segoe WP Light" />
-							<TextBlock Text="{Binding year}"
-									   Style="{StaticResource Year}" />
-							<Button Style="{StaticResource ButtonAddBook}"
-									Name="buttonAddBook"
-									Click="AddToYourBook" />
-							<Button Content="Xem thêm thông tin"
-									Style="{StaticResource ButtonViewMore}"
-									Click="ViewDescriptionClick" />
-						</StackPanel>
-					</RelativePanel>
-					<ListView Grid.Row="1"
-							  Margin="10,10,20,10"
-							  Visibility="Collapsed"
+					</PivotItem.Header>
+					<ScrollViewer Name="mainScrollViewer"				  
+								  VerticalScrollBarVisibility="Hidden">
+						<RelativePanel Name="relativePanelInfo">
+							<Grid Name="BookCover">
+								<Image Height="405"
+									   Width="270"
+									   Margin="30,0,0,0"
+									   HorizontalAlignment="Center"
+									   Source="{Binding image, TargetNullValue={x:Null}}"
+									   Stretch="Fill" />
+							</Grid>
+							<StackPanel Margin="10,0,0,0"
+										Height="Auto"
+										Width="Auto"
+										Name="stackPanelInfo"
+										Orientation="Vertical">
+								<TextBlock Style="{StaticResource Title}"
+										   Text="{Binding title}" />
+								<TextBlock Text="Tác giả"
+										   FontSize="20"
+										   FontFamily="Segoe WP Light" />
+								<TextBlock Text="{Binding author}"
+										   Style="{StaticResource Author}" />
+								<TextBlock Text="Năm"
+										   FontSize="20"
+										   FontFamily="Segoe WP Light" />
+								<TextBlock Text="{Binding year}"
+										   Style="{StaticResource Year}" />
+								<Button Style="{StaticResource ButtonAddBook}"
+										Name="buttonAddBook"
+										Click="AddToYourBook" />
+							</StackPanel>
+							<StackPanel Orientation="Vertical" Name="stackPanelDes">
+								<TextBlock Text="Mô tả:"
+										   Style="{StaticResource TextBlockDescriptionTitle}" />
+								<TextBlock TextWrapping="Wrap"
+										   Text="{Binding description}"
+										   Style="{StaticResource TextBlockDescription}" />
+							</StackPanel>
+							<TextBlock Text="Sách tương tự:"
+									   Name="textBlockRelatedBooks"
+									   Style="{StaticResource TextBlockDescriptionTitle}" />
+							<ListView ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+									  ScrollViewer.HorizontalScrollMode="Enabled"
+									  ScrollViewer.VerticalScrollMode="Disabled"
+									  Name="listViewRelatedBooks">
+								<ListView.ItemsPanel>
+									<ItemsPanelTemplate>
+										<StackPanel Orientation="Horizontal" />
+									</ItemsPanelTemplate>
+								</ListView.ItemsPanel>
+								<ListView.ItemContainerStyle>
+									<Style TargetType="ListViewItem">
+										<Setter Property="HorizontalContentAlignment"
+												Value="Stretch" />
+										<Setter Property="Padding"
+												Value="0" />
+									</Style>
+								</ListView.ItemContainerStyle>
+								<ListView.ItemTemplate>
+									<DataTemplate>
+										<Grid Margin="10,10,10,10" Width="150">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="90" />
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+											</Grid.RowDefinitions>
+											<Image Height="90"
+												   Width="60"
+												   Source="{Binding image, TargetNullValue={x:Null}}"
+												   Stretch="Fill" />
+											<TextBlock Text="{Binding title}"
+													   TextWrapping="Wrap"
+													   FontSize="18"
+													   Grid.Row="1" />
+											<TextBlock Text="{Binding author}"
+													   TextWrapping="Wrap"
+													   FontSize="18"
+													   Grid.Row="2" />
+										</Grid>
+									</DataTemplate>
+								</ListView.ItemTemplate>
+							</ListView>
+						</RelativePanel>
+					</ScrollViewer>
+				</PivotItem>
+				<PivotItem>
+					<PivotItem.Header>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30" />
+								<ColumnDefinition Width="110" />
+							</Grid.ColumnDefinitions>
+							<TextBlock Text="&#xE72D;"
+									   Width="100"
+									   FontFamily="Segoe MDL2 Assets" />
+							<TextBlock Text="Chia sẻ"
+									   Style="{StaticResource PivotTextBlock}"
+									   Grid.Column="1" />
+						</Grid>
+					</PivotItem.Header>
+					<ListView Margin="10,10,20,10"
 							  ScrollViewer.VerticalScrollBarVisibility="Hidden"
 							  Name="listViewLenders">
 						<ListView.ItemContainerStyle>
@@ -112,18 +183,8 @@
 							</DataTemplate>
 						</ListView.ItemTemplate>
 					</ListView>
-				</Grid>
-			</ScrollViewer>
-			<ScrollViewer Name="scrollViewerDescription"
-						  Visibility="Collapsed">
-				<StackPanel Orientation="Vertical">
-					<TextBlock Text="Thông tin sách:"
-							   Style="{StaticResource TextBlockDescriptionTitle}" />
-					<TextBlock Name="textBlockDes"
-							   TextWrapping="Wrap"
-							   Style="{StaticResource TextBlockDescription}" />
-				</StackPanel>
-			</ScrollViewer>
+				</PivotItem>
+			</Pivot>
 		</Grid>
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
@@ -136,6 +197,12 @@
 								Value="BookCover" />
 						<Setter Target="stackPanelInfo.(RelativePanel.AlignTopWith)"
 								Value="BookCover" />
+						<Setter Target="stackPanelDes.(RelativePanel.Below)"
+								Value="BookCover" />
+						<Setter Target="textBlockRelatedBooks.(RelativePanel.Below)"
+								Value="stackPanelDes" />
+						<Setter Target="listViewRelatedBooks.(RelativePanel.Below)"
+								Value="textBlockRelatedBooks" />
 					</VisualState.Setters>
 				</VisualState>
 				<VisualState x:Name="NarrowState">
@@ -147,8 +214,12 @@
 								Value="BookCover" />
 						<Setter Target="stackPanelInfo.(RelativePanel.AlignLeftWith)"
 								Value="BookCover" />
-						<Setter Target="stackPanelInfo.(RelativePanel.AlignTopWith)"
-								Value="" />
+						<Setter Target="stackPanelDes.(RelativePanel.Below)"
+								Value="stackPanelInfo" />
+						<Setter Target="textBlockRelatedBooks.(RelativePanel.Below)"
+								Value="stackPanelDes" />
+						<Setter Target="listViewRelatedBooks.(RelativePanel.Below)"
+								Value="textBlockRelatedBooks" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>

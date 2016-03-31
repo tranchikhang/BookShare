@@ -35,7 +35,6 @@ namespace BookShare.AppPage
 
 		private async void GetRandomBooks ( int numberOfBooks )
 		{
-			//string result = await RestAPI.SendJson ( numberOfBooks , RestAPI.phpAddress , "GetRandomBooks" );
 			string result = await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "book/random/" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{

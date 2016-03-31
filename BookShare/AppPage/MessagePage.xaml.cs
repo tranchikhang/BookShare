@@ -36,7 +36,6 @@ namespace BookShare.AppPage
 
 		private async void GetMessages ()
 		{
-			//string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetMessages" );
 			string result =
 				await RestAPI.SendPostRequest ( UserData.id , RestAPI.publicApiAddress + "message/" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
@@ -72,7 +71,9 @@ namespace BookShare.AppPage
 			currentConversations = null;
 			currentConversations = conversations.First ( c => c.userId == fromUserId );
 
-			//if conversation has new message, then mark as red
+			stackPanel.DataContext = currentConversations;
+
+			//if conversation has new message, then mark as read
 			if ( currentConversations.isNewMessage )
 			{
 				RestAPI.ResponseStatus r = await MarkReadConversation ( fromUserId );
@@ -115,7 +116,6 @@ namespace BookShare.AppPage
 				toUserId = UserData.id ,
 				fromUserId = fromUserId ,
 			};
-			//string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "MarkReadConversation" );
 			string result =
 				await RestAPI.SendPostRequest ( dataToSend , RestAPI.publicApiAddress + "message/conversation/" );
 			return JsonHelper.IsRequestSucceed ( result );
@@ -145,7 +145,6 @@ namespace BookShare.AppPage
 					fromUserId = UserData.id ,
 					message = textBoxContent.Text
 				};
-				//string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "SendMessage" );
 				string result =
 					await RestAPI.SendPostRequest ( dataToSend , RestAPI.publicApiAddress + "message/send/" );
 				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )

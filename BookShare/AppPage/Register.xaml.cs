@@ -80,7 +80,6 @@ namespace BookShare.AppPage
 				fullname = fullname ,
 				password = password
 			};
-			//string result = await RestAPI.SendJson ( acc , RestAPI.phpAddress , "Register" );
 			string result = await RestAPI.SendPostRequest ( acc , RestAPI.publicApiAddress + "register/" );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{

@@ -345,11 +345,23 @@
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\ApplicationInsights.config">
       <PackagePath>ApplicationInsights.config</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Resources\Images\Icon\book.jpg">
+      <PackagePath>Resources\Images\Icon\book.jpg</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Resources\Images\Icon\message.jpg">
+      <PackagePath>Resources\Images\Icon\message.jpg</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Resources\Images\Icon\request.jpg">
+      <PackagePath>Resources\Images\Icon\request.jpg</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Resources\Images\logo.jpg">
+      <PackagePath>Resources\Images\logo.jpg</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Resources\Images\wallpaper.jpg">
       <PackagePath>Resources\Images\wallpaper.jpg</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Properties\Default.rd.xml">
-      <PackagePath>Properties\Default.rd.xml</PackagePath>
+    <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Resources\Images\Icon\people.png">
+      <PackagePath>Resources\Images\Icon\people.png</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
@@ -377,6 +389,9 @@
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\Properties\Default.rd.xml">
+      <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\GitHub\BookShare\BookShare\bin\x86\Debug\BookShare.xr.xml">
       <PackagePath>BookShare.xr.xml</PackagePath>

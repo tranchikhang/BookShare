@@ -1,8 +1,6 @@
 ﻿using BookShare.Helper;
 using BookShare.Model;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -95,7 +93,6 @@ namespace BookShare.AppPage
 		}
 		private async Task GetUserInfo ()
 		{
-			//string result = await RestAPI.SendJson ( UserData.id , RestAPI.phpAddress , "GetAccountInfo" );
 			string result = await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "account/" + UserData.id );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
@@ -127,7 +124,6 @@ namespace BookShare.AppPage
 					districtId = comboDistrict.SelectedValue ,
 					ava = imageString
 				};
-				//string result = await RestAPI.SendJson ( newUser , RestAPI.phpAddress , "SetAccountInfo" );
 				string result = await RestAPI.SendPostRequest ( newUser , RestAPI.publicApiAddress + "account/update/" );
 				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 				{
@@ -215,7 +211,6 @@ namespace BookShare.AppPage
 					userNewPass = pwBoxNew.Password ,
 					userId = UserData.id
 				};
-				//string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "ChangePass" );
 				string result = await RestAPI.SendPostRequest ( dataToSend , RestAPI.publicApiAddress + "account/password/" );
 				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 				{
@@ -262,15 +257,37 @@ namespace BookShare.AppPage
 			return res;
 		}
 
-		private void LogoutClick ( object sender , RoutedEventArgs e )
+		private async void LogoutClick ( object sender , RoutedEventArgs e )
 		{
-			//remove user token
-			UserData.settings.Remove ( AppSettings.keyToken );
-			//remove user id
-			UserData.settings.Remove ( AppSettings.keyId );
-			//remove opened status
-			UserData.settings.Remove ( AppSettings.keyFirstOpen );
-			NavigationMethod.GetTopFrame ().Navigate ( typeof ( StartPage ) );
+			var dialog =
+				new Windows.UI.Popups.MessageDialog ( "Bạn có chắc chắn muốn thoát không?" , "Thoát khỏi ứng dụng" );
+
+			dialog.Commands.Add ( new Windows.UI.Popups.UICommand ( "Có" ) { Id = 0 } );
+			dialog.Commands.Add ( new Windows.UI.Popups.UICommand ( "Không" ) { Id = 1 } );
+
+			dialog.DefaultCommandIndex = 0;
+			dialog.CancelCommandIndex = 1;
+
+			var result = await dialog.ShowAsync ();
+			
+			if ( ( int ) result.Id == 0 )
+			{
+				//remove user token
+				UserData.settings.Remove ( AppSettings.keyToken );
+				//remove user id
+				UserData.settings.Remove ( AppSettings.keyId );
+				//remove opened status
+				UserData.settings.Remove ( AppSettings.keyFirstOpen );
+				NavigationMethod.GetTopFrame ().Navigate ( typeof ( StartPage ) );
+			}
+			
+		}
+
+		private async void Share ( object sender , Windows.UI.Xaml.Input.TappedRoutedEventArgs e )
+		{
+			//await Windows.System.Launcher.LaunchUriAsync ( new Uri ( "fb://about" ) );
+			await Windows.System.Launcher.LaunchUriAsync ( new Uri ( "https://www.facebook.com/sharer/sharer.php?u=http://bing.com/" ) );
+			
 		}
 	}
 }

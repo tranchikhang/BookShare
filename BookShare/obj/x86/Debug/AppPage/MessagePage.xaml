@@ -18,7 +18,7 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-		<mycontrol:MyNotification x:ConnectionId='1' x:Name="gridNotification"/>
+		<mycontrol:MyNotification x:ConnectionId='1' x:Name="gridNotification" />
 		<Grid Grid.Row="1">
 			<ProgressBar x:ConnectionId='2' IsIndeterminate="True"
 						 Height="30"
@@ -36,7 +36,7 @@
 				</ListView.ItemContainerStyle>
 				<ListView.ItemTemplate>
 					<DataTemplate>
-						<Grid x:ConnectionId='9'                                
+						<Grid x:ConnectionId='10'                                
 							  Margin="0,5,0,5"
 							  Background="Transparent"
 							  Tag="{Binding userId}">
@@ -65,11 +65,20 @@
 			<Grid x:ConnectionId='4' Name="gridMessages"
 				  Visibility="Collapsed">
 				<Grid.RowDefinitions>
+					<RowDefinition Height="70" />
 					<RowDefinition Height="*" />
-					<RowDefinition Height="54" />
+					<RowDefinition Height="49" />
 				</Grid.RowDefinitions>
-				<ListView x:ConnectionId='5' Name="listViewMessage"
-						  Grid.Row="0"
+				<StackPanel x:ConnectionId='5' Orientation="Horizontal" Name="stackPanel" VerticalAlignment="Center">
+					<Image Height="60"
+						   Source="{Binding userAva, TargetNullValue={x:Null}}"
+						   Margin="20,0,20,0"
+						   Stretch="Fill" />
+					<TextBlock Style="{StaticResource User}"
+							   Text="{Binding userAccount}" />
+				</StackPanel>
+				<ListView x:ConnectionId='6' Name="listViewMessage"
+						  Grid.Row="1"
 						  ScrollViewer.VerticalScrollBarVisibility="Hidden">
 					<ListView.ItemContainerStyle>
 						<Style TargetType="ListViewItem">
@@ -99,7 +108,7 @@
 						</DataTemplate>
 					</ListView.ItemTemplate>
 				</ListView>
-				<Grid x:ConnectionId='6' Grid.Row="1"
+				<Grid x:ConnectionId='7' Grid.Row="2"
 					  Margin="2,2,2,2"
 					  Name="gridSendBox"
 					  Visibility="{Binding ElementName=gridMessages, Path=Visibility}">
@@ -107,10 +116,10 @@
 						<ColumnDefinition Width="*" />
 						<ColumnDefinition Width="40" />
 					</Grid.ColumnDefinitions>
-					<TextBox x:ConnectionId='7' Grid.Column="0"
+					<TextBox x:ConnectionId='8' Grid.Column="0"
 							 Name="textBoxContent"
 							 Style="{StaticResource TextBoxMessage}" />
-					<Button x:ConnectionId='8' Grid.Column="1"
+					<Button x:ConnectionId='9' Grid.Column="1"
 							Content="&#xE72A;"
 							                       
 							Tag="{Binding userId}"
@@ -120,7 +129,7 @@
 		</Grid>
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
-				<VisualState x:ConnectionId='10' x:Name="WideState">
+				<VisualState x:ConnectionId='11' x:Name="WideState">
 					<VisualState.StateTriggers>
 					</VisualState.StateTriggers>
 					<VisualState.Setters>

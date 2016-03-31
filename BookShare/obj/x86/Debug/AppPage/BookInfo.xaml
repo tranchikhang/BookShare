@@ -19,57 +19,128 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<mycontrol:MyNotification x:ConnectionId='1' x:Name="gridNotification" />
-		<ProgressBar x:ConnectionId='2' IsIndeterminate="True"
-					 Height="30"
-					 Grid.Row="1"
-					 Name="progressBar" />
-		<Grid Grid.Row="1"
-			  Margin="10,10,10,10">
-			<ScrollViewer x:ConnectionId='3' Name="mainScrollViewer"
-						  Visibility="Collapsed"
-						  VerticalScrollBarVisibility="Hidden">
-				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-					</Grid.RowDefinitions>
-					<RelativePanel x:ConnectionId='6' Grid.Row="0"
-								   Name="relativePanelInfo">
-						<Grid x:ConnectionId='11' Name="BookCover">
-							<Image Height="405"
-								   Width="270"
-								   HorizontalAlignment="Center"
-								   Source="{Binding image, TargetNullValue={x:Null}}"
-								   Stretch="Fill" />
+		<Grid Grid.Row="1">
+			<ProgressBar x:ConnectionId='2' IsIndeterminate="True"
+						 Height="30"
+						 Name="progressBar" />
+			<Pivot Grid.Row="1">
+				<PivotItem>
+					<PivotItem.Header>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30" />
+								<ColumnDefinition Width="110" />
+							</Grid.ColumnDefinitions>
+							<TextBlock Text="&#xE8F1;"
+									   Width="100"
+									   FontFamily="Segoe MDL2 Assets" />
+							<TextBlock Text="Thông tin"
+									   Style="{StaticResource PivotTextBlock}"
+									   Grid.Column="1" />
 						</Grid>
-						<StackPanel x:ConnectionId='12' Margin="10,0,0,0"
-									Height="Auto"
-									Width="Auto"
-									Name="stackPanelInfo"
-									Orientation="Vertical">
-							<TextBlock Style="{StaticResource Title}"
-									   Text="{Binding title}" />
-							<TextBlock Text="Tác giả"
-									   FontSize="20"
-									   FontFamily="Segoe WP Light" />
-							<TextBlock Text="{Binding author}"
-									   Style="{StaticResource Author}" />
-							<TextBlock Text="Năm"
-									   FontSize="20"
-									   FontFamily="Segoe WP Light" />
-							<TextBlock Text="{Binding year}"
-									   Style="{StaticResource Year}" />
-							<Button x:ConnectionId='13' Style="{StaticResource ButtonAddBook}"
-									Name="buttonAddBook"
-									                      />
-							<Button x:ConnectionId='14' Content="Xem thêm thông tin"
-									Style="{StaticResource ButtonViewMore}"
-									                             />
-						</StackPanel>
-					</RelativePanel>
-					<ListView x:ConnectionId='7' Grid.Row="1"
-							  Margin="10,10,20,10"
-							  Visibility="Collapsed"
+					</PivotItem.Header>
+					<ScrollViewer x:ConnectionId='7' Name="mainScrollViewer"				  
+								  VerticalScrollBarVisibility="Hidden">
+						<RelativePanel x:ConnectionId='8' Name="relativePanelInfo">
+							<Grid x:ConnectionId='9' Name="BookCover">
+								<Image Height="405"
+									   Width="270"
+									   Margin="30,0,0,0"
+									   HorizontalAlignment="Center"
+									   Source="{Binding image, TargetNullValue={x:Null}}"
+									   Stretch="Fill" />
+							</Grid>
+							<StackPanel x:ConnectionId='10' Margin="10,0,0,0"
+										Height="Auto"
+										Width="Auto"
+										Name="stackPanelInfo"
+										Orientation="Vertical">
+								<TextBlock Style="{StaticResource Title}"
+										   Text="{Binding title}" />
+								<TextBlock Text="Tác giả"
+										   FontSize="20"
+										   FontFamily="Segoe WP Light" />
+								<TextBlock Text="{Binding author}"
+										   Style="{StaticResource Author}" />
+								<TextBlock Text="Năm"
+										   FontSize="20"
+										   FontFamily="Segoe WP Light" />
+								<TextBlock Text="{Binding year}"
+										   Style="{StaticResource Year}" />
+								<Button x:ConnectionId='14' Style="{StaticResource ButtonAddBook}"
+										Name="buttonAddBook"
+										                      />
+							</StackPanel>
+							<StackPanel x:ConnectionId='11' Orientation="Vertical" Name="stackPanelDes">
+								<TextBlock Text="Mô tả:"
+										   Style="{StaticResource TextBlockDescriptionTitle}" />
+								<TextBlock TextWrapping="Wrap"
+										   Text="{Binding description}"
+										   Style="{StaticResource TextBlockDescription}" />
+							</StackPanel>
+							<TextBlock x:ConnectionId='12' Text="Sách tương tự:"
+									   Name="textBlockRelatedBooks"
+									   Style="{StaticResource TextBlockDescriptionTitle}" />
+							<ListView x:ConnectionId='13' ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+									  ScrollViewer.HorizontalScrollMode="Enabled"
+									  ScrollViewer.VerticalScrollMode="Disabled"
+									  Name="listViewRelatedBooks">
+								<ListView.ItemsPanel>
+									<ItemsPanelTemplate>
+										<StackPanel Orientation="Horizontal" />
+									</ItemsPanelTemplate>
+								</ListView.ItemsPanel>
+								<ListView.ItemContainerStyle>
+									<Style TargetType="ListViewItem">
+										<Setter Property="HorizontalContentAlignment"
+												Value="Stretch" />
+										<Setter Property="Padding"
+												Value="0" />
+									</Style>
+								</ListView.ItemContainerStyle>
+								<ListView.ItemTemplate>
+									<DataTemplate>
+										<Grid Margin="10,10,10,10" Width="150">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="90" />
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+											</Grid.RowDefinitions>
+											<Image Height="90"
+												   Width="60"
+												   Source="{Binding image, TargetNullValue={x:Null}}"
+												   Stretch="Fill" />
+											<TextBlock Text="{Binding title}"
+													   TextWrapping="Wrap"
+													   FontSize="18"
+													   Grid.Row="1" />
+											<TextBlock Text="{Binding author}"
+													   TextWrapping="Wrap"
+													   FontSize="18"
+													   Grid.Row="2" />
+										</Grid>
+									</DataTemplate>
+								</ListView.ItemTemplate>
+							</ListView>
+						</RelativePanel>
+					</ScrollViewer>
+				</PivotItem>
+				<PivotItem>
+					<PivotItem.Header>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30" />
+								<ColumnDefinition Width="110" />
+							</Grid.ColumnDefinitions>
+							<TextBlock Text="&#xE72D;"
+									   Width="100"
+									   FontFamily="Segoe MDL2 Assets" />
+							<TextBlock Text="Chia sẻ"
+									   Style="{StaticResource PivotTextBlock}"
+									   Grid.Column="1" />
+						</Grid>
+					</PivotItem.Header>
+					<ListView x:ConnectionId='3' Margin="10,10,20,10"
 							  ScrollViewer.VerticalScrollBarVisibility="Hidden"
 							  Name="listViewLenders">
 						<ListView.ItemContainerStyle>
@@ -88,7 +159,7 @@
 										<ColumnDefinition Width="20" />
 										<ColumnDefinition Width="*" />
 									</Grid.ColumnDefinitions>
-									<Image x:ConnectionId='8' Grid.Column="0"
+									<Image x:ConnectionId='4' Grid.Column="0"
 										   Height="100"
 										   Stretch="Fill"
 										   Tag="{Binding user.id}"
@@ -96,13 +167,13 @@
 										   Source="{Binding user.ava}" />
 									<StackPanel Orientation="Vertical"
 												Grid.Column="2">
-										<TextBlock x:ConnectionId='9' Text="{Binding user.account}"
+										<TextBlock x:ConnectionId='5' Text="{Binding user.account}"
 												   FontSize="24"
 												   Tag="{Binding user.id}"
 												                              />
 										<TextBlock Text="{Binding user.fullAddress}"
 												   FontSize="24" />
-										<Button x:ConnectionId='10' Content="Mượn"
+										<Button x:ConnectionId='6' Content="Mượn"
 												                   
 												Style="{StaticResource ButtonRequest}"
 												IsEnabled="{Binding isSendable}"
@@ -112,18 +183,8 @@
 							</DataTemplate>
 						</ListView.ItemTemplate>
 					</ListView>
-				</Grid>
-			</ScrollViewer>
-			<ScrollViewer x:ConnectionId='4' Name="scrollViewerDescription"
-						  Visibility="Collapsed">
-				<StackPanel Orientation="Vertical">
-					<TextBlock Text="Thông tin sách:"
-							   Style="{StaticResource TextBlockDescriptionTitle}" />
-					<TextBlock x:ConnectionId='5' Name="textBlockDes"
-							   TextWrapping="Wrap"
-							   Style="{StaticResource TextBlockDescription}" />
-				</StackPanel>
-			</ScrollViewer>
+				</PivotItem>
+			</Pivot>
 		</Grid>
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
@@ -136,6 +197,12 @@
 								Value="BookCover" />
 						<Setter Target="stackPanelInfo.(RelativePanel.AlignTopWith)"
 								Value="BookCover" />
+						<Setter Target="stackPanelDes.(RelativePanel.Below)"
+								Value="BookCover" />
+						<Setter Target="textBlockRelatedBooks.(RelativePanel.Below)"
+								Value="stackPanelDes" />
+						<Setter Target="listViewRelatedBooks.(RelativePanel.Below)"
+								Value="textBlockRelatedBooks" />
 					</VisualState.Setters>
 				</VisualState>
 				<VisualState x:ConnectionId='16' x:Name="NarrowState">
@@ -147,8 +214,12 @@
 								Value="BookCover" />
 						<Setter Target="stackPanelInfo.(RelativePanel.AlignLeftWith)"
 								Value="BookCover" />
-						<Setter Target="stackPanelInfo.(RelativePanel.AlignTopWith)"
-								Value="" />
+						<Setter Target="stackPanelDes.(RelativePanel.Below)"
+								Value="stackPanelInfo" />
+						<Setter Target="textBlockRelatedBooks.(RelativePanel.Below)"
+								Value="stackPanelDes" />
+						<Setter Target="listViewRelatedBooks.(RelativePanel.Below)"
+								Value="textBlockRelatedBooks" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>

@@ -92,12 +92,20 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\Icon\book.jpg" />
+    <Content Include="Resources\Images\Icon\message.jpg" />
+    <Content Include="Resources\Images\Icon\people.png" />
+    <Content Include="Resources\Images\Icon\request.jpg" />
+    <Content Include="Resources\Images\logo.jpg" />
     <Content Include="Resources\Images\wallpaper.jpg" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppPage\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppPage\AddNewBook.xaml.cs">
       <DependentUpon>AddNewBook.xaml</DependentUpon>
@@ -165,6 +173,7 @@
     <Compile Include="Model\Conversation.cs" />
     <Compile Include="Model\District.cs" />
     <Compile Include="Model\Message.cs" />
+    <Compile Include="Model\Misc\Statistic.cs" />
     <Compile Include="Model\Post.cs" />
     <Compile Include="Model\PostedBook.cs" />
     <Compile Include="Model\Request.cs" />
@@ -194,6 +203,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AppPage\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AppPage\AddNewBook.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

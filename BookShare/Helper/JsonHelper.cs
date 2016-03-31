@@ -1,4 +1,5 @@
 ﻿using BookShare.Model;
+using BookShare.Model.Misc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -126,6 +127,12 @@ namespace BookShare.Helper
 			ObservableCollection<RequestNotification> requestNotifications = new ObservableCollection<RequestNotification> ();
 			requestNotifications = JsonConvert.DeserializeObject<ObservableCollection<RequestNotification>> ( r );
 			return requestNotifications;
+		}
+
+		public static Statistic ConvertToStatistic ( string r )
+		{
+			Statistic s = JsonConvert.DeserializeObject<Statistic> ( r );
+			return s;
 		}
 	}
 }

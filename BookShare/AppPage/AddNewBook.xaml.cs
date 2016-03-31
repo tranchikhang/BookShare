@@ -37,7 +37,6 @@ namespace BookShare.AppPage
 
 		private async void AddGenre ()
 		{
-			//string result = await RestAPI.SendJson ( "" , RestAPI.phpAddress , "GetAllGenre" );
 			string result = await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "book/genre/" );
 			dynamic json = JArray.Parse ( result );
 			var l = new List<object> ();
@@ -89,7 +88,6 @@ namespace BookShare.AppPage
 					image = imageString ,
 					userId = UserData.id
 				};
-				//string result = await RestAPI.SendJson ( dataTosend , RestAPI.phpAddress , "AddNewBook" );
 				string result = await RestAPI.SendPutRequest ( dataTosend , RestAPI.publicApiAddress + "book/new/" );
 				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 				{
@@ -118,7 +116,6 @@ namespace BookShare.AppPage
 
 		private async void SuggestTextChanged ( AutoSuggestBox sender , AutoSuggestBoxTextChangedEventArgs args )
 		{
-			//string result = await RestAPI.SendJson ( suggestAuthor.Text , RestAPI.phpAddress , "GetAuthor" );
 			string result =
 				await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "book/author/" + System.Net.WebUtility.UrlEncode ( suggestAuthor.Text ) );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )

@@ -42,7 +42,6 @@ namespace BookShare.AppPage
 		private async void LoadData ( string userId )
 		{
 			//get user info
-			//string result = await RestAPI.SendJson ( userId , RestAPI.phpAddress , "GetUserInfo" );
 			string result = await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "users/" + userId );
 			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 			{
@@ -78,7 +77,6 @@ namespace BookShare.AppPage
 					fromUserId = UserData.id ,
 					message = textBoxContent.Text
 				};
-				//string result = await RestAPI.SendJson ( dataToSend , RestAPI.phpAddress , "SendMessage" );
 				string result =
 					await RestAPI.SendPostRequest ( dataToSend , RestAPI.publicApiAddress + "message/send/" );
 				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )

@@ -93,6 +93,10 @@ namespace BookShare.AppPage
 				{
 					gridNotification.Show ( false , "Đã thêm sách mới" );
 				}
+				else
+				{
+					gridNotification.Show ( true , JsonHelper.GetJsonMessage ( result ) );
+				}
 			}
 			else
 			{

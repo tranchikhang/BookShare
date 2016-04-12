@@ -1,5 +1,7 @@
 ﻿using BookShare.Helper;
 using BookShare.Model;
+using BookShare.Model.Control;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -80,24 +82,33 @@ namespace BookShare.AppPage
 
 		private async void RemoveBook ( object sender , RoutedEventArgs e )
 		{
-			ControlMethods.SwitchVisibility ( true , progressBar );
-			string bookId = ( ( Button ) sender ).Tag.ToString ();
-			dynamic book = new
+			string content = "Bạn có chắc chắn muốn xóa không?";
+			string title = "Xóa sách khỏi tủ";
+			var dialog = CustomMessageDialog.NewCustomMessageDialog ( content , title );
+
+			var result = await dialog.ShowAsync ();
+
+			if ( ( int ) result.Id == 0 )
 			{
-				bookId = bookId ,
-				userId = UserData.id
-			};
-			string addResult =
-					await RestAPI.SendPostRequest ( book , RestAPI.publicApiAddress + "booklist/remove/" );
-			if ( JsonHelper.IsRequestSucceed ( addResult ) == RestAPI.ResponseStatus.OK )
-			{
-				postedBooks.Remove ( postedBooks.First ( p => p.book.id == bookId ) );
+				ControlMethods.SwitchVisibility ( true , progressBar );
+				string bookId = ( ( Button ) sender ).Tag.ToString ();
+				dynamic book = new
+				{
+					bookId = bookId ,
+					userId = UserData.id
+				};
+				string addResult =
+						await RestAPI.SendPostRequest ( book , RestAPI.publicApiAddress + "booklist/remove/" );
+				if ( JsonHelper.IsRequestSucceed ( addResult ) == RestAPI.ResponseStatus.OK )
+				{
+					postedBooks.Remove ( postedBooks.First ( p => p.book.id == bookId ) );
+				}
+				else
+				{
+					gridNotification.Show ( true );
+				}
+				ControlMethods.SwitchVisibility ( false , progressBar );
 			}
-			else
-			{
-				gridNotification.Show ( true );
-			}
-			ControlMethods.SwitchVisibility ( false , progressBar );
 		}
 	}
 }

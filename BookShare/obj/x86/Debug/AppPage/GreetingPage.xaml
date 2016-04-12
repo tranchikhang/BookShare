@@ -20,12 +20,12 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<Grid Grid.Row="0"
-			  Margin="10,0,10,0">
+			  Margin="5,0,5,0">
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="300" />
-				<ColumnDefinition Width="49" />
+				<ColumnDefinition Width="240" />
 				<ColumnDefinition Width="49" />
 				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="49" />
 			</Grid.ColumnDefinitions>
 			<TextBox x:ConnectionId='4' Name="SearchBox"
 					 Style="{StaticResource TextBoxSearch}"
@@ -37,14 +37,15 @@
 					                   
 					Content="&#59166;" />
 			<Button x:ConnectionId='6' Style="{StaticResource ButtonSearch}"
-					Grid.Column="2"
+					Grid.Column="3"
 					                           
 					Content="&#xE712;" />
 		</Grid>
 		<mycontrol:MyNotification x:ConnectionId='1' x:Name="gridNotification"
 								  Grid.Row="1"/>
-		<ListView x:ConnectionId='2' Margin="0,5,0,0"
+		<ListView x:ConnectionId='2' Margin="10,10,10,10"
 				  Grid.Row="2"
+				  ScrollViewer.VerticalScrollBarVisibility="Hidden"
 				  Name="listViewBooks">
 			<ListView.ItemContainerStyle>
 				<Style TargetType="ListViewItem">
@@ -56,8 +57,10 @@
 			</ListView.ItemContainerStyle>
 			<ListView.ItemTemplate>
 				<DataTemplate>
-					<Grid Background="{StaticResource BackgroundColor}"
-						  Margin="0,10,0,10">
+					<Grid x:ConnectionId='3' Background="{StaticResource BackgroundColor}"
+						  Margin="0,10,0,10"
+						                      
+						  Tag="{Binding id}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="120"
 											  x:Name="ImageColumn" />
@@ -71,10 +74,8 @@
 							   Stretch="Fill" />
 						<StackPanel Grid.Column="2"
 									Orientation="Vertical">
-							<TextBlock x:ConnectionId='3' Text="{Binding title}"
-									   FontSize="26"
-									                       
-									   Tag="{Binding id}" />
+							<TextBlock Text="{Binding title}"
+									   FontSize="26" />
 							<TextBlock Text="{Binding author}"
 									   FontSize="22" />
 							<Grid>

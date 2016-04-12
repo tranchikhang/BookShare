@@ -103,9 +103,11 @@
 					</Border>
 				</Grid>
 			</Grid>
-			<Border Grid.Row="3" Margin="0,0,0,50">
+			<Border Grid.Row="3"
+					Margin="0,0,0,50">
 				<TextBlock Text="Gửi email hỗ trợ"
 						   FontFamily="Segoe WP Light"
+						   HorizontalAlignment="Center"
 						   Tapped="SendEmailTap"
 						   Foreground="{StaticResource MyBlue}"
 						   VerticalAlignment="Center"

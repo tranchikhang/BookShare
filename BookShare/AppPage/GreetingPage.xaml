@@ -20,12 +20,12 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<Grid Grid.Row="0"
-			  Margin="10,0,10,0">
+			  Margin="5,0,5,0">
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="300" />
-				<ColumnDefinition Width="49" />
+				<ColumnDefinition Width="240" />
 				<ColumnDefinition Width="49" />
 				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="49" />
 			</Grid.ColumnDefinitions>
 			<TextBox Name="SearchBox"
 					 Style="{StaticResource TextBoxSearch}"
@@ -37,14 +37,15 @@
 					Click="SearchClick"
 					Content="&#59166;" />
 			<Button Style="{StaticResource ButtonSearch}"
-					Grid.Column="2"
+					Grid.Column="3"
 					Click="AdvancedSearchClick"
 					Content="&#xE712;" />
 		</Grid>
 		<mycontrol:MyNotification x:Name="gridNotification"
 								  Grid.Row="1"/>
-		<ListView Margin="0,5,0,0"
+		<ListView Margin="10,10,10,10"
 				  Grid.Row="2"
+				  ScrollViewer.VerticalScrollBarVisibility="Hidden"
 				  Name="listViewBooks">
 			<ListView.ItemContainerStyle>
 				<Style TargetType="ListViewItem">
@@ -57,7 +58,9 @@
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<Grid Background="{StaticResource BackgroundColor}"
-						  Margin="0,10,0,10">
+						  Margin="0,10,0,10"
+						  Tapped="TitleTapped"
+						  Tag="{Binding id}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="120"
 											  x:Name="ImageColumn" />
@@ -72,9 +75,7 @@
 						<StackPanel Grid.Column="2"
 									Orientation="Vertical">
 							<TextBlock Text="{Binding title}"
-									   FontSize="26"
-									   Tapped="TitleTapped"
-									   Tag="{Binding id}" />
+									   FontSize="26" />
 							<TextBlock Text="{Binding author}"
 									   FontSize="22" />
 							<Grid>

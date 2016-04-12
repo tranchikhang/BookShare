@@ -80,13 +80,6 @@ namespace BookShare.Helper
 			return book;
 		}
 
-		public static ObservableCollection<District> ConvertToDistricts ( string r )
-		{
-			ObservableCollection<District> districts = new ObservableCollection<District> ();
-			districts = JsonConvert.DeserializeObject<ObservableCollection<District>> ( r );
-			return districts;
-		}
-
 		public static ObservableCollection<City> ConvertToCities ( string r )
 		{
 			ObservableCollection<City> cities = new ObservableCollection<City> ();
@@ -101,7 +94,7 @@ namespace BookShare.Helper
 			return messages;
 		}
 
-		public static ObservableCollection<Conversation> ConverToConversations ( string r )
+		public static ObservableCollection<Conversation> ConvertToConversations ( string r )
 		{
 			ObservableCollection<Conversation> conversations = new ObservableCollection<Conversation> ();
 			conversations = JsonConvert.DeserializeObject<ObservableCollection<Conversation>> ( r );

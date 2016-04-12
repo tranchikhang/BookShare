@@ -40,7 +40,7 @@
 						</Grid>
 					</PivotItem.Header>
 					<Grid Width="Auto">
-						<ListView x:ConnectionId='11' Name="listViewPostedBook"
+						<ListView x:ConnectionId='8' Name="listViewPostedBook"
 								  ScrollViewer.VerticalScrollBarVisibility="Hidden">
 							<ListView.ItemContainerStyle>
 								<Style TargetType="ListViewItem">
@@ -52,7 +52,7 @@
 							</ListView.ItemContainerStyle>
 							<ListView.ItemTemplate>
 								<DataTemplate>
-									<Grid x:ConnectionId='16' Margin="0,5,0,5"
+									<Grid x:ConnectionId='13' Margin="0,5,0,5"
 										  Tag="{Binding postId}"
 										                           >
 										<Grid.ColumnDefinitions>
@@ -76,7 +76,7 @@
 								</DataTemplate>
 							</ListView.ItemTemplate>
 						</ListView>
-						<ListView x:ConnectionId='12' ScrollViewer.VerticalScrollBarVisibility="Hidden"
+						<ListView x:ConnectionId='9' ScrollViewer.VerticalScrollBarVisibility="Hidden"
 								  Name="listViewReceivedRequest">
 							<ListView.ItemContainerStyle>
 								<Style TargetType="ListViewItem">
@@ -98,18 +98,18 @@
 											   Height="60"
 											   Stretch="Fill"
 											   Source="{Binding user.ava}" />
-										<TextBlock x:ConnectionId='13' Text="{Binding user.account}"
+										<TextBlock x:ConnectionId='10' Text="{Binding user.account}"
 												   Style="{StaticResource RequestUserAccount}"
 												   Tag="{Binding user.id}"
 												                               
 												   Grid.Column="1" />
 										<StackPanel Grid.Column="2"
 													Orientation="Horizontal">
-											<Button x:ConnectionId='14' Content="&#xE8FB;"
+											<Button x:ConnectionId='11' Content="&#xE8FB;"
 													Style="{StaticResource Accept}"
 													Tag="{Binding id}"
 													                      />
-											<Button x:ConnectionId='15' Content="&#xE894;"
+											<Button x:ConnectionId='12' Content="&#xE894;"
 													Style="{StaticResource Deny}"
 													Tag="{Binding id}"
 													                    />
@@ -135,7 +135,7 @@
 						</Grid>
 					</PivotItem.Header>
 					<Grid>
-						<ListView x:ConnectionId='6' Name="listViewRequestedBook"
+						<ListView x:ConnectionId='3' Name="listViewRequestedBook"
 								  ScrollViewer.VerticalScrollBarVisibility="Hidden">
 							<ListView.ItemContainerStyle>
 								<Style TargetType="ListViewItem">
@@ -147,7 +147,7 @@
 							</ListView.ItemContainerStyle>
 							<ListView.ItemTemplate>
 								<DataTemplate>
-									<Grid x:ConnectionId='10' Margin="0,5,0,5"
+									<Grid x:ConnectionId='7' Margin="0,5,0,5"
 										  Tag="{Binding bookId}"
 										                              >
 										<Grid.ColumnDefinitions>
@@ -171,7 +171,7 @@
 								</DataTemplate>
 							</ListView.ItemTemplate>
 						</ListView>
-						<ListView x:ConnectionId='7' ScrollViewer.VerticalScrollBarVisibility="Hidden"
+						<ListView x:ConnectionId='4' ScrollViewer.VerticalScrollBarVisibility="Hidden"
 								  Name="listViewSentRequest">
 							<ListView.ItemContainerStyle>
 								<Style TargetType="ListViewItem">
@@ -193,75 +193,16 @@
 											   Height="60"
 											   Stretch="Fill"
 											   Source="{Binding user.ava}" />
-										<TextBlock x:ConnectionId='8' Text="{Binding user.account}"
+										<TextBlock x:ConnectionId='5' Text="{Binding user.account}"
 												   Style="{StaticResource RequestUserAccount}"
 												   Tag="{Binding user.id}"
 												                               
 												   Grid.Column="1" />
-										<Button x:ConnectionId='9' Content="&#xE74D;"
+										<Button x:ConnectionId='6' Content="&#xE74D;"
 												Grid.Column="2"
 												Style="{StaticResource Delete}"
 												Tag="{Binding id}"
 												                      />
-									</Grid>
-								</DataTemplate>
-							</ListView.ItemTemplate>
-						</ListView>
-					</Grid>
-				</PivotItem>
-				<PivotItem>
-					<PivotItem.Header>
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="30" />
-								<ColumnDefinition Width="110" />
-							</Grid.ColumnDefinitions>
-							<TextBlock Text="&#xE896;"
-									   FontFamily="Segoe MDL2 Assets" />
-							<TextBlock Text="Thông báo"
-									   Grid.Column="1"
-									   Style="{StaticResource PivotTextBlock}" />
-						</Grid>
-					</PivotItem.Header>
-					<Grid>
-						<ListView x:ConnectionId='3' Name="listViewNotification"
-								  ScrollViewer.VerticalScrollBarVisibility="Hidden">
-							<ListView.ItemContainerStyle>
-								<Style TargetType="ListViewItem">
-									<Setter Property="HorizontalContentAlignment"
-											Value="Stretch" />
-									<Setter Property="Padding"
-											Value="0" />
-								</Style>
-							</ListView.ItemContainerStyle>
-							<ListView.ItemTemplate>
-								<DataTemplate>
-									<Grid Margin="0,5,0,5">
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="*" />
-											<ColumnDefinition Width="100" />
-											<ColumnDefinition Width="100" />
-										</Grid.ColumnDefinitions>
-										<TextBlock TextWrapping="Wrap"
-												   FontSize="24">
-											<TextBlock.Inlines>
-												<Run FontFamily="Segoe WP Light"
-													 Foreground="#F44336"
-													 Text="{Binding userAccount}" />
-												<Run Text="{Binding content}"
-													 FontFamily="Segoe WP Light" />
-											</TextBlock.Inlines>
-										</TextBlock>
-										<Button x:ConnectionId='4' Grid.Column="1"
-												Content="&#xE77B;"
-												Tag="{Binding userId}"
-												                        
-												Style="{StaticResource ToUser}" />
-										<Button x:ConnectionId='5' Grid.Column="2"
-												Content="&#xE74D;"
-												Style="{StaticResource Delete}"
-												                       
-												Tag="{Binding requestId}" />
 									</Grid>
 								</DataTemplate>
 							</ListView.ItemTemplate>

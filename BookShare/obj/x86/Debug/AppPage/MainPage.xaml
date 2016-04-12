@@ -9,36 +9,65 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/Resources/CustomRadioButton.xaml" />
+				<ResourceDictionary Source="/Resources/MyColors.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
 	<Grid Background="White">
-		<SplitView x:ConnectionId='1' DisplayMode="CompactInline"
+		<Grid.RowDefinitions>
+			<RowDefinition Height="51" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="50" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Grid Background="White"
+				  Width="50"
+				  HorizontalAlignment="Left">
+				<TextBlock x:ConnectionId='11' Text="&#xE700;"
+						   FontFamily="Segoe MDL2 Assets"
+						   FontSize="38"
+						   Foreground="{StaticResource MyBlue}"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"
+						                           />
+			</Grid>
+			<Border Grid.Column="2">
+				<TextBlock x:ConnectionId='10' HorizontalAlignment="Center"
+						   VerticalAlignment="Center"
+						   Name="textBlockTitle"
+						   FontFamily="Segoe WP Light"
+						   FontSize="28" />
+			</Border>
+		</Grid>
+		<SplitView x:ConnectionId='1' DisplayMode="Inline"
 				   CompactPaneLength="50"
 				   OpenPaneLength="150"
 				   IsPaneOpen="False"
+				   Grid.Row="1"
 				   Name="MainSplitView">
 			<SplitView.Pane>
 				<StackPanel Orientation="Vertical"
-							Background="SteelBlue">
-					<RadioButton x:ConnectionId='2' x:Name="HamburgerButton"
-								 Style="{StaticResource NavRadioButtonStyle}"
-								 Tag="&#xE700;"
-								 Foreground="White"
-								                        />
-					<RadioButton x:ConnectionId='3' Style="{StaticResource NavRadioButtonStyle}"
+							Background="{StaticResource MyBlue}">
+					<RadioButton x:ConnectionId='2' Style="{StaticResource NavRadioButtonStyle}"
 								 Tag="&#xE80F;"
 								 Foreground="White"
 								                  
 								 Content="Trang chủ" />
-					<RadioButton x:ConnectionId='4' Style="{StaticResource NavRadioButtonStyle}"
+					<RadioButton x:ConnectionId='3' Style="{StaticResource NavRadioButtonStyle}"
 								 Tag="&#xE8F1;"
 								                         
 								 Content="Tủ sách" />
-					<RadioButton x:ConnectionId='5' Style="{StaticResource NavRadioButtonStyle}"
+					<RadioButton x:ConnectionId='4' Style="{StaticResource NavRadioButtonStyle}"
 								 Tag="&#xE133;"
 								                           
 								 Content="Yêu cầu" />
+					<RadioButton x:ConnectionId='5' Style="{StaticResource NavRadioButtonStyle}"
+								 Tag="&#xE774;"
+								                            
+								 Content="Thông báo" />
 					<RadioButton x:ConnectionId='6' Style="{StaticResource NavRadioButtonStyle}"
 								 Tag="&#xE8BD;"
 								                           
@@ -59,7 +88,7 @@
 		</SplitView>
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
-				<VisualState x:ConnectionId='10' x:Name="WideState">
+				<VisualState x:ConnectionId='12' x:Name="WideState">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="900" />
 					</VisualState.StateTriggers>
@@ -68,7 +97,7 @@
 								Value="True" />
 					</VisualState.Setters>
 				</VisualState>
-				<VisualState x:ConnectionId='11' x:Name="NarrowState">
+				<VisualState x:ConnectionId='13' x:Name="NarrowState">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="0" />
 					</VisualState.StateTriggers>

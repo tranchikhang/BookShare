@@ -32,9 +32,10 @@ namespace BookShare.AppPage
 				SearchBox.Text = query;
 				await SendSearchQuery ( query );
 			}
-			else if (ApplicationData.Current.LocalSettings.Values["q"]!=null)
+			else if ( ApplicationData.Current.LocalSettings.Values["q"] != null
+				&& e.NavigationMode == NavigationMode.Back )
 			{
-				query =( string ) ApplicationData.Current.LocalSettings.Values["q"];
+				query = ( string ) ApplicationData.Current.LocalSettings.Values["q"];
 				ApplicationData.Current.LocalSettings.Values.Remove ( "q" );
 				SearchBox.Text = query;
 				await SendSearchQuery ( query );
@@ -72,11 +73,6 @@ namespace BookShare.AppPage
 
 		protected override void OnNavigatedFrom ( NavigationEventArgs e )
 		{
-			if (SearchBox.Text !="")
-			{
-				//save query
-				ApplicationData.Current.LocalSettings.Values["q"] = SearchBox.Text;
-			}
 		}
 
 		public string query;
@@ -121,6 +117,8 @@ namespace BookShare.AppPage
 		private void TitleTapped ( object sender , TappedRoutedEventArgs e )
 		{
 			string value = ( ( Grid ) sender ).Tag.ToString ();
+			//save query
+			ApplicationData.Current.LocalSettings.Values["q"] = SearchBox.Text;
 			Frame.Navigate ( typeof ( BookInfo ) , value );
 		}
 

@@ -29,8 +29,6 @@ namespace BookShare.AppPage
 			//hide received request list and requested posts
 			ControlMethods.SwitchVisibility ( false , listViewReceivedRequest );
 			ControlMethods.SwitchVisibility ( false , listViewSentRequest );
-			//hide notification
-			ControlMethods.SwitchVisibility ( false , listViewNotification );
 			//show progress bar
 			ControlMethods.SwitchVisibility ( true , progressBar );
 			GetData ();
@@ -41,13 +39,12 @@ namespace BookShare.AppPage
 		private ObservableCollection<PostedBook> requestedBooks;
 		private ObservableCollection<Request> receivedRequest;
 		private ObservableCollection<Post> requestedPost;
-		private ObservableCollection<RequestNotification> requestNotifications;
 
 		private async void GetData ()
 		{
 			try
 			{
-				await Task.WhenAll ( GetPostedBooks () , GetrequestedBooks () , GetRequestNotifications () );
+				await Task.WhenAll ( GetPostedBooks () , GetrequestedBooks () );
 			}
 			catch ( Exception e )
 			{
@@ -59,8 +56,6 @@ namespace BookShare.AppPage
 			//show posted book and requested book
 			ControlMethods.SwitchVisibility ( true , listViewPostedBook );
 			ControlMethods.SwitchVisibility ( true , listViewRequestedBook );
-			//show notification
-			ControlMethods.SwitchVisibility ( true , listViewNotification );
 		}
 
 		private async Task GetPostedBooks ()
@@ -77,25 +72,6 @@ namespace BookShare.AppPage
 						pt.SetImageLink ();
 					}
 				listViewPostedBook.ItemsSource = postedBooks;
-			}
-			else if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.Failed )
-				throw new Exception ();
-		}
-
-		private async Task GetRequestNotifications ()
-		{
-			string result =
-				await RestAPI.SendGetRequest ( RestAPI.publicApiAddress + "request/notification/" + UserData.id );
-			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
-			{
-				string data = JsonHelper.DecodeJson ( result );
-				requestNotifications = JsonHelper.ConvertToRequestNotifications ( data );
-				if ( requestNotifications != null && requestNotifications.Count > 0 )
-					foreach ( RequestNotification rq in requestNotifications )
-					{
-						rq.SetContent ();
-					}
-				listViewNotification.ItemsSource = requestNotifications;
 			}
 			else if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.Failed )
 				throw new Exception ();
@@ -261,26 +237,6 @@ namespace BookShare.AppPage
 			ControlMethods.SwitchVisibility ( false , progressBar );
 		}
 
-		private async void DeactiveRequest ( object sender , RoutedEventArgs e )
-		{
-			ControlMethods.SwitchVisibility ( true , progressBar );
-			//deactive request
-			string requestId = ( ( Button ) sender ).Tag.ToString ();
-			string result = await RestAPI.SendPostRequest ( requestId , RestAPI.publicApiAddress + "request/deactivate/" );
-			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
-			{
-				//send response succeed
-				//return request id to remove
-				requestNotifications.Remove ( requestNotifications.First ( p => p.requestId == requestId ) );
-			}
-			else
-			{
-				//send response failed
-				gridNotification.Show ( true );
-			}
-			ControlMethods.SwitchVisibility ( false , progressBar );
-		}
-
 		private void TextBlockUserTapped ( object sender , TappedRoutedEventArgs e )
 		{
 			string userId = ( ( TextBlock ) sender ).Tag.ToString ();
@@ -290,12 +246,6 @@ namespace BookShare.AppPage
 		private void NavigateToUser ( string userId )
 		{
 			Frame.Navigate ( typeof ( UserInfo ) , userId );
-		}
-
-		private void ButtonUserTapped ( object sender , RoutedEventArgs e )
-		{
-			string userId = ( ( Button ) sender ).Tag.ToString ();
-			NavigateToUser ( userId );
 		}
 	}
 }

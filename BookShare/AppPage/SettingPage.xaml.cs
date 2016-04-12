@@ -1,5 +1,6 @@
 ﻿using BookShare.Helper;
 using BookShare.Model;
+using BookShare.Model.Control;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,6 +12,7 @@ using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -61,7 +63,7 @@ namespace BookShare.AppPage
 		private void DisplayUserInfo ()
 		{
 			this.DataContext = user;
-			userAva.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage ( new Uri ( user.ava ) );
+			userAva.Source = new BitmapImage ( new Uri ( user.ava ) );
 			//check if user city is null
 			if ( user.cityId != null )
 			{
@@ -109,7 +111,7 @@ namespace BookShare.AppPage
 			string r = Fieldvalidation ();
 			if ( r == "" )
 			{
-				UpdateLocalInfo ();
+				//UpdateLocalInfo ();
 				string imageString = "";
 				if ( file != null )
 					imageString = await ImageUpload.StorageFileToBase64 ( file );
@@ -171,13 +173,20 @@ namespace BookShare.AppPage
 
 		private async void AddFileClick ( object sender , RoutedEventArgs e )
 		{
-
 			var picker = new Windows.Storage.Pickers.FileOpenPicker ();
 			picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
 			picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
 			picker.FileTypeFilter.Add ( ".jpg" );
-
 			file = await picker.PickSingleFileAsync ();
+			userAva.Source = await GetImageAsync ( file );
+		}
+
+		public async Task<BitmapImage> GetImageAsync ( StorageFile storageFile )
+		{
+			BitmapImage bitmapImage = new BitmapImage ();
+			FileRandomAccessStream stream = ( FileRandomAccessStream ) await storageFile.OpenAsync ( FileAccessMode.Read );
+			bitmapImage.SetSource ( stream );
+			return bitmapImage;
 		}
 
 		private void ChangePassClick ( object sender , RoutedEventArgs e )
@@ -259,17 +268,12 @@ namespace BookShare.AppPage
 
 		private async void LogoutClick ( object sender , RoutedEventArgs e )
 		{
-			var dialog =
-				new Windows.UI.Popups.MessageDialog ( "Bạn có chắc chắn muốn thoát không?" , "Thoát khỏi ứng dụng" );
-
-			dialog.Commands.Add ( new Windows.UI.Popups.UICommand ( "Có" ) { Id = 0 } );
-			dialog.Commands.Add ( new Windows.UI.Popups.UICommand ( "Không" ) { Id = 1 } );
-
-			dialog.DefaultCommandIndex = 0;
-			dialog.CancelCommandIndex = 1;
+			string content = "Bạn có chắc chắn muốn thoát không?";
+			string title = "Thoát khỏi ứng dụng";
+			var dialog = CustomMessageDialog.NewCustomMessageDialog ( content , title );
 
 			var result = await dialog.ShowAsync ();
-			
+
 			if ( ( int ) result.Id == 0 )
 			{
 				//remove user token
@@ -280,14 +284,14 @@ namespace BookShare.AppPage
 				UserData.settings.Remove ( AppSettings.keyFirstOpen );
 				NavigationMethod.GetTopFrame ().Navigate ( typeof ( StartPage ) );
 			}
-			
+
 		}
 
 		private async void Share ( object sender , Windows.UI.Xaml.Input.TappedRoutedEventArgs e )
 		{
 			//await Windows.System.Launcher.LaunchUriAsync ( new Uri ( "fb://about" ) );
 			await Windows.System.Launcher.LaunchUriAsync ( new Uri ( "https://www.facebook.com/sharer/sharer.php?u=http://bing.com/" ) );
-			
+
 		}
 	}
 }

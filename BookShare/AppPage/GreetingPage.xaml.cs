@@ -21,7 +21,6 @@ namespace BookShare.AppPage
 		}
 
 		private int numberOfRandomBooks = 4;
-		private int numberOfNewestBooks = 4;
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
@@ -52,14 +51,15 @@ namespace BookShare.AppPage
 
 		private void TitleTapped ( object sender , TappedRoutedEventArgs e )
 		{
-			string value = ( ( TextBlock ) sender ).Tag.ToString ();
+			string value = ( ( Grid ) sender ).Tag.ToString ();
 			Frame.Navigate ( typeof ( BookInfo ) , value );
 		}
 
 		private void SearchClick ( object sender , RoutedEventArgs e )
 		{
 			string query = SearchBox.Text;
-			Frame.Navigate ( typeof ( SearchPage ) , query );
+			if ( query != "" )
+				Frame.Navigate ( typeof ( SearchPage ) , query );
 		}
 
 		private void AdvancedSearchClick ( object sender , RoutedEventArgs e )

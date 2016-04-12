@@ -209,65 +209,6 @@
 						</ListView>
 					</Grid>
 				</PivotItem>
-				<PivotItem>
-					<PivotItem.Header>
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="30" />
-								<ColumnDefinition Width="110" />
-							</Grid.ColumnDefinitions>
-							<TextBlock Text="&#xE896;"
-									   FontFamily="Segoe MDL2 Assets" />
-							<TextBlock Text="Thông báo"
-									   Grid.Column="1"
-									   Style="{StaticResource PivotTextBlock}" />
-						</Grid>
-					</PivotItem.Header>
-					<Grid>
-						<ListView Name="listViewNotification"
-								  ScrollViewer.VerticalScrollBarVisibility="Hidden">
-							<ListView.ItemContainerStyle>
-								<Style TargetType="ListViewItem">
-									<Setter Property="HorizontalContentAlignment"
-											Value="Stretch" />
-									<Setter Property="Padding"
-											Value="0" />
-								</Style>
-							</ListView.ItemContainerStyle>
-							<ListView.ItemTemplate>
-								<DataTemplate>
-									<Grid Margin="0,5,0,5">
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="*" />
-											<ColumnDefinition Width="100" />
-											<ColumnDefinition Width="100" />
-										</Grid.ColumnDefinitions>
-										<TextBlock TextWrapping="Wrap"
-												   FontSize="24">
-											<TextBlock.Inlines>
-												<Run FontFamily="Segoe WP Light"
-													 Foreground="#F44336"
-													 Text="{Binding userAccount}" />
-												<Run Text="{Binding content}"
-													 FontFamily="Segoe WP Light" />
-											</TextBlock.Inlines>
-										</TextBlock>
-										<Button Grid.Column="1"
-												Content="&#xE77B;"
-												Tag="{Binding userId}"
-												Click="ButtonUserTapped"
-												Style="{StaticResource ToUser}" />
-										<Button Grid.Column="2"
-												Content="&#xE74D;"
-												Style="{StaticResource Delete}"
-												Click="DeactiveRequest"
-												Tag="{Binding requestId}" />
-									</Grid>
-								</DataTemplate>
-							</ListView.ItemTemplate>
-						</ListView>
-					</Grid>
-				</PivotItem>
 			</Pivot>
 		</Grid>
 	</Grid>

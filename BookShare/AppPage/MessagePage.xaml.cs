@@ -43,7 +43,7 @@ namespace BookShare.AppPage
 				string data = JsonHelper.DecodeJson ( result );
 				if ( data != "" )
 				{
-					conversations = JsonHelper.ConverToConversations ( data );
+					conversations = JsonHelper.ConvertToConversations ( data );
 					foreach ( Conversation c in conversations )
 					{
 						c.CheckNewMessage ();

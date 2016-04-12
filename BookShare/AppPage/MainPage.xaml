@@ -9,23 +9,48 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/Resources/CustomRadioButton.xaml" />
+				<ResourceDictionary Source="/Resources/MyColors.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
 	<Grid Background="White">
-		<SplitView DisplayMode="CompactInline"
+		<Grid.RowDefinitions>
+			<RowDefinition Height="51" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="50" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Grid Background="White"
+				  Width="50"
+				  HorizontalAlignment="Left">
+				<TextBlock Text="&#xE700;"
+						   FontFamily="Segoe MDL2 Assets"
+						   FontSize="38"
+						   Foreground="{StaticResource MyBlue}"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"
+						   Tapped="HamburgerClick" />
+			</Grid>
+			<Border Grid.Column="2">
+				<TextBlock HorizontalAlignment="Center"
+						   VerticalAlignment="Center"
+						   Name="textBlockTitle"
+						   FontFamily="Segoe WP Light"
+						   FontSize="28" />
+			</Border>
+		</Grid>
+		<SplitView DisplayMode="Inline"
 				   CompactPaneLength="50"
 				   OpenPaneLength="150"
 				   IsPaneOpen="False"
+				   Grid.Row="1"
 				   Name="MainSplitView">
 			<SplitView.Pane>
 				<StackPanel Orientation="Vertical"
-							Background="SteelBlue">
-					<RadioButton x:Name="HamburgerButton"
-								 Style="{StaticResource NavRadioButtonStyle}"
-								 Tag="&#xE700;"
-								 Foreground="White"
-								 Click="HamburgerClick" />
+							Background="{StaticResource MyBlue}">
 					<RadioButton Style="{StaticResource NavRadioButtonStyle}"
 								 Tag="&#xE80F;"
 								 Foreground="White"
@@ -39,6 +64,10 @@
 								 Tag="&#xE133;"
 								 Checked="RequestListClick"
 								 Content="Yêu cầu" />
+					<RadioButton Style="{StaticResource NavRadioButtonStyle}"
+								 Tag="&#xE774;"
+								 Checked="NotificationClick"
+								 Content="Thông báo" />
 					<RadioButton Style="{StaticResource NavRadioButtonStyle}"
 								 Tag="&#xE8BD;"
 								 Checked="MessageListClick"

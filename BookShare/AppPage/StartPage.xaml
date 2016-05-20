@@ -23,9 +23,9 @@
 			<RowDefinition Height="80" />
 			<RowDefinition Height="40" />
 		</Grid.RowDefinitions>
-		<Button Content="Đã có tài khoản? Đăng nhập ngay"
+		<Button Content="Đăng nhập"
 				Grid.Row="1"
-				Width="400"
+				Width="300"
 				FontSize="24"
 				Height="50"
 				Click="LoginClick"
@@ -34,7 +34,7 @@
 				HorizontalAlignment="Center" />
 		<Button Content="Đăng ký"
 				Grid.Row="2"
-				Width="400"
+				Width="300"
 				Click="RegisterClick"
 				Foreground="White"
 				FontSize="24"

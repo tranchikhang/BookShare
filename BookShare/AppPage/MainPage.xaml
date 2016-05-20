@@ -42,8 +42,7 @@
 						   FontSize="28" />
 			</Border>
 		</Grid>
-		<SplitView DisplayMode="Inline"
-				   CompactPaneLength="50"
+		<SplitView CompactPaneLength="50"
 				   OpenPaneLength="150"
 				   IsPaneOpen="False"
 				   Grid.Row="1"

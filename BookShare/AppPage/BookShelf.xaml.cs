@@ -24,10 +24,9 @@ namespace BookShare.AppPage
 			listBoxPostedBooks.Visibility = Visibility.Collapsed;
 			GetPostedBooks ();
 		}
-
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
-
+			NavigationMethod.SetBackButtonVisibility ( false );
 		}
 
 		private ObservableCollection<Post> postedBooks;
@@ -64,25 +63,28 @@ namespace BookShare.AppPage
 
 		private async void ToggleSwitch_Toggled ( object sender , RoutedEventArgs e )
 		{
-			ControlMethods.SwitchVisibility ( true , progressBar );
-			string postId = ( ( ToggleSwitch ) sender ).Tag.ToString ();
-			( ( ToggleSwitch ) sender ).IsEnabled = false;
-			string result =
-				await RestAPI.SendPostRequest ( postId , RestAPI.publicApiAddress + "booklist/available/" );
-			if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
+			if ( ( ( ToggleSwitch ) sender ).Tag != null )
 			{
-				//
-			}
-			if ( result != null )
-			{
-				ControlMethods.SwitchVisibility ( false , progressBar );
-				( ( ToggleSwitch ) sender ).IsEnabled = true;
+				ControlMethods.SwitchVisibility ( true , progressBar );
+				string postId = ( ( ToggleSwitch ) sender ).Tag.ToString ();
+				( ( ToggleSwitch ) sender ).IsEnabled = false;
+				string result =
+					await RestAPI.SendPostRequest ( postId , RestAPI.publicApiAddress + "booklist/available/" );
+				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
+				{
+					//
+				}
+				if ( result != null )
+				{
+					ControlMethods.SwitchVisibility ( false , progressBar );
+					( ( ToggleSwitch ) sender ).IsEnabled = true;
+				}
 			}
 		}
 
 		private async void RemoveBook ( object sender , RoutedEventArgs e )
 		{
-			string content = "Bạn có chắc chắn muốn xóa không?";
+			string content = "Bạn có chắc chắn muốn xóa sách và các yêu cầu đã gửi đến quyển sách này không?";
 			string title = "Xóa sách khỏi tủ";
 			var dialog = CustomMessageDialog.NewCustomMessageDialog ( content , title );
 
@@ -91,23 +93,30 @@ namespace BookShare.AppPage
 			if ( ( int ) result.Id == 0 )
 			{
 				ControlMethods.SwitchVisibility ( true , progressBar );
-				string bookId = ( ( Button ) sender ).Tag.ToString ();
-				dynamic book = new
-				{
-					bookId = bookId ,
-					userId = UserData.id
-				};
+				string postId = ( ( Button ) sender ).Tag.ToString ();
 				string addResult =
-						await RestAPI.SendPostRequest ( book , RestAPI.publicApiAddress + "booklist/remove/" );
+						await RestAPI.SendPostRequest ( postId , RestAPI.publicApiAddress + "booklist/delete/" );
 				if ( JsonHelper.IsRequestSucceed ( addResult ) == RestAPI.ResponseStatus.OK )
 				{
-					postedBooks.Remove ( postedBooks.First ( p => p.book.id == bookId ) );
+					postedBooks.Remove ( postedBooks.First ( p => p.id == postId ) );
+					listBoxPostedBooks.ItemsSource = postedBooks;
 				}
 				else
 				{
 					gridNotification.Show ( true );
 				}
 				ControlMethods.SwitchVisibility ( false , progressBar );
+			}
+		}
+
+		private void FilterClick ( object sender , RoutedEventArgs e )
+		{
+			string filter = textBoxFilter.Text;
+			if ( filter == "" )
+				listBoxPostedBooks.ItemsSource = postedBooks;
+			else
+			{
+				listBoxPostedBooks.ItemsSource = postedBooks.Where ( p => p.book.title.Contains ( filter ) );
 			}
 		}
 	}

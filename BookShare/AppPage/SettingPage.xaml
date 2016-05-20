@@ -20,7 +20,7 @@
 		</Grid.RowDefinitions>
 		<mycontrol:MyNotification x:Name="gridNotification" />
 		<Grid Grid.Row="1"
-			  Margin="25,0,20,0">
+			  Margin="10,0,10,0">
 			<ProgressBar IsIndeterminate="True"
 						 Height="30"
 						 VerticalAlignment="Top"
@@ -28,7 +28,7 @@
 			<ScrollViewer VerticalScrollBarVisibility="Hidden"
 						  Name="mainScrollViewer">
 				<RelativePanel Grid.Row="1">
-					<TextBlock Text="Thông tin tài khoản"
+					<TextBlock Text="Tài khoản"
 							   Style="{StaticResource TextBlockMainTitle}"
 							   Name="textBlockTitle" />
 					<Image RelativePanel.Below="textBlockTitle"
@@ -39,6 +39,8 @@
 						   Margin="5"
 						   Height="200" />
 					<Button Content="chọn file"
+							FontSize="24"
+							Width="130"
 							RelativePanel.Below="userAva"
 							Name="buttonAddFile"
 							Margin="0,10,0,10"
@@ -86,7 +88,7 @@
 							  SelectedValuePath="id"
 							  Margin="0,10,0,10" />
 					<TextBox Name="textBoxAddress"
-							 Width="300"
+							 Width="250"
 							 PlaceholderText="nhập địa chỉ"
 							 Text="{Binding address}"
 							 Style="{StaticResource TextBoxField}" />

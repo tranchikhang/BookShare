@@ -26,7 +26,7 @@ namespace BookShare.Model
 		[JsonProperty ( PropertyName = "userFullname" )]
 		public string fullname { get; set; }
 
-		[JsonProperty ( PropertyName = "userAddress" , NullValueHandling = NullValueHandling.Ignore )]
+		[JsonProperty ( PropertyName = "userAddress" )]
 		public string address { get; set; }
 
 		public string fullAddress { get; set; }
@@ -68,7 +68,7 @@ namespace BookShare.Model
 
 		public void SetAddress ()
 		{
-			if ( address == null )
+			if ( address == null || address == "" )
 				fullAddress = "Quận " + district + ", " + city;
 			else
 				fullAddress = address + ", quận " + district + ", " + city;

@@ -71,6 +71,8 @@
 				</Grid.RowDefinitions>
 				<StackPanel Orientation="Horizontal"
 							Name="stackPanel"
+							Tapped="UserPanelTapped"
+							Tag="{Binding userId}"
 							VerticalAlignment="Center">
 					<Image Height="60"
 						   Source="{Binding userAva, TargetNullValue={x:Null}}"

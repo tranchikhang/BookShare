@@ -16,7 +16,10 @@ namespace BookShare.Helper
 
 		static public async Task<string> SendGetRequest ( string address )
 		{
-			httpClient = new HttpClient ();
+			var httpFilter = new Windows.Web.Http.Filters.HttpBaseProtocolFilter ();
+			httpFilter.CacheControl.ReadBehavior =
+				Windows.Web.Http.Filters.HttpCacheReadBehavior.MostRecent;
+			httpClient = new HttpClient ( httpFilter );
 			response = new HttpResponseMessage ();
 			string responseText = "";
 
@@ -94,7 +97,10 @@ namespace BookShare.Helper
 			var dict = new Dictionary<string , string> ();
 			dict["data"] = json;
 
-			httpClient = new HttpClient ();
+			var httpFilter = new Windows.Web.Http.Filters.HttpBaseProtocolFilter ();
+			httpFilter.CacheControl.ReadBehavior =
+				Windows.Web.Http.Filters.HttpCacheReadBehavior.MostRecent;
+			httpClient = new HttpClient ( httpFilter );
 			response = new HttpResponseMessage ();
 			string responseText = "";
 

@@ -9,7 +9,7 @@
 		<Setter Property="FontFamily"
 				Value="Segoe UI" />
 		<Setter Property="FontSize"
-				Value="20" />
+				Value="18" />
 		<Setter Property="VerticalAlignment"
 				Value="Center" />
 		<Setter Property="Height"

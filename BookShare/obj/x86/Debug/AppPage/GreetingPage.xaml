@@ -22,10 +22,10 @@
 		<Grid Grid.Row="0"
 			  Margin="5,0,5,0">
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="240" />
-				<ColumnDefinition Width="49" />
+				<ColumnDefinition Width="220" />
+				<ColumnDefinition Width="45" />
 				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="49" />
+				<ColumnDefinition Width="45" />
 			</Grid.ColumnDefinitions>
 			<TextBox x:ConnectionId='4' Name="SearchBox"
 					 Style="{StaticResource TextBoxSearch}"
@@ -75,23 +75,22 @@
 						<StackPanel Grid.Column="2"
 									Orientation="Vertical">
 							<TextBlock Text="{Binding title}"
-									   FontSize="26" />
+									   TextWrapping="Wrap"
+									   FontSize="24" />
 							<TextBlock Text="{Binding author}"
-									   FontSize="22" />
-							<Grid>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="50" />
-									<ColumnDefinition Width="*" />
-								</Grid.ColumnDefinitions>
-								<TextBlock Text="{Binding numberShared}"
-										   FontSize="22"
-										   Grid.Column="0"
-										   Foreground="Crimson"
-										   TextAlignment="Center" />
-								<TextBlock Text="người đã chia sẻ"
-										   FontSize="22"
-										   Grid.Column="1" />
-							</Grid>
+									   TextWrapping="Wrap"
+									   FontSize="20" />
+							<TextBlock FontSize="20"
+									   TextWrapping="Wrap"
+									   TextAlignment="Center">
+								<TextBlock.Inlines>
+									<Run FontFamily="Segoe WP Light"
+										 Foreground="{StaticResource MyRed}"
+										 Text="{Binding numberShared}" />
+									<Run Text=" người đã chia sẻ"
+										 FontFamily="Segoe WP Light" />
+								</TextBlock.Inlines>
+							</TextBlock>
 						</StackPanel>
 					</Grid>
 				</DataTemplate>

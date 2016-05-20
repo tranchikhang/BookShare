@@ -31,6 +31,11 @@ namespace BookShare.AppPage
 			NavigationMethod.SetBackButtonVisibility ( false );
 		}
 
+		protected override void OnNavigatingFrom ( NavigatingCancelEventArgs e )
+		{
+			SystemNavigationManager.GetForCurrentView ().BackRequested -= BackButtonClick;
+		}
+
 		private ObservableCollection<Conversation> conversations;
 		private Conversation currentConversations;
 
@@ -123,6 +128,7 @@ namespace BookShare.AppPage
 
 		private void BackButtonClick ( object sender , BackRequestedEventArgs e )
 		{
+			e.Handled = true;
 			gridMessages.Visibility = Visibility.Collapsed;
 			ControlMethods.SwitchVisibility ( true , listViewConversation );
 
@@ -171,5 +177,16 @@ namespace BookShare.AppPage
 				return "Nhập nội dung tin nhắn";
 			return "";
 		}
+
+		private void UserPanelTapped ( object sender , TappedRoutedEventArgs e )
+		{
+			string userId = ( ( StackPanel ) sender ).Tag.ToString ();
+			Frame.Navigate ( typeof ( UserInfo ) , userId );
+		}
+		/*
+		if ( rootFrame.CanGoBack )
+			{
+				rootFrame.GoBack ();
+			}*/
 	}
 }

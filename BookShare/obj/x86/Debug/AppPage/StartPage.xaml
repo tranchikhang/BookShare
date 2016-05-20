@@ -23,9 +23,9 @@
 			<RowDefinition Height="80" />
 			<RowDefinition Height="40" />
 		</Grid.RowDefinitions>
-		<Button x:ConnectionId='1' Content="Đã có tài khoản? Đăng nhập ngay"
+		<Button x:ConnectionId='1' Content="Đăng nhập"
 				Grid.Row="1"
-				Width="400"
+				Width="300"
 				FontSize="24"
 				Height="50"
 				                  
@@ -34,7 +34,7 @@
 				HorizontalAlignment="Center" />
 		<Button x:ConnectionId='2' Content="Đăng ký"
 				Grid.Row="2"
-				Width="400"
+				Width="300"
 				                     
 				Foreground="White"
 				FontSize="24"

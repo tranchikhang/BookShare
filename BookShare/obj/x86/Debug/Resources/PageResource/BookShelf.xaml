@@ -9,7 +9,7 @@
 		<Setter Property="FontFamily"
 				Value="Segoe UI" />
 		<Setter Property="FontSize"
-				Value="24" />
+				Value="20" />
 		<Setter Property="VerticalAlignment"
 				Value="Center" />
 		<Setter Property="TextWrapping"
@@ -95,6 +95,40 @@
 				Value="Auto" />
 		<Setter Property="Height"
 				Value="Auto" />
+	</Style>
+	<Style TargetType="Button"
+		   x:Key="ButtonSearch">
+		<Setter Property="FontFamily"
+				Value="Segoe MDL2 Assets" />
+		<Setter Property="FontSize"
+				Value="22" />
+		<Setter Property="Width"
+				Value="49" />
+		<Setter Property="Height"
+				Value="49" />
+		<Setter Property="VerticalAlignment"
+				Value="Center" />
+		<Setter Property="HorizontalContentAlignment"
+				Value="Center" />
+		<Setter Property="Foreground"
+				Value="{StaticResource ForegroundColor}" />
+		<Setter Property="Background"
+				Value="{StaticResource BackgroundColor}" />
+	</Style>
+	<Style TargetType="TextBox"
+		   x:Key="TextBoxSearch">
+		<Setter Property="FontFamily"
+				Value="Segoe UI" />
+		<Setter Property="FontSize"
+				Value="20" />
+		<Setter Property="VerticalAlignment"
+				Value="Center" />
+		<Setter Property="Height"
+				Value="49" />
+		<Setter Property="Padding"
+				Value="10,10,0,0" />
+		<Setter Property="Foreground"
+				Value="{StaticResource TextColor}" />
 	</Style>
 </ResourceDictionary>
 

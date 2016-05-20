@@ -92,7 +92,7 @@
 										<Grid.ColumnDefinitions>
 											<ColumnDefinition Width="60" />
 											<ColumnDefinition Width="*" />
-											<ColumnDefinition Width="200" />
+											<ColumnDefinition Width="100" />
 										</Grid.ColumnDefinitions>
 										<Image Grid.Column="0"
 											   Height="60"
@@ -211,6 +211,24 @@
 				</PivotItem>
 			</Pivot>
 		</Grid>
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup>
+				<VisualState x:ConnectionId='14' x:Name="WideState">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="700" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+					</VisualState.Setters>
+				</VisualState>
+				<VisualState x:ConnectionId='15' x:Name="NarrowState">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="0" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+					</VisualState.Setters>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
 	</Grid>
 </Page>
 

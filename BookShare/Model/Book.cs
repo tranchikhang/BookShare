@@ -1,11 +1,6 @@
 ﻿using BookShare.Helper;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookShare.Model
 {
@@ -30,8 +25,8 @@ namespace BookShare.Model
 		[JsonProperty ( PropertyName = "author" )]
 		public string author { get; set; }
 
-		[JsonProperty ( PropertyName = "genreId" )]
-		public string genreId { get; set; }
+		[JsonProperty ( PropertyName = "genre" )]
+		public string genre { get; set; }
 
 		[JsonProperty ( PropertyName = "numberShared" )]
 		public string numberShared { get; set; }

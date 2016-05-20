@@ -10,7 +10,8 @@
 		<converter:BoolToColorConverter x:Key="ConvertMessageColor" />
 		<converter:NewMessageColorConverter x:Key="NewMessageColorConverter" />
 		<converter:BoolToHorizontalAlignmentConverter x:Key="BoolToHorizontalAlignmentConverter" />
-		<converter:BoolToButtonContentConverter x:Key="BoolToButtonContentConverter" />
+		<converter:IntToButtonContentConverter x:Key="IntToButtonContentConverter" />
+		<converter:IntToBoolConverter x:Key="IntToBoolConverter" />
 	</Application.Resources>
 </Application>
 

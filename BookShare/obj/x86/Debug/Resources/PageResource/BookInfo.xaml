@@ -19,7 +19,7 @@
 		<Setter Property="FontFamily"
 				Value="Segoe WP Light" />
 		<Setter Property="FontSize"
-				Value="30" />
+				Value="32" />
 		<Setter Property="TextWrapping"
 				Value="Wrap" />
 		<Setter Property="Foreground"

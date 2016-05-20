@@ -30,7 +30,7 @@ namespace BookShare.AppPage
 			progressBar.Visibility = Visibility.Visible;
 			mainScrollViewer.Visibility = Visibility.Collapsed;
 			NavigationMethod.SetBackButtonVisibility ( false );
-			GetData ();
+			//GetData ();
 			progressBar.Visibility = Visibility.Collapsed;
 			mainScrollViewer.Visibility = Visibility.Visible;
 		}
@@ -50,6 +50,7 @@ namespace BookShare.AppPage
 
 		protected override void OnNavigatedTo ( NavigationEventArgs e )
 		{
+			GetData ();
 		}
 
 		protected override void OnNavigatedFrom ( NavigationEventArgs e )
@@ -130,6 +131,8 @@ namespace BookShare.AppPage
 				if ( JsonHelper.IsRequestSucceed ( result ) == RestAPI.ResponseStatus.OK )
 				{
 					gridNotification.Show ( false , "Cập nhật thành công" );
+					user.districtId = comboDistrict.SelectedValue.ToString ();
+					user.cityId = comboCity.SelectedValue.ToString ();
 					//show new value
 					DisplayUserInfo ();
 				}
@@ -148,6 +151,8 @@ namespace BookShare.AppPage
 			if ( textBoxFullName.Text.Length > 30 )
 				return "Tên không hợp lệ, kiểm tra lại";
 			if ( textBoxAddress.Text.Length > 30 )
+				return "Địa chỉ không hợp lệ, kiểm tra lại";
+			if ( comboDistrict.SelectedIndex == -1 || comboDistrict.SelectedValue == null )
 				return "Địa chỉ không hợp lệ, kiểm tra lại";
 			return "";
 		}
@@ -178,7 +183,8 @@ namespace BookShare.AppPage
 			picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
 			picker.FileTypeFilter.Add ( ".jpg" );
 			file = await picker.PickSingleFileAsync ();
-			userAva.Source = await GetImageAsync ( file );
+			if ( file != null )
+				userAva.Source = await GetImageAsync ( file );
 		}
 
 		public async Task<BitmapImage> GetImageAsync ( StorageFile storageFile )
@@ -204,6 +210,7 @@ namespace BookShare.AppPage
 
 		private void BackButtonClick ( object sender , BackRequestedEventArgs e )
 		{
+			e.Handled = true;
 			mainScrollViewer.Visibility = Visibility.Visible;
 			gridChangePass.Visibility = Visibility.Collapsed;
 			NavigationMethod.SetBackButtonVisibility ( false );

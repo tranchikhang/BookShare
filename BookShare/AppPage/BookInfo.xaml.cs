@@ -184,6 +184,7 @@ namespace BookShare.AppPage
 
 		private void BackButtonClick ( object sender , BackRequestedEventArgs e )
 		{
+			e.Handled = true;
 			Frame rootFrame = NavigationMethod.GetMainFrame ();
 
 			// Navigate back if possible, and if the event has not 
@@ -192,6 +193,12 @@ namespace BookShare.AppPage
 			{
 				rootFrame.GoBack ();
 			}
+		}
+
+		private void RelatedBookTapped ( object sender , TappedRoutedEventArgs e )
+		{
+			string value = ( ( Grid ) sender ).Tag.ToString ();
+			Frame.Navigate ( typeof ( BookInfo ) , value );
 		}
 	}
 }

@@ -31,6 +31,7 @@ namespace BookShare.AppPage
 
 		private void BackButtonClick ( object sender , BackRequestedEventArgs e )
 		{
+			e.Handled = true;
 			if ( Frame.CanGoBack )
 				Frame.GoBack ();
 		}

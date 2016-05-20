@@ -29,7 +29,7 @@ namespace BookShare.AppPage
 
 		private void AddYear ()
 		{
-			for ( int i = 1950 ; i < 2020 ; i++ )
+			for ( int i = 1960 ; i < 2016 ; i++ )
 			{
 				comboYear.Items.Add ( i );
 			}

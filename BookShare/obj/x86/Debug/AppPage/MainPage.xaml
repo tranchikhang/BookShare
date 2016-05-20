@@ -42,8 +42,7 @@
 						   FontSize="28" />
 			</Border>
 		</Grid>
-		<SplitView x:ConnectionId='1' DisplayMode="Inline"
-				   CompactPaneLength="50"
+		<SplitView x:ConnectionId='1' CompactPaneLength="50"
 				   OpenPaneLength="150"
 				   IsPaneOpen="False"
 				   Grid.Row="1"

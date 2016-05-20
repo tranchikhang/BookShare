@@ -1,10 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookShare.Model
 {
@@ -15,7 +9,7 @@ namespace BookShare.Model
 		public string id { get; set; }
 
 		[JsonProperty ( PropertyName = "isSendable" )]
-		public bool isSendable { get; set; }
+		public int isSendable { get; set; }
 
 		[JsonProperty ( PropertyName = "user" )]
 		public User user { get; set; }

@@ -107,6 +107,7 @@ namespace BookShare.AppPage
 
 		private void BackButtonClick ( object sender , BackRequestedEventArgs e )
 		{
+			e.Handled = true;
 			if ( gridSendMessage.Visibility == Visibility.Visible )
 			{
 				gridSendMessage.Visibility = Visibility.Collapsed;

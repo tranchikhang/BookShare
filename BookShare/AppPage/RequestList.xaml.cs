@@ -22,7 +22,7 @@ namespace BookShare.AppPage
 		public RequestList ()
 		{
 			this.InitializeComponent ();
-
+			HandleBackButton ();
 			//hide posted book and requested book
 			ControlMethods.SwitchVisibility ( false , listViewPostedBook );
 			ControlMethods.SwitchVisibility ( false , listViewRequestedBook );
@@ -31,7 +31,7 @@ namespace BookShare.AppPage
 			ControlMethods.SwitchVisibility ( false , listViewSentRequest );
 			//show progress bar
 			ControlMethods.SwitchVisibility ( true , progressBar );
-			GetData ();
+
 
 		}
 
@@ -39,6 +39,11 @@ namespace BookShare.AppPage
 		private ObservableCollection<PostedBook> requestedBooks;
 		private ObservableCollection<Request> receivedRequest;
 		private ObservableCollection<Post> requestedPost;
+
+		protected override void OnNavigatedTo ( NavigationEventArgs e )
+		{
+			GetData ();
+		}
 
 		private async void GetData ()
 		{
@@ -96,11 +101,6 @@ namespace BookShare.AppPage
 				throw new Exception ();
 		}
 
-		protected override void OnNavigatedTo ( NavigationEventArgs e )
-		{
-			//
-		}
-
 		private void PostedBookTapped ( object sender , TappedRoutedEventArgs e )
 		{
 			//user clicked on a book
@@ -114,8 +114,6 @@ namespace BookShare.AppPage
 			ControlMethods.SwitchVisibility ( false , listViewPostedBook );
 			//show request list
 			ControlMethods.SwitchVisibility ( true , listViewReceivedRequest );
-
-			HandleBackButton ();
 		}
 
 
@@ -132,9 +130,8 @@ namespace BookShare.AppPage
 			ControlMethods.SwitchVisibility ( false , listViewRequestedBook );
 			//show post list
 			ControlMethods.SwitchVisibility ( true , listViewSentRequest );
-
-			HandleBackButton ();
 		}
+
 		private void HandleBackButton ()
 		{
 			//show back button
@@ -145,16 +142,21 @@ namespace BookShare.AppPage
 
 		private void BackButtonClick ( object sender , BackRequestedEventArgs e )
 		{
+			e.Handled = true;
 			//app is showing request list
 			//user want to move back to posted books
-			ControlMethods.SwitchVisibility ( true , listViewPostedBook );
-			ControlMethods.SwitchVisibility ( false , listViewReceivedRequest );
+			if ( listViewReceivedRequest.Visibility == Visibility.Visible )
+			{
+				ControlMethods.SwitchVisibility ( true , listViewPostedBook );
+				ControlMethods.SwitchVisibility ( false , listViewReceivedRequest );
+			}
 			//app is showing post list
 			//user want to move back to requested books
-			ControlMethods.SwitchVisibility ( true , listViewRequestedBook );
-			ControlMethods.SwitchVisibility ( false , listViewSentRequest );
-
-			SystemNavigationManager.GetForCurrentView ().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+			if ( listViewSentRequest.Visibility == Visibility.Visible )
+			{
+				ControlMethods.SwitchVisibility ( true , listViewRequestedBook );
+				ControlMethods.SwitchVisibility ( false , listViewSentRequest );
+			}
 		}
 
 		private async void AcceptRequest ( object sender , RoutedEventArgs e )
@@ -226,8 +228,9 @@ namespace BookShare.AppPage
 				//remove request
 				requestedPost.Remove ( requestedPost.First ( p => p.id == postId ) );
 				//check if posts in book is empty
-				//if true, remove the book
-				requestedBooks.Remove ( requestedBooks.First ( r => r.posts.Count == 0 ) );
+				if ( requestedBooks.Any ( r => r.posts.Count == 0 ) )
+					//if true, remove the book
+					requestedBooks.Remove ( requestedBooks.First ( r => r.posts.Count == 0 ) );
 			}
 			else
 			{
